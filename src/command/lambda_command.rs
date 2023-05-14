@@ -1,6 +1,6 @@
 use super::Command;
 
-pub trait LambdaCommandDelegate = Fn() -> ();
+pub trait LambdaCommandDelegate = Fn() -> () + 'static;
 
 pub struct LambdaCommand
 {
@@ -11,7 +11,7 @@ impl LambdaCommand
 {
     pub fn new<F>(delegate: F) -> LambdaCommand
     where
-        F: LambdaCommandDelegate + 'static,
+        F: LambdaCommandDelegate,
     {
         let delegate = Box::new(delegate);
 
