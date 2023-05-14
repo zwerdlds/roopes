@@ -1,2 +1,2 @@
 watch:
-    cargo watch -x "test"
+    cargo watch -x "test -q"

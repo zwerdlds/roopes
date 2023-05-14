@@ -20,6 +20,7 @@ stable.mkShell rec {
       cargo-hack
       cargo-watch
       just
+      rustfmt
     ]);
 
   RUST_SRC_PATH = "${stable.rust.packages.stable.rustPlatform.rustLibSrc}";
