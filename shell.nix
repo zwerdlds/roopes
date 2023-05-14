@@ -19,11 +19,12 @@ stable.mkShell rec {
       rust-analyzer
       cargo-hack
       cargo-watch
+      just
     ]);
 
-  RUST_SRC_PATH = "${nixpkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
+  RUST_SRC_PATH = "${stable.rust.packages.stable.rustPlatform.rustLibSrc}";
   shellHook = ''
     export PATH="$CARGO_HOME:$PATH";
-    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${nixpkgs.lib.makeLibraryPath buildInputs}";
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${stable.lib.makeLibraryPath buildInputs}";
   '';
 }
