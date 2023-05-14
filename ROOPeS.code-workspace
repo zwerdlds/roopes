@@ -1,0 +1,64 @@
+{
+	"folders": [
+	  {
+		"path": "."
+	  }
+	],
+	"settings": {
+	  "nixEnvSelector.nixFile": "${workspaceRoot}/rsonpath/shell.nix",
+	  "nixEnvSelector.packages": ["rust_analyzer"],
+	  "cSpell.words": [
+		"anychar",
+		"bitmask",
+		"bitmasks",
+		"clmul",
+		"curr",
+		"cvtsi",
+		"datavalue",
+		"Determinization",
+		"DFAs",
+		"endianness",
+		"fiftythree",
+		"ilog",
+		"jsware",
+		"mainsnak",
+		"memchr",
+		"memmem",
+		"ndash",
+		"nneg",
+		"nondescendant",
+		"nonescaped",
+		"oneof",
+		"preconfigured",
+		"proptest",
+		"proptests",
+		"repr",
+		"rsonpath",
+		"setr",
+		"SIMD",
+		"sixyfour",
+		"snaks",
+		"Stackless",
+		"structurals"
+	  ],
+  
+	  "lldb.displayFormat": "auto",
+	  "lldb.showDisassembly": "never",
+	  "lldb.dereferencePointers": true,
+	  "lldb.consoleMode": "commands",
+	  "rust-analyzer.cargo.features": [
+		"simd",
+		"head-skip",
+		"tail-skip",
+		"unique-labels"
+	  ],
+	  "rust-analyzer.cargo.noDefaultFeatures": true,
+	  "rust-analyzer.diagnostics.enable": false,
+	  "svg.preview.background": "white"
+	},
+	"launch": {
+	  "version": "0.2.0",
+	  "configurations": []
+	}
+  }
+  
