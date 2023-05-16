@@ -10,6 +10,7 @@ edition = "2021"
 doctest = true
 
 [dependencies]
+enclose = "1.1.8"
 
 
 [[example]]

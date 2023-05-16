@@ -29,19 +29,16 @@ pub trait HashSetObserver = Observer + Eq + Hash;
 ///     cell::RefCell,
 ///     rc::Rc,
 /// };
+/// use enclose::enclose;
 ///
 /// let mut hs = VectorSubject::default();
 ///
 /// let has_run = Rc::new(RefCell::new(false));
-/// {
-///     let has_run = has_run.clone();
+/// let lc = LambdaCommand::new(enclose!((has_run) move || {
+///     (*has_run.borrow_mut()) = true;
+/// }));
 ///
-///     let lc = LambdaCommand::new(move || {
-///         (*has_run.borrow_mut()) = true;
-///     });
-///
-///     hs.attach(lc);
-/// }
+/// hs.attach(lc);
 ///
 /// assert!(!(*has_run.borrow()));
 /// hs.notify();
@@ -130,6 +127,7 @@ mod tests
             Subject,
         },
     };
+    use enclose::enclose;
     use std::{
         cell::RefCell,
         rc::Rc,
@@ -171,15 +169,15 @@ mod tests
         let mut hs = HashSubject::default();
 
         let has_run_toggle = Rc::new(RefCell::new(false));
-        let has_run_toggle_ext = has_run_toggle.clone();
-
-        let lc = LambdaCommand::new(move || {
-            {
-                let tgl = *has_run_toggle_ext.borrow();
-                (*has_run_toggle_ext.borrow_mut()) = !tgl;
+        let lc = LambdaCommand::new(enclose!(
+            (has_run_toggle) move || {
+                {
+                    let tgl = *has_run_toggle.borrow();
+                    (*has_run_toggle.borrow_mut()) = !tgl;
+                }
+                .into()
             }
-            .into()
-        });
+        ));
 
         let hc = HashableCommand::new(lc, TestCommands::HasRunToggle);
 
@@ -202,11 +200,12 @@ mod tests
         let mut hs = HashSubject::default();
 
         let has_run_1 = Rc::new(RefCell::new(false));
-        let has_run_1_ext = has_run_1.clone();
 
-        let lc = LambdaCommand::new(move || {
-            (*has_run_1_ext.borrow_mut()) = true;
-        });
+        let lc = LambdaCommand::new(enclose!(
+            (has_run_1) move || {
+                (*has_run_1.borrow_mut()) = true;
+            }
+        ));
         let hc = HashableCommand::new(lc, TestCommands::HasRun);
 
         hs.attach(hc);
@@ -218,11 +217,12 @@ mod tests
         let mut hs = HashSubject::default();
 
         let has_run_2 = Rc::new(RefCell::new(false));
-        let has_run_2_ext = has_run_2.clone();
 
-        let lc = LambdaCommand::new(move || {
-            (*has_run_2_ext.borrow_mut()) = true;
-        });
+        let lc = LambdaCommand::new(enclose!(
+            (has_run_2) move || {
+                (*has_run_2.borrow_mut()) = true;
+            }
+        ));
         let hc = HashableCommand::new(lc, TestCommands::HasRunTwo);
 
         hs.attach(hc);
@@ -242,11 +242,12 @@ mod tests
         let mut hs = HashSubject::default();
 
         let has_run_1 = Rc::new(RefCell::new(false));
-        let has_run_1_ext = has_run_1.clone();
 
-        let lc = LambdaCommand::new(move || {
-            (*has_run_1_ext.borrow_mut()) = true;
-        });
+        let lc = LambdaCommand::new(enclose!(
+            (has_run_1) move || {
+                (*has_run_1.borrow_mut()) = true;
+            }
+        ));
 
         let hc = HashableCommand::new(lc, TestCommands::HasRun);
 
@@ -255,11 +256,12 @@ mod tests
         let mut hs = HashSubject::default();
 
         let has_run_2 = Rc::new(RefCell::new(false));
-        let has_run_2_ext = has_run_2.clone();
 
-        let lc = LambdaCommand::new(move || {
-            (*has_run_2_ext.borrow_mut()) = true;
-        });
+        let lc = LambdaCommand::new(enclose!(
+            (has_run_2) move || {
+                (*has_run_2.borrow_mut()) = true;
+            }
+        ));
 
         let hc = HashableCommand::new(lc, TestCommands::HasRun);
 
