@@ -2,24 +2,26 @@ use super::Command;
 
 pub trait LambdaCommandDelegate = Fn() -> () + 'static;
 
-pub struct LambdaCommand
+pub struct LambdaCommand<C>
+where
+    C: LambdaCommandDelegate,
 {
-    delegate: Box<dyn LambdaCommandDelegate>,
+    delegate: C,
 }
 
-impl LambdaCommand
+impl<C> LambdaCommand<C>
+where
+    C: LambdaCommandDelegate,
 {
-    pub fn new<F>(delegate: F) -> LambdaCommand
-    where
-        F: LambdaCommandDelegate,
+    pub fn new(delegate: C) -> LambdaCommand<C>
     {
-        let delegate = Box::new(delegate);
-
         LambdaCommand { delegate }
     }
 }
 
-impl Command for LambdaCommand
+impl<C> Command for LambdaCommand<C>
+where
+    C: LambdaCommandDelegate,
 {
     fn execute(&self)
     {
@@ -27,11 +29,11 @@ impl Command for LambdaCommand
     }
 }
 
-impl<T> From<T> for LambdaCommand
+impl<C> From<C> for LambdaCommand<C>
 where
-    T: LambdaCommandDelegate,
+    C: LambdaCommandDelegate,
 {
-    fn from(delegate: T) -> Self
+    fn from(delegate: C) -> Self
     {
         LambdaCommand::new(delegate)
     }
@@ -40,7 +42,6 @@ where
 #[cfg(test)]
 mod tests
 {
-
     use crate::command::{
         lambda_command::LambdaCommand,
         Command,
@@ -51,7 +52,6 @@ mod tests
     };
 
     #[test]
-
     fn simple_lambda_refcell_mutation()
     {
         let has_run = Rc::new(RefCell::new(false));

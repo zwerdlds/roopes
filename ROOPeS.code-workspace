@@ -10,7 +10,11 @@
     "rust-analyzer.linkedProjects": [
       "Cargo.toml"
     ],
-    "cSpell.words": ["roopes"],
+    "cSpell.words": [
+      "Hashable",
+      "hashset",
+      "roopes"
+    ],
     "[rust]": {
       "editor.formatOnSave": true
     }

@@ -1,6 +1,10 @@
-use roopes_lib::command::{
-    lambda_command::LambdaCommand,
-    Command,
+use roopes_lib::{
+    command::lambda_command::LambdaCommand,
+    observer::{
+        vector_subject::VectorSubject,
+        Attachable,
+        Subject,
+    },
 };
 
 fn main()
@@ -9,5 +13,9 @@ fn main()
         println!("Hello, world!");
     });
 
-    lc.execute();
+    let mut vs = VectorSubject::new();
+
+    vs.attach(lc);
+
+    vs.notify();
 }

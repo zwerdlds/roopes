@@ -20,3 +20,5 @@ format_strings = true
 imports_layout = "Vertical"
 match_arm_leading_pipes = "Always"
 where_single_line = false
+blank_lines_lower_bound = 0
+blank_lines_upper_bound = 1
