@@ -13,7 +13,7 @@ fn main()
         println!("Hello, world!");
     });
 
-    let mut vs = VectorSubject::new();
+    let mut vs = VectorSubject::default();
 
     vs.attach(lc);
 

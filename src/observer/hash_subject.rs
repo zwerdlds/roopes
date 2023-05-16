@@ -30,7 +30,7 @@ pub trait HashSetObserver = Observer + Eq + Hash;
 ///     rc::Rc,
 /// };
 ///
-/// let mut hs = VectorSubject::new();
+/// let mut hs = VectorSubject::default();
 ///
 /// let has_run = Rc::new(RefCell::new(false));
 /// {
@@ -58,11 +58,21 @@ impl<O> HashSubject<O>
 where
     O: HashSetObserver,
 {
-    pub fn new() -> HashSubject<O>
+    pub fn new(listeners: HashSet<O>) -> HashSubject<O>
+    {
+        HashSubject { listeners }
+    }
+}
+
+impl<O> Default for HashSubject<O>
+where
+    O: HashSetObserver,
+{
+    fn default() -> HashSubject<O>
     {
         let listeners = HashSet::new();
 
-        HashSubject { listeners }
+        HashSubject::new(listeners)
     }
 }
 
@@ -135,7 +145,7 @@ mod tests
     #[test]
     fn simple_hashset_subject_notify()
     {
-        let mut hs = HashSubject::new();
+        let mut hs = HashSubject::default();
 
         let has_run = Rc::new(RefCell::new(false));
         let has_run_ext = has_run.clone();
@@ -158,7 +168,7 @@ mod tests
     #[test]
     fn toggle_hashset_subject_notify()
     {
-        let mut hs = HashSubject::new();
+        let mut hs = HashSubject::default();
 
         let has_run_toggle = Rc::new(RefCell::new(false));
         let has_run_toggle_ext = has_run_toggle.clone();
@@ -189,7 +199,7 @@ mod tests
     #[test]
     fn multiple_hashset_subject_notify()
     {
-        let mut hs = HashSubject::new();
+        let mut hs = HashSubject::default();
 
         let has_run_1 = Rc::new(RefCell::new(false));
         let has_run_1_ext = has_run_1.clone();
@@ -205,7 +215,7 @@ mod tests
         hs.notify();
         assert!((*has_run_1.borrow()));
 
-        let mut hs = HashSubject::new();
+        let mut hs = HashSubject::default();
 
         let has_run_2 = Rc::new(RefCell::new(false));
         let has_run_2_ext = has_run_2.clone();
@@ -229,7 +239,7 @@ mod tests
     #[test]
     fn overwrite_hashset_subject_notify()
     {
-        let mut hs = HashSubject::new();
+        let mut hs = HashSubject::default();
 
         let has_run_1 = Rc::new(RefCell::new(false));
         let has_run_1_ext = has_run_1.clone();
@@ -242,7 +252,7 @@ mod tests
 
         hs.attach(hc);
 
-        let mut hs = HashSubject::new();
+        let mut hs = HashSubject::default();
 
         let has_run_2 = Rc::new(RefCell::new(false));
         let has_run_2_ext = has_run_2.clone();

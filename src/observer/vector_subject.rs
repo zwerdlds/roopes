@@ -25,7 +25,7 @@ use super::{
 ///     rc::Rc,
 /// };
 ///
-/// let mut vs = VectorSubject::new();
+/// let mut vs = VectorSubject::default();
 ///
 /// let has_run = Rc::new(RefCell::new(false));
 /// {
@@ -53,11 +53,19 @@ impl<O> VectorSubject<O>
 where
     O: Observer,
 {
-    pub fn new() -> VectorSubject<O>
+    pub fn new(listeners: Vec<O>) -> VectorSubject<O>
     {
-        let listeners = Vec::new();
-
         VectorSubject { listeners }
+    }
+}
+
+impl<O> Default for VectorSubject<O>
+where
+    O: Observer,
+{
+    fn default() -> Self
+    {
+        Self::new(Vec::new())
     }
 }
 
@@ -125,7 +133,7 @@ mod tests
     #[test]
     fn simple_vector_subject_notify()
     {
-        let mut vs = VectorSubject::new();
+        let mut vs = VectorSubject::default();
 
         let has_run = Rc::new(RefCell::new(false));
         let has_run_ext = has_run.clone();
@@ -144,7 +152,7 @@ mod tests
     #[test]
     fn toggle_vector_subject_notify()
     {
-        let mut vs = VectorSubject::new();
+        let mut vs = VectorSubject::default();
 
         let has_run_toggle = Rc::new(RefCell::new(false));
         let has_run_toggle_ext = has_run_toggle.clone();
@@ -172,7 +180,7 @@ mod tests
     #[test]
     fn multiple_vector_subject_notify()
     {
-        let mut vs = VectorSubject::new();
+        let mut vs = VectorSubject::default();
 
         let has_run_1 = Rc::new(RefCell::new(false));
         let has_run_1_ext = has_run_1.clone();
@@ -188,7 +196,7 @@ mod tests
         vs.notify();
         assert!((*has_run_1.borrow()));
 
-        let mut vs = VectorSubject::new();
+        let mut vs = VectorSubject::default();
 
         let has_run_2 = Rc::new(RefCell::new(false));
         let has_run_2_ext = has_run_2.clone();
