@@ -1,0 +1,43 @@
+@startuml "observer"
+interface "Observer" as obs {
+    {method} + notify()
+}
+
+interface "Attachable" as attach {
+    {method} + attach()
+}
+
+interface "Detachable" as detach {
+    {method} + detach(listener: Observer)
+}
+
+interface "Subject" as sub {
+    {method} + notify()
+}
+obs ..|> sub
+
+
+
+struct "VectorSubject" as vecsub {
+    {field} - listeners: Vec<Observer>
+}
+vecsub .u.|> sub
+vecsub .u.|> attach
+vecsub .u.|> detach
+vecsub -u-> obs
+
+
+struct "HashSubject" as hshsub {
+    {field} - listeners: HashSet<Observer + Hash>
+}
+hshsub .d.|> sub
+hshsub .d.|> attach
+hshsub .d.|> detach
+hshsub -d-> obs
+
+interface "Command" as cmd {
+
+}
+cmd .u.|> obs
+
+@enduml

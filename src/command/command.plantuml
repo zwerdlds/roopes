@@ -1,0 +1,19 @@
+@startuml "command"
+interface "Command" as cmd {
+    {method} + execute()
+}
+
+struct "HashableCommand" as hshcmd {
+    {field} - delegate: Command
+    {field} - id: Hash + Eq
+}
+
+
+struct "LambdaCommand" as lbdcmd {
+    {field} - delegate: Fn()
+}
+
+hshcmd .u.|> cmd
+lbdcmd .u.|> cmd
+
+@enduml

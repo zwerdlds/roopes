@@ -5,7 +5,7 @@ dev-loop:
     clear
     just dev-loop-inner
 
-dev-loop-inner: test run-doctest verify run-demo
+dev-loop-inner: build-diagrams test run-doctest verify run-demo
 
 test:
     cargo test -q
@@ -27,3 +27,6 @@ verify-clippy:
 
 verify-fmt:
     cargo fmt -- --check
+
+build-diagrams:
+    make svg
