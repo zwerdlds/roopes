@@ -1,6 +1,6 @@
 use super::Command;
 
-pub trait LambdaCommandDelegate = Fn() -> () + 'static;
+pub trait LambdaCommandDelegate = Fn() + 'static;
 
 pub struct LambdaCommand<C>
 where

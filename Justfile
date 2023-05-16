@@ -3,9 +3,9 @@ watch:
 
 dev-loop:
     clear
-    just test
-    just run-doctest
-    just run-demo
+    just dev-loop-inner
+
+dev-loop-inner: test run-doctest verify run-demo
 
 test:
     cargo test -q
@@ -15,3 +15,15 @@ run-demo:
 
 run-doctest:
     cargo test --doc -q
+
+verify: verify-check verify-clippy verify-fmt
+
+verify-check:
+	cargo check --workspace --all-features
+
+verify-clippy: 
+	cargo +nightly clippy --workspace --no-default-features --release -- --deny warnings
+	cargo +nightly clippy --workspace --all-features --release -- --deny warnings
+
+verify-fmt:
+    cargo fmt -- --check
