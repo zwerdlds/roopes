@@ -27,9 +27,20 @@ impl Command for LambdaCommand
     }
 }
 
+impl<T> From<T> for LambdaCommand
+where
+    T: LambdaCommandDelegate,
+{
+    fn from(delegate: T) -> Self
+    {
+        LambdaCommand::new(delegate)
+    }
+}
+
 #[cfg(test)]
 mod tests
 {
+
     use crate::command::{
         lambda_command::LambdaCommand,
         Command,
@@ -40,6 +51,7 @@ mod tests
     };
 
     #[test]
+
     fn simple_lambda_refcell_mutation()
     {
         let has_run = Rc::new(RefCell::new(false));
@@ -48,7 +60,6 @@ mod tests
         let lc = LambdaCommand::new(move || {
             (*has_run_ext.borrow_mut()) = true;
         });
-
         lc.execute();
 
         assert!((*has_run.borrow()));
