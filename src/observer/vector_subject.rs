@@ -145,7 +145,6 @@ mod tests
         vs.attach(lc);
 
         vs.notify();
-
         assert!((*has_run.borrow()));
     }
 

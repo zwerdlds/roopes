@@ -1,14 +1,10 @@
 @startuml "observer"
-interface "Notifiable" as notif {
+interface "Observer" as obs {
     {method} + notify()
 }
 
-interface "Observer" as obs {
-}
-obs -u-|> notif
-
 interface "Attachable" as attach {
-    {method} + attach()
+    {method} + attach(listener: Observer)
 }
 
 interface "Detachable" as detach {
@@ -16,10 +12,8 @@ interface "Detachable" as detach {
 }
 
 interface "Subject" as sub {
+    {method} + notify()
 }
-sub -u-|> notif
-
-
 
 struct "VectorSubject" as vecsub {
     {field} - listeners: Vec<Observer>
@@ -36,10 +30,5 @@ hshsub .d.|> sub
 hshsub .d.|> attach
 hshsub .d.|> detach
 hshsub -d-> obs
-
-interface "Command" as cmd {
-
-}
-cmd .u.|> obs
 
 @enduml

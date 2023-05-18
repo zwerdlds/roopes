@@ -6,23 +6,23 @@ This package intends to meet the following criteria:
 
 - Provide implementations of common OOP Design Patterns usable to compose larger programs.
 - Document and implement reference implementations for students of OOP and Rust.
-- Be reasonably safe.
 - Be easy to use.
 
 ## Non-Goals
-
 - Speed.
 
 # Implemented Patterns
 ## Command
-
-![Command pattern UML class diagram](src/command/command.svg)
+![Command pattern UML class diagram](diagrams/command/command.svg)
 
 ## Observer
+![Observer pattern UML class diagram](diagrams/observer/observer.svg)
 
-![Observer pattern UML class diagram](src/observer/observer.svg)
+## Abstract Factory
+![Abstract Factory pattern UML class diagram](diagrams/abstract_factory/abstract_factory.svg)
 
 
-## Command Observer
+## Crosscutting Patterns
 
-![Command Observer pattern UML class diagram](src/crosscutting/command_observer.svg)
+### Command Observer
+![Command Observer pattern UML class diagram](diagrams/crosscutting/command_observer.svg)

@@ -1,0 +1,13 @@
+@startuml "abstract_factory"
+
+interface "AbstractFactory" as fact<Result> {
+    {method} + create(): Result
+}
+
+interface "LambdaAbstractFactory" as lbdfact<Result> {
+    {field} - delegate: Fn() -> Result
+}
+
+lbdfact .u.> fact
+
+@enduml
