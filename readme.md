@@ -13,16 +13,16 @@ This package intends to meet the following criteria:
 
 # Implemented Patterns
 ## Command
-![Command pattern UML class diagram](diagrams/command/command.svg)
+![Command pattern UML class diagram](src/command/command.svg)
 
 ## Observer
-![Observer pattern UML class diagram](diagrams/observer/observer.svg)
+![Observer pattern UML class diagram](src/observer/observer.svg)
 
 ## Abstract Factory
-![Abstract Factory pattern UML class diagram](diagrams/abstract_factory/abstract_factory.svg)
+![Abstract Factory pattern UML class diagram](src/abstract_factory/abstract_factory.svg)
 
 
 ## Crosscutting Patterns
 
 ### Command Observer
-![Command Observer pattern UML class diagram](diagrams/crosscutting/command_observer.svg)
+![Command Observer pattern UML class diagram](src/crosscutting/command_observer.svg)
