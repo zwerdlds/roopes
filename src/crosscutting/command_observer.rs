@@ -1,5 +1,7 @@
-use super::Observer;
-use crate::command::Command;
+use crate::{
+    command::Command,
+    observer::Observer,
+};
 
 impl<T> Observer for T
 where

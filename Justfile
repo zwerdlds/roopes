@@ -1,5 +1,7 @@
 watch:
-    cargo watch -s "just dev-loop"
+    cargo watch \
+        --shell "just dev-loop" \
+        --ignore '*.svg' 
 
 dev-loop:
     clear

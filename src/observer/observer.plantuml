@@ -1,7 +1,11 @@
 @startuml "observer"
-interface "Observer" as obs {
+interface "Notifiable" as notif {
     {method} + notify()
 }
+
+interface "Observer" as obs {
+}
+obs -u-|> notif
 
 interface "Attachable" as attach {
     {method} + attach()
@@ -12,9 +16,8 @@ interface "Detachable" as detach {
 }
 
 interface "Subject" as sub {
-    {method} + notify()
 }
-obs ..|> sub
+sub -u-|> notif
 
 
 
@@ -25,7 +28,6 @@ vecsub .u.|> sub
 vecsub .u.|> attach
 vecsub .u.|> detach
 vecsub -u-> obs
-
 
 struct "HashSubject" as hshsub {
     {field} - listeners: HashSet<Observer + Hash>

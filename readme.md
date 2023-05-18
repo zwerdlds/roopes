@@ -1,18 +1,28 @@
 # ROOPeS
-ROOPeS is the Rust Object Oriented Programming System.  This crate provides basic implementations for typical object-oriented patterns in Rust.
+ROOPeS is a Rust Object Oriented Programming System.  This crate provides generic implementations for typical object-oriented patterns in Rust.  It is intended to be used as a cluster of utility classes for implementing OOP-architected executables.
 
-# The Name
-The name is context-dependent, much like the patterns you might choose to employ in your program.
+## Goals
+This package intends to meet the following criteria:
 
-## Feeling Generous
+- Provide implementations of common OOP Design Patterns usable to compose larger programs.
+- Document and implement reference implementations for students of OOP and Rust.
+- Be reasonably safe.
+- Be easy to use.
 
+## Non-Goals
 
-# Why is there an 'e'?
-
+- Speed.
 
 # Implemented Patterns
 ## Command
+
 ![Command pattern UML class diagram](src/command/command.svg)
 
 ## Observer
+
 ![Observer pattern UML class diagram](src/observer/observer.svg)
+
+
+## Command Observer
+
+![Command Observer pattern UML class diagram](src/crosscutting/command_observer.svg)

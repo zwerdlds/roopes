@@ -1,29 +1,17 @@
-pub mod command_observer;
 pub mod hash_subject;
 pub mod vector_subject;
 
-/// An object which notifies some group of [`Observer`]s.
+/// An object which notifies some group of [`Observer`]s.  When it is notified,
+/// all the listeners are notified.
 pub trait Subject
 {
     fn notify(&self);
 }
 
-/// An object which can be notified.
+/// An object which listens on a [`Subject`] to be notified.
 pub trait Observer
 {
     fn notify(&self);
-}
-
-/// [`Subject`]s can also act as [`Observer`]s.  This enables them to chain
-/// notifications.
-impl<O> Subject for O
-where
-    O: Observer,
-{
-    fn notify(&self)
-    {
-        self.notify()
-    }
 }
 
 /// Gives the ability for additional [`Observer`]s to be added to the list of

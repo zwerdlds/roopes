@@ -7,6 +7,6 @@ clean:
 	rm -f $(DIAGRAMS_PNG) $(DIAGRAMS_SVG)
 
 src/%.svg: src/%.plantuml
-	# plantuml -tsvg $^
+	plantuml -tsvg $^
 
 .PHONY: svg clean
