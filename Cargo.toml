@@ -12,6 +12,5 @@ doctest = true
 [dependencies]
 enclose = "1.1.8"
 
-
 [[example]]
 name = "roopes-demo-bin"
