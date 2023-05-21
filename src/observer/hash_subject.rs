@@ -19,6 +19,7 @@ pub trait HashSetObserver = Observer + Eq + Hash;
 /// ```
 /// use roopes_lib::{
 ///     command::lambda_command::LambdaCommand,
+///     crosscutting::observing_command::ObservingCommand,
 ///     observer::{
 ///         vector_subject::VectorSubject,
 ///         Attachable,
@@ -34,9 +35,9 @@ pub trait HashSetObserver = Observer + Eq + Hash;
 /// let mut hs = VectorSubject::default();
 ///
 /// let has_run = Rc::new(RefCell::new(false));
-/// let lc = LambdaCommand::new(enclose!((has_run) move || {
+/// let lc:ObservingCommand<_> = LambdaCommand::new(enclose!((has_run) move || {
 ///     (*has_run.borrow_mut()) = true;
-/// }));
+/// })).into();
 ///
 /// hs.attach(lc);
 ///
@@ -121,6 +122,7 @@ mod tests
             hashable_command::HashableCommand,
             lambda_command::LambdaCommand,
         },
+        crosscutting::observing_command::ObservingCommand,
         observer::{
             hash_subject::HashSubject,
             Attachable,
@@ -143,7 +145,7 @@ mod tests
     #[test]
     fn simple_hashset_subject_notify()
     {
-        let mut hs = HashSubject::default();
+        let mut hs: HashSubject<ObservingCommand<_>> = HashSubject::default();
 
         let has_run = Rc::new(RefCell::new(false));
         let has_run_ext = has_run.clone();
@@ -156,7 +158,7 @@ mod tests
 
         let hc = HashableCommand::new(lc, TestCommands::HasRun);
 
-        hs.attach(hc);
+        hs.attach(hc.into());
 
         hs.notify();
 
@@ -166,7 +168,7 @@ mod tests
     #[test]
     fn toggle_hashset_subject_notify()
     {
-        let mut hs = HashSubject::default();
+        let mut hs: HashSubject<ObservingCommand<_>> = HashSubject::default();
 
         let has_run_toggle = Rc::new(RefCell::new(false));
         let lc = LambdaCommand::new(enclose!(
@@ -182,7 +184,7 @@ mod tests
         let hc = HashableCommand::new(lc, TestCommands::HasRunToggle);
 
         assert!(!(*has_run_toggle.borrow()));
-        hs.attach(hc);
+        hs.attach(hc.into());
 
         hs.notify();
         assert!((*has_run_toggle.borrow()));
@@ -197,7 +199,7 @@ mod tests
     #[test]
     fn multiple_hashset_subject_notify()
     {
-        let mut hs = HashSubject::default();
+        let mut hs: HashSubject<ObservingCommand<_>> = HashSubject::default();
 
         let has_run_1 = Rc::new(RefCell::new(false));
 
@@ -208,13 +210,13 @@ mod tests
         ));
         let hc = HashableCommand::new(lc, TestCommands::HasRun);
 
-        hs.attach(hc);
+        hs.attach(hc.into());
         assert!(!(*has_run_1.borrow()));
 
         hs.notify();
         assert!((*has_run_1.borrow()));
 
-        let mut hs = HashSubject::default();
+        let mut hs: HashSubject<ObservingCommand<_>> = HashSubject::default();
 
         let has_run_2 = Rc::new(RefCell::new(false));
 
@@ -225,7 +227,7 @@ mod tests
         ));
         let hc = HashableCommand::new(lc, TestCommands::HasRunTwo);
 
-        hs.attach(hc);
+        hs.attach(hc.into());
 
         assert!((*has_run_1.borrow()));
         assert!(!(*has_run_2.borrow()));
@@ -239,7 +241,7 @@ mod tests
     #[test]
     fn overwrite_hashset_subject_notify()
     {
-        let mut hs = HashSubject::default();
+        let mut hs: HashSubject<ObservingCommand<_>> = HashSubject::default();
 
         let has_run_1 = Rc::new(RefCell::new(false));
 
@@ -251,9 +253,9 @@ mod tests
 
         let hc = HashableCommand::new(lc, TestCommands::HasRun);
 
-        hs.attach(hc);
+        hs.attach(hc.into());
 
-        let mut hs = HashSubject::default();
+        let mut hs: HashSubject<ObservingCommand<_>> = HashSubject::default();
 
         let has_run_2 = Rc::new(RefCell::new(false));
 
@@ -265,7 +267,7 @@ mod tests
 
         let hc = HashableCommand::new(lc, TestCommands::HasRun);
 
-        hs.attach(hc);
+        hs.attach(hc.into());
 
         assert!(!(*has_run_1.borrow()));
         assert!(!(*has_run_2.borrow()));

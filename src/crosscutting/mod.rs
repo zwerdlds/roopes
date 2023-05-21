@@ -1,1 +1,1 @@
-pub mod command_observer;
+pub mod observing_command;

@@ -1,0 +1,10 @@
+@startuml "command_notifiable"
+
+interface "Observer" as obs
+struct "ObservingCommand" as cmdObs
+interface "Command" as cmd
+
+cmdObs .u.|> cmd
+cmd .u.|> obs
+
+@enduml

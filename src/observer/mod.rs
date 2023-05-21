@@ -8,7 +8,7 @@ pub trait Subject
     fn notify(&self);
 }
 
-/// An object which listens on a [`Subject`] to be notified.
+/// An object notified by a [`Subject`].
 pub trait Observer
 {
     fn notify(&self);

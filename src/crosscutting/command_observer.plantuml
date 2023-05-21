@@ -1,8 +1,0 @@
-@startuml "command_observer"
-
-interface "Observer" as obs
-interface "Command" as cmd
-
-cmd .u.|> obs
-
-@enduml

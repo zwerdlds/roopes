@@ -14,6 +14,7 @@ use super::{
 /// ```
 /// use roopes_lib::{
 ///     command::lambda_command::LambdaCommand,
+///     crosscutting::observing_command::ObservingCommand,
 ///     observer::{
 ///         vector_subject::VectorSubject,
 ///         Attachable,
@@ -31,9 +32,11 @@ use super::{
 /// {
 ///     let has_run = has_run.clone();
 ///
-///     let lc = LambdaCommand::new(move || {
-///         (*has_run.borrow_mut()) = true;
-///     });
+///     let lc: ObservingCommand<_> =
+///         LambdaCommand::new(move || {
+///             (*has_run.borrow_mut()) = true;
+///         })
+///         .into();
 ///
 ///     vs.attach(lc);
 /// }
@@ -119,6 +122,7 @@ mod tests
 {
     use crate::{
         command::lambda_command::LambdaCommand,
+        crosscutting::observing_command::ObservingCommand,
         observer::{
             vector_subject::VectorSubject,
             Attachable,
@@ -138,9 +142,10 @@ mod tests
         let has_run = Rc::new(RefCell::new(false));
         let has_run_ext = has_run.clone();
 
-        let lc = LambdaCommand::new(move || {
+        let lc: ObservingCommand<_> = LambdaCommand::new(move || {
             (*has_run_ext.borrow_mut()) = true;
-        });
+        })
+        .into();
 
         vs.attach(lc);
 
@@ -156,11 +161,12 @@ mod tests
         let has_run_toggle = Rc::new(RefCell::new(false));
         let has_run_toggle_ext = has_run_toggle.clone();
 
-        let lc = LambdaCommand::new(move || {
+        let lc: ObservingCommand<_> = LambdaCommand::new(move || {
             let tgl = *has_run_toggle_ext.borrow();
 
             (*has_run_toggle_ext.borrow_mut()) = !tgl;
-        });
+        })
+        .into();
 
         vs.attach(lc);
 
@@ -184,9 +190,10 @@ mod tests
         let has_run_1 = Rc::new(RefCell::new(false));
         let has_run_1_ext = has_run_1.clone();
 
-        let lc = LambdaCommand::new(move || {
+        let lc: ObservingCommand<_> = LambdaCommand::new(move || {
             (*has_run_1_ext.borrow_mut()) = true;
-        });
+        })
+        .into();
 
         vs.attach(lc);
 
@@ -200,9 +207,10 @@ mod tests
         let has_run_2 = Rc::new(RefCell::new(false));
         let has_run_2_ext = has_run_2.clone();
 
-        let lc = LambdaCommand::new(move || {
+        let lc: ObservingCommand<_> = LambdaCommand::new(move || {
             (*has_run_2_ext.borrow_mut()) = true;
-        });
+        })
+        .into();
 
         vs.attach(lc);
 

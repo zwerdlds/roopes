@@ -6,6 +6,7 @@ interface "AbstractFactory" as fact<Result> {
 
 interface "LambdaAbstractFactory" as lbdfact<Result> {
     {field} - delegate: Fn() -> Result
+    {method} + new(delegate: Fn() -> Result)
 }
 
 lbdfact .u.> fact
