@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="278px" preserveAspectRatio="none" style="width:187px;height:278px;background:#FFFFFF;" version="1.1" viewBox="0 0 187 278" width="187px" zoomAndPan="magnify"><defs/><g><!--MD5=[8ab7eb4cd4e39d2a6a19fed9f9b9e14d]
+class obs--><g id="elem_obs"><rect codeLine="2" fill="#F1F1F1" height="48" id="obs" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="95" x="46" y="7"/><ellipse cx="61" cy="23" fill="#B4A7E5" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M56.9219,18.7656 L56.9219,16.6094 L64.3125,16.6094 L64.3125,18.7656 L61.8438,18.7656 L61.8438,26.8438 L64.3125,26.8438 L64.3125,29 L56.9219,29 L56.9219,26.8438 L59.3906,26.8438 L59.3906,18.7656 L56.9219,18.7656 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="63" x="75" y="27.8467">Observer</text><line style="stroke:#181818;stroke-width:0.5;" x1="47" x2="140" y1="39" y2="39"/><line style="stroke:#181818;stroke-width:0.5;" x1="47" x2="140" y1="47" y2="47"/></g><!--MD5=[5465c04d731867a60c61a23355f93d15]
+class cmdObs--><g id="elem_cmdObs"><rect codeLine="3" fill="#F1F1F1" height="48" id="cmdObs" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="173" x="7" y="223"/><ellipse cx="22" cy="239" fill="#F1F1F1" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M21.4844,239.5625 Q19.625,238.8594 18.9688,238.0938 Q18.3281,237.3125 18.3281,236 Q18.3281,234.3125 19.4063,233.3438 Q20.4844,232.375 22.3594,232.375 Q23.2188,232.375 24.0625,232.5781 Q24.9219,232.7656 25.7656,233.1563 L25.7656,235.5469 Q24.9844,234.9844 24.1563,234.7031 Q23.3438,234.4063 22.5469,234.4063 Q21.6719,234.4063 21.1875,234.7656 Q20.7188,235.125 20.7188,235.7813 Q20.7188,236.2969 21.0625,236.6406 Q21.4063,236.9688 22.5,237.375 L23.5625,237.7813 Q25.0469,238.3281 25.75,239.2344 Q26.4688,240.1406 26.4688,241.5156 Q26.4688,243.3906 25.3594,244.3125 Q24.25,245.2344 22,245.2344 Q21.0781,245.2344 20.1563,245.0156 Q19.2344,244.7969 18.375,244.375 L18.375,241.8438 Q19.3438,242.5313 20.2656,242.875 Q21.1875,243.2188 22.0781,243.2188 Q22.9844,243.2188 23.4844,242.8125 Q23.9844,242.3906 23.9844,241.6563 Q23.9844,241.0938 23.6406,240.6875 Q23.3125,240.2656 22.6875,240.0156 L21.4844,239.5625 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="36" y="243.8467">ObservingCommand</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="179" y1="255" y2="255"/><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="179" y1="263" y2="263"/></g><!--MD5=[075d81ac5e6c102f8321644f67374cd3]
+class cmd--><g id="elem_cmd"><rect codeLine="4" fill="#F1F1F1" height="48" id="cmd" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="103" x="42" y="115"/><ellipse cx="57" cy="131" fill="#B4A7E5" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M52.9219,126.7656 L52.9219,124.6094 L60.3125,124.6094 L60.3125,126.7656 L57.8438,126.7656 L57.8438,134.8438 L60.3125,134.8438 L60.3125,137 L52.9219,137 L52.9219,134.8438 L55.3906,134.8438 L55.3906,126.7656 L52.9219,126.7656 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="71" x="71" y="135.8467">Command</text><line style="stroke:#181818;stroke-width:0.5;" x1="43" x2="144" y1="147" y2="147"/><line style="stroke:#181818;stroke-width:0.5;" x1="43" x2="144" y1="155" y2="155"/></g><!--MD5=[8ce2caaa7172838266c63460ecc703ea]
+reverse link cmd to cmdObs--><g id="link_cmd_cmdObs"><path codeLine="6" d="M93.5,184.72 C93.5,197.82 93.5,211.62 93.5,222.79 " fill="none" id="cmd-backto-cmdObs" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="86.5,184.78,93.5,164.78,100.5,184.78,86.5,184.78" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[5a24e2b26ce368371fb2c9504b948b39]
+reverse link obs to cmd--><g id="link_obs_cmd"><path codeLine="7" d="M93.5,76.72 C93.5,89.82 93.5,103.62 93.5,114.79 " fill="none" id="obs-backto-cmd" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="86.5,76.78,93.5,56.78,100.5,76.78,86.5,76.78" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[655962aa6a0a28039b1d3c99dadd1cbd]
+@startuml "observing_command"
+
+interface "Observer" as obs
+struct "ObservingCommand" as cmdObs
+interface "Command" as cmd
+
+cmdObs .u.|> cmd
+cmd .u.|> obs
+
+@enduml
+
+PlantUML version 1.2022.12(Sun Oct 23 18:12:26 GMT 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

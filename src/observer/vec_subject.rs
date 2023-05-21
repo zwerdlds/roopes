@@ -14,12 +14,12 @@ use super::{
 /// ```
 /// use roopes_lib::{
 ///     command::lambda_command::LambdaCommand,
-///     crosscutting::observing_command::ObservingCommand,
 ///     observer::{
 ///         vec_subject::VecSubject,
 ///         Attachable,
 ///         Subject,
 ///     },
+///     observing_command::ObservingCommand,
 /// };
 /// use std::{
 ///     cell::RefCell,
@@ -122,12 +122,12 @@ mod tests
 {
     use crate::{
         command::lambda_command::LambdaCommand,
-        crosscutting::observing_command::ObservingCommand,
         observer::{
             vec_subject::VecSubject,
             Attachable,
             Subject,
         },
+        observing_command::ObservingCommand,
     };
     use std::{
         cell::RefCell,

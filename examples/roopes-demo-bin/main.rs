@@ -4,12 +4,12 @@ use roopes_lib::{
         AbstractFactory,
     },
     command::lambda_command::LambdaCommand,
-    crosscutting::observing_command::ObservingCommand,
     observer::{
         vec_subject::VecSubject,
         Attachable,
         Subject,
     },
+    observing_command::ObservingCommand,
 };
 
 fn main()

@@ -1,4 +1,4 @@
-@startuml "command_notifiable"
+@startuml "observing_command"
 
 interface "Observer" as obs
 struct "ObservingCommand" as cmdObs

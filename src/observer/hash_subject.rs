@@ -20,7 +20,7 @@ pub trait HashSetObserver = Observer + Eq + Hash;
 /// use roopes_lib::{
 ///     command::lambda_command::LambdaCommand,
 ///     command::hashable_command::HashableCommand,
-///     crosscutting::observing_command::ObservingCommand,
+///     observing_command::ObservingCommand,
 ///     observer::{
 ///         hash_subject::HashSubject,
 ///         Attachable,
@@ -124,12 +124,12 @@ mod tests
             hashable_command::HashableCommand,
             lambda_command::LambdaCommand,
         },
-        crosscutting::observing_command::ObservingCommand,
         observer::{
             hash_subject::HashSubject,
             Attachable,
             Subject,
         },
+        observing_command::ObservingCommand,
     };
     use enclose::enclose;
     use std::{
