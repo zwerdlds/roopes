@@ -1,0 +1,6 @@
+@startuml "builder"
+interface "Builder" as obs<Result> {
+    {method} + build(): Result
+}
+
+@enduml

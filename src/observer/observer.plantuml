@@ -15,20 +15,22 @@ interface "Subject" as sub {
     {method} + notify()
 }
 
+interface "MutableSub" as mutsub {
+}
+mutsub --|> attach
+mutsub --|> detach
+mutsub --|> sub
+
 struct "VectorSubject" as vecsub {
     {field} - listeners: Vec<Observer>
 }
-vecsub .u.|> sub
-vecsub .u.|> attach
-vecsub .u.|> detach
-vecsub -u-> obs
+vecsub .u.|> mutsub
+vecsub --> obs
 
 struct "HashSubject" as hshsub {
     {field} - listeners: HashSet<Observer + Hash>
 }
-hshsub .d.|> sub
-hshsub .d.|> attach
-hshsub .d.|> detach
-hshsub -d-> obs
+hshsub ..|> mutsub
+hshsub --> obs
 
 @enduml

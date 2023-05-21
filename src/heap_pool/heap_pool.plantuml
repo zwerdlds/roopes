@@ -1,0 +1,13 @@
+@startuml "heap_pool"
+
+interface "HeapPool" as pool<Container> {
+    {method} +check_out(): Box<Container>
+    {method} +check_in(Box<Container>)
+}
+
+struct "BoxPool" as boxpool<Conatainer> {
+}
+
+boxpool .u.> pool
+
+@enduml

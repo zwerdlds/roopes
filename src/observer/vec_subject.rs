@@ -1,6 +1,7 @@
 use super::{
     Attachable,
     Detachable,
+    MutableSubject,
     Observer,
     ObserverDetachError,
     Subject,
@@ -116,6 +117,8 @@ where
         Ok(())
     }
 }
+
+impl<O> MutableSubject<O> for VecSubject<O> where O: Observer + Eq {}
 
 #[cfg(test)]
 mod tests

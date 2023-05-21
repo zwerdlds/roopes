@@ -21,6 +21,8 @@ This package intends to meet the following criteria:
 ## Abstract Factory
 ![Abstract Factory pattern UML class diagram](src/abstract_factory/abstract_factory.svg)
 
+## Builder
+![Builder pattern UML class diagram](src/builder/builder.svg)
 
 ## Crosscutting Patterns
 

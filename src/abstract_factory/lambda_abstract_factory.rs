@@ -33,3 +33,13 @@ where
         }
     }
 }
+
+impl<D, R> From<D> for LambdaAbstractFactory<D, R>
+where
+    D: LambdaAbstractFactoryDelegate<R>,
+{
+    fn from(delegate: D) -> Self
+    {
+        LambdaAbstractFactory::new(delegate)
+    }
+}

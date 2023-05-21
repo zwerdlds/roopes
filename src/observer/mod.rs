@@ -44,3 +44,9 @@ where
         detach_observer: O,
     ) -> Result<(), ObserverDetachError>;
 }
+
+pub trait MutableSubject<O>: Attachable<O> + Detachable<O> + Subject
+where
+    O: Observer,
+{
+}

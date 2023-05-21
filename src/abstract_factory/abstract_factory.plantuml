@@ -4,11 +4,11 @@ interface "AbstractFactory" as fact<Result> {
     {method} + create(): Result
 }
 
-interface "LambdaAbstractFactory" as lbdfact<Result> {
+struct "LambdaAbstractFactory" as lbdfact<Result> {
     {field} - delegate: Fn() -> Result
     {method} + new(delegate: Fn() -> Result)
 }
 
-lbdfact .u.> fact
+lbdfact .u.|> fact
 
 @enduml
