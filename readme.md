@@ -25,4 +25,4 @@ This package intends to meet the following criteria:
 ## Crosscutting Patterns
 
 ### Command Observer
-![Command Observer pattern UML class diagram](src/crosscutting/observing_command/observing_command.svg)
+![Command Observer pattern UML class diagram](src/observing_command/observing_command.svg)

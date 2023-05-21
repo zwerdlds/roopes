@@ -1,10 +1,12 @@
 @startuml "observing_command"
 
 interface "Observer" as obs
-struct "ObservingCommand" as cmdObs
+struct "ObservingCommand" as cmdObs{
+    {field} delegate: Command
+}
 interface "Command" as cmd
 
 cmdObs .u.|> cmd
-cmd .u.|> obs
+cmdObs .u.|> obs
 
 @enduml
