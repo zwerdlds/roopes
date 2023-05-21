@@ -16,7 +16,7 @@ use super::{
 ///     command::lambda_command::LambdaCommand,
 ///     crosscutting::observing_command::ObservingCommand,
 ///     observer::{
-///         vector_subject::VectorSubject,
+///         vec_subject::VecSubject,
 ///         Attachable,
 ///         Subject,
 ///     },
@@ -26,7 +26,7 @@ use super::{
 ///     rc::Rc,
 /// };
 ///
-/// let mut vs = VectorSubject::default();
+/// let mut vs = VecSubject::default();
 ///
 /// let has_run = Rc::new(RefCell::new(false));
 /// {
@@ -45,24 +45,24 @@ use super::{
 /// vs.notify();
 /// assert!((*has_run.borrow()));
 /// ```
-pub struct VectorSubject<O>
+pub struct VecSubject<O>
 where
     O: Observer,
 {
     listeners: Vec<O>,
 }
 
-impl<O> VectorSubject<O>
+impl<O> VecSubject<O>
 where
     O: Observer,
 {
-    pub fn new(listeners: Vec<O>) -> VectorSubject<O>
+    pub fn new(listeners: Vec<O>) -> VecSubject<O>
     {
-        VectorSubject { listeners }
+        VecSubject { listeners }
     }
 }
 
-impl<O> Default for VectorSubject<O>
+impl<O> Default for VecSubject<O>
 where
     O: Observer,
 {
@@ -72,7 +72,7 @@ where
     }
 }
 
-impl<O> Subject for VectorSubject<O>
+impl<O> Subject for VecSubject<O>
 where
     O: Observer,
 {
@@ -82,7 +82,7 @@ where
     }
 }
 
-impl<O> Attachable<O> for VectorSubject<O>
+impl<O> Attachable<O> for VecSubject<O>
 where
     O: Observer,
 {
@@ -95,7 +95,7 @@ where
     }
 }
 
-impl<O> Detachable<O> for VectorSubject<O>
+impl<O> Detachable<O> for VecSubject<O>
 where
     O: Observer + Eq,
 {
@@ -124,7 +124,7 @@ mod tests
         command::lambda_command::LambdaCommand,
         crosscutting::observing_command::ObservingCommand,
         observer::{
-            vector_subject::VectorSubject,
+            vec_subject::VecSubject,
             Attachable,
             Subject,
         },
@@ -137,7 +137,7 @@ mod tests
     #[test]
     fn simple_vector_subject_notify()
     {
-        let mut vs = VectorSubject::default();
+        let mut vs = VecSubject::default();
 
         let has_run = Rc::new(RefCell::new(false));
         let has_run_ext = has_run.clone();
@@ -156,7 +156,7 @@ mod tests
     #[test]
     fn toggle_vector_subject_notify()
     {
-        let mut vs = VectorSubject::default();
+        let mut vs = VecSubject::default();
 
         let has_run_toggle = Rc::new(RefCell::new(false));
         let has_run_toggle_ext = has_run_toggle.clone();
@@ -185,7 +185,7 @@ mod tests
     #[test]
     fn multiple_vector_subject_notify()
     {
-        let mut vs = VectorSubject::default();
+        let mut vs = VecSubject::default();
 
         let has_run_1 = Rc::new(RefCell::new(false));
         let has_run_1_ext = has_run_1.clone();
@@ -202,7 +202,7 @@ mod tests
         vs.notify();
         assert!((*has_run_1.borrow()));
 
-        let mut vs = VectorSubject::default();
+        let mut vs = VecSubject::default();
 
         let has_run_2 = Rc::new(RefCell::new(false));
         let has_run_2_ext = has_run_2.clone();

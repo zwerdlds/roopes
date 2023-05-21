@@ -1,5 +1,5 @@
 pub mod hash_subject;
-pub mod vector_subject;
+pub mod vec_subject;
 
 /// An object which notifies some group of [`Observer`]s.  When it is notified,
 /// all the listeners are notified.

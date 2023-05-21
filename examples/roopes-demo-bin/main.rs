@@ -6,7 +6,7 @@ use roopes_lib::{
     command::lambda_command::LambdaCommand,
     crosscutting::observing_command::ObservingCommand,
     observer::{
-        vector_subject::VectorSubject,
+        vec_subject::VecSubject,
         Attachable,
         Subject,
     },
@@ -20,11 +20,11 @@ fn main()
         })
     });
 
-    let lc = lc_factory.create();
+    let lc: ObservingCommand<_> = lc_factory.create().into();
 
-    let mut vs: VectorSubject<ObservingCommand<_>> = VectorSubject::default();
+    let mut vs = VecSubject::default();
 
-    vs.attach(lc.into());
+    vs.attach(lc);
 
     vs.notify();
 }

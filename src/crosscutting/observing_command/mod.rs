@@ -41,6 +41,16 @@ where
     }
 }
 
+impl<C> Command for ObservingCommand<C>
+where
+    C: Command,
+{
+    fn execute(&self)
+    {
+        self.command.execute()
+    }
+}
+
 impl<C> PartialEq for ObservingCommand<C>
 where
     C: PartialEq + Command,
