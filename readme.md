@@ -24,7 +24,15 @@ This package intends to meet the following criteria:
 ## Builder
 ![Builder pattern UML class diagram](src/builder/builder.svg)
 
+## Heap Pool
+![Heap pool pattern UML class diagram](src/heap_pool/heap_pool.svg)
+
+
 ## Crosscutting Patterns
 
 ### Command Observer
 ![Command Observer pattern UML class diagram](src/observing_command/observing_command.svg)
+
+## Primatives
+
+## Executable
