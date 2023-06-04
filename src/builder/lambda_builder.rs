@@ -1,25 +1,25 @@
 use super::Builder;
 use std::marker::PhantomData;
 
-pub trait LambdaBuilderDelegate<R, P> = (Fn(&P) -> R);
+pub trait LambdaBuilderDelegate<I, O> = (Fn(&I) -> O);
 
-pub struct LambdaBuilder<D, R, P>
+pub struct LambdaBuilder<D, I, O>
 where
-    D: LambdaBuilderDelegate<R, P>,
+    D: LambdaBuilderDelegate<I, O>,
 {
-    params: P,
+    params: I,
     delegate: D,
-    _t: PhantomData<(D, R, P)>,
+    _t: PhantomData<(D, I, O)>,
 }
 
-impl<D, R, P> LambdaBuilder<D, R, P>
+impl<D, I, O> LambdaBuilder<D, I, O>
 where
-    D: LambdaBuilderDelegate<R, P>,
+    D: LambdaBuilderDelegate<I, O>,
 {
     pub fn new(
         delegate: D,
-        params: P,
-    ) -> LambdaBuilder<D, R, P>
+        params: I,
+    ) -> LambdaBuilder<D, I, O>
     {
         LambdaBuilder {
             delegate,
@@ -29,17 +29,25 @@ where
     }
 }
 
-impl<D, R, P> Builder<R, P> for LambdaBuilder<D, R, P>
+impl<D, I, O> Builder<I, O> for LambdaBuilder<D, I, O>
 where
-    D: LambdaBuilderDelegate<R, P>,
+    D: LambdaBuilderDelegate<I, O>,
 {
-    fn build(&self) -> R
+    fn build(&self) -> O
     {
         (self.delegate)(&self.params)
     }
 
-    fn params(&mut self) -> &mut P
+    fn set_params(
+        &mut self,
+        params: I,
+    )
     {
-        &mut self.params
+        self.params = params;
+    }
+
+    fn params(&self) -> &I
+    {
+        &self.params
     }
 }

@@ -1,8 +1,9 @@
 use super::Handler;
 use std::marker::PhantomData;
 
-pub trait LambdaHandlerDelegate<M> = Fn(M);
+pub trait LambdaHandlerDelegate<M> = Fn(&M);
 
+#[derive(Clone)]
 pub struct LambdaHandler<C, M>
 where
     C: LambdaHandlerDelegate<M>,
@@ -30,7 +31,7 @@ where
 {
     fn handle(
         &self,
-        message: M,
+        message: &M,
     )
     {
         (self.delegate)(message);
@@ -66,9 +67,9 @@ mod tests
         let has_run_ext = has_run.clone();
 
         let lc = LambdaHandler::new(move |v| {
-            (*has_run_ext.borrow_mut()) = v;
+            (*has_run_ext.borrow_mut()) = *v;
         });
-        lc.handle(true);
+        lc.handle(&true);
 
         assert!((*has_run.borrow()));
     }

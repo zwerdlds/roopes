@@ -1,0 +1,86 @@
+use roopes_lib::{
+    builder::{
+        lambda_builder::LambdaBuilder,
+        Builder,
+    },
+    command::{
+        lambda_command::LambdaCommand,
+        Command,
+    },
+    observer::{
+        vec_subject::VecSubject,
+        Attachable,
+        Subject,
+    },
+    observing_command::ObservingCommand,
+};
+use std::cell::RefCell;
+
+fn main()
+{
+    // The parameters for the builder.
+    struct GreetingMessage
+    {
+        prefix: &'static str,
+    }
+
+    // Make a builder which takes `GreetingMessage` as parameters.
+    let mut logger_builder = LambdaBuilder::new(
+        |t| {
+            // Pull out the prefix at lambda build time: it does not change
+            // after the lambda is built.
+            let prefix = t.prefix;
+
+            // Create local state for the number of times the lambda is called.
+            let ct = RefCell::new(0);
+
+            // Build the lambda.
+            LambdaCommand::new(move || {
+                // Increment the local count.
+                (*ct.borrow_mut()) += 1;
+
+                // Prep the count for more legible formatting.
+                let count = ct.borrow();
+
+                // Print the message.
+                println!("{prefix}: called {count} time(s)");
+            })
+        },
+        // The default message
+        GreetingMessage {
+            prefix: "AAA".into(),
+        },
+    );
+
+    // Get a logger with the unset prefix
+    let aaa_logger: ObservingCommand<_> = logger_builder.build().into();
+
+    // Demonstrate unmodified prefix.
+    aaa_logger.execute();
+
+    // Change the prefix after the builder is setup.
+    logger_builder.set_params(GreetingMessage {
+        prefix: "BBB".into(),
+    });
+
+    // Create two independent loggers.
+    let bbb_logger: ObservingCommand<_> = logger_builder.build().into();
+
+    // Change the prefix after the builder is setup.
+    logger_builder.set_params(GreetingMessage {
+        prefix: "CCC".into(),
+    });
+    let ccc_logger: ObservingCommand<_> = logger_builder.build().into();
+
+    // Attach a logger to a minimal subject.
+    let mut example_subject = VecSubject::default();
+    example_subject.attach(bbb_logger);
+
+    // Demonstrate the lambda being called repeatedly.
+    example_subject.notify();
+    example_subject.notify();
+    example_subject.notify();
+
+    // Demonstrate the other logger is unmodified.
+    ccc_logger.execute();
+}

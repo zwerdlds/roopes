@@ -1,7 +1,11 @@
 pub mod lambda_builder;
 
-pub trait Builder<R, P>
+pub trait Builder<I, O>
 {
-    fn build(&self) -> R;
-    fn params(&mut self) -> &mut P;
+    fn build(&self) -> O;
+    fn params(&self) -> &I;
+    fn set_params(
+        &mut self,
+        params: I,
+    );
 }
