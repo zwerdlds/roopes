@@ -7,7 +7,7 @@ dev-loop:
     clear
     just dev-loop-inner
 
-dev-loop-inner: build-diagrams test run-doctest verify run-examples
+dev-loop-inner: build-diagrams format test run-doctest verify run-examples
 
 test:
     cargo test -q
@@ -27,17 +27,20 @@ run-examples:
 run-doctest:
     cargo test --doc -q
 
-verify: verify-check verify-clippy verify-fmt
+verify: verify-check verify-clippy
 
 verify-check:
-	cargo check --workspace --all-features
+    cargo check --workspace --all-features
 
 verify-clippy: 
-	cargo +nightly clippy --workspace --no-default-features --release -- --deny warnings
-	cargo +nightly clippy --workspace --all-features --release -- --deny warnings
+    cargo clippy \
+        --workspace \
+        -- \
+            --deny clippy::pedantic \
+            --allow clippy::inline-always
 
-verify-fmt:
-    cargo fmt -- --check
+format:
+    cargo fmt
 
 build-diagrams:
     make svg
