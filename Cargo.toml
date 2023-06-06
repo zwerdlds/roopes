@@ -1,7 +1,8 @@
 [package]
-name = "rope-lib"
+name = "ropes-lib"
 version = "0.1.0"
 edition = "2021"
+
 
 [lib]
 doctest = true
@@ -11,8 +12,8 @@ enclose = "1.1.8"
 delegate = "0.9.0"
 
 [[example]]
-name = "counting-hello-world"
+name = "structured-logger"
 
 [[example]]
-name = "prefix-logger"
+name = "lambda-logger"
 

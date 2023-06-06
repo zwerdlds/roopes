@@ -1,13 +1,13 @@
 watch:
     cargo watch \
         --shell "just dev-loop" \
-        --ignore '*.svg' 
+        --ignore '*.svg'
 
 dev-loop:
     clear
     just dev-loop-inner
 
-dev-loop-inner: build-diagrams format test run-doctest verify run-examples
+dev-loop-inner: build-diagrams format test run-doctest verify run-examples 
 
 test:
     cargo test -q

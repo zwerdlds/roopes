@@ -2,7 +2,7 @@ use crate::{
     log_formatter::LogFormatter,
     log_message::LogMessage,
 };
-use rope_lib::prelude::*;
+use ropes_lib::prelude::*;
 
 pub(crate) struct Logger
 {
