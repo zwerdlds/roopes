@@ -22,9 +22,20 @@ impl Logger
 
     pub(crate) fn log(
         &self,
-        msg: &LogMessage,
+        message: &LogMessage,
     )
     {
-        self.printer.handle(&self.formatter.format_message(msg));
+        self.printer.handle(&self.formatter.format_message(message));
+    }
+}
+
+impl Handler<LogMessage> for Logger
+{
+    fn handle(
+        &self,
+        message: &LogMessage,
+    )
+    {
+        self.log(message);
     }
 }

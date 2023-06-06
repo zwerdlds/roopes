@@ -17,7 +17,8 @@
     ],
     "[rust]": {
       "editor.formatOnSave": true
-    }
+    },
+    "rust-analyzer.showUnlinkedFileNotification": false
   },
   "launch": {
     "version": "0.2.0",
