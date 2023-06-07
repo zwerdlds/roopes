@@ -34,3 +34,13 @@ where
         self.handler.handle(message);
     }
 }
+
+impl<H, M> From<H> for SubscribingHandler<H, M>
+where
+    H: Handler<M>,
+{
+    fn from(handler: H) -> Self
+    {
+        SubscribingHandler::new(handler)
+    }
+}

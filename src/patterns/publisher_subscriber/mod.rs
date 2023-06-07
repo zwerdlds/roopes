@@ -25,7 +25,7 @@ pub enum DetachError
     SubscriberNotFound,
 }
 
-pub trait MutablePubllisher<M>:
+pub trait MutablePublisher<M>:
     Attachable<M> + Detachable<M, DetachError> + Subscriber<M>
 where
     M: Observer,
