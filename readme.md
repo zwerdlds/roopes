@@ -1,8 +1,8 @@
 ![ropes project logo](promo/Logo.svg)
 
 Ropes is a Rust Object Oriented Programming Element System.
-This crate provides generic implementations for typical object-oriented patterns in Rust.
-It is intended to be used as a cluster of utility classes for implementing OOP-architected executables, *in Rust!*.
+This crate provides generic traits and implementations for typical object-oriented patterns in Rust.
+It is intended to be used as a cluster of utility classes for implementing OOP-architected executables -- *in Rust!*.
 
 ## Goals
 This package intends to meet the following criteria:
@@ -17,9 +17,9 @@ On the other hand, optimizing for execution speed can often conflict with the ma
 Traits provided should give zero-cost-abstractions while possible.
 However, working with v-tables has an inherent cost, so when it comes to the provided implementations, no guarantees about speed are provided.
 
-It has also been noted elsewhere that the use of `dyn` is inherently inefficient in Rust - due to the inability for the compiler to see the indirected code in the client code.
+It has also been noted elsewhere that the use of `dyn` is inherently inefficient in Rust due to the inability for the compiler to see the  indirected code in the client code.
 This eliminates a good number of optimizations the compiler would otherwise be able to use on client code, most likely resulting in less optimized builds.
-`dyn` should not be used in the provided traits, but implementations often use it directly (e.g: `Box<_>`) or indirectly (e.g: `Vec<_>`).
+`dyn` should not be used in the provided traits, but implementations often use it directly (e.g: `Box`) or indirectly (e.g: `Vec`).
 
 ## Usage
 To install, add the crate to your `cargo.toml` as usual.
@@ -53,7 +53,7 @@ The commonly accepted / GoF-style patterns, which are most commonly used by deve
 
 ## Aggregates
 These patterns build on the common and primitive functions to provide bridges between patterns.
-E.g: `Command` and the primitive `Executable` correspond closely, so there is a bridge struct which implements `Executable` for `Command` via a marker class which indirects calls via a `Box<dyn>`.
+E.g: `Command` and the primitive `Executable` correspond closely, so there is a bridge struct which implements `Executable` for `Command` via a marker class which indirects calls via a `Box<dyn ...>`.
 These are provided to make the common case of moving between the given traits simpler.
 |Pattern|Notes|
 |:--|:--|
@@ -73,7 +73,7 @@ Demonstrates a decoupled logging system.
 Issues in this project are tracked with the system itself, not via an integrated tool, such as GitHub.
 This enables issues to be tied to the repo, instead.
 It may be beneficial to factor out issues into a separate repository for some independence, but necessitating a particular tool is unhealthy for the portability of this project.
-[Issues are currently tracked here](./issues.md)
+[Issues are currently tracked here.](./issues.md)
 
 # Dependencies
 - `delegate`
