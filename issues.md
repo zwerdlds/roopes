@@ -1,0 +1,42 @@
+# Issues
+- Investigate the use of typestate/const enum/? in Builder pattern.
+- Implement patterns
+  - Visitor
+  - Prototype
+  - Singleton
+  - Adapter
+    - Can it be done automatically with `delegate!`?
+  - Bridge
+  - Composite
+  - Decorator
+  - Facade
+  - Flyweight
+  - Proxy
+  - Chain of Responsibility
+  - Mediator
+  - Momento
+  - Strategy
+  - Template Method
+- UML for primitives
+   - attachable
+   - emitter
+   - detachable
+   - executable
+   - transformer
+- UML for aggregates
+   - executable command
+   - observing command
+   - publisher subscriber
+   - subscribing handler
+- Docs for primitives
+   - attachable
+   - emitter
+   - detachable
+   - executable
+   - transformer
+- UML for aggregates
+   - executable command
+   - observing command
+   - publisher subscriber
+   - subscribing handler
+- Move docs into .rs files

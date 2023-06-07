@@ -31,12 +31,12 @@ fn main()
     let pretty_stdout_logger =
         Logger::new(Box::new(println_printer), Box::new(prefix_formatter));
 
-    let mut pretty_logger_sub = SubscribingHandler::new(pretty_stdout_logger);
+    let pretty_stdout_logger = SubscribingHandler::new(pretty_stdout_logger);
 
     let mut log_publisher = LogPublisher::new(VecPublisher::default());
 
     log_publisher
-        .attach(LogMessageSubscriber::new(Box::new(pretty_logger_sub)));
+        .attach(LogMessageSubscriber::new(Box::new(pretty_stdout_logger)));
 
     let msg = LogMessage::new("Message Demo".into());
 

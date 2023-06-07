@@ -1,38 +1,83 @@
-# ROOPeS
-ROOPeS is a Rust Object Oriented Programming System.  This crate provides generic implementations for typical object-oriented patterns in Rust.  It is intended to be used as a cluster of utility classes for implementing OOP-architected executables.
+![ropes project logo](promo/Logo.svg)
+
+Ropes is a Rust Object Oriented Programming Element System.
+This crate provides generic implementations for typical object-oriented patterns in Rust.
+It is intended to be used as a cluster of utility classes for implementing OOP-architected executables, *in Rust!*.
 
 ## Goals
 This package intends to meet the following criteria:
 
 - Provide implementations of common OOP Design Patterns usable to compose larger programs.
 - Document and implement reference implementations for students of OOP and Rust.
-- Be easy to use.
+- Be easy to use for those familiar with the corresponding patterns.
 
-## Non-Goals
-- Speed.
+## Optimization as a Non-Goal
+It is convenient that Rust can produce low-level, optimized code.
+On the other hand, optimizing for execution speed can often conflict with the maintainability of a system.
+Traits provided should give zero-cost-abstractions while possible.
+However, working with v-tables has an inherent cost, so when it comes to the provided implementations, no guarantees about speed are provided.
 
-# Implemented Patterns
-## Command
-![Command pattern UML class diagram](src/command/command.svg)
+It has also been noted elsewhere that the use of `dyn` is inherently inefficient in Rust - due to the inability for the compiler to see the indirected code in the client code.
+This eliminates a good number of optimizations the compiler would otherwise be able to use on client code, most likely resulting in less optimized builds.
+`dyn` should not be used in the provided traits, but implementations often use it directly (e.g: `Box<_>`) or indirectly (e.g: `Vec<_>`).
 
-## Observer
-![Observer pattern UML class diagram](src/observer/observer.svg)
+## Usage
+To install, add the crate to your `cargo.toml` as usual.
+The types provided are minimal, but the provided implementations should facilitate the most common uses.
 
-## Abstract Factory
-![Abstract Factory pattern UML class diagram](src/abstract_factory/abstract_factory.svg)
+# Patterns
+Traits describing patterns are placed in one of three categories:
 
-## Builder
-![Builder pattern UML class diagram](src/builder/builder.svg)
+## Primitives
+These form the basis of re-used abstractions used by patterns.
+They can be used independently, but don't necessarily conform to a [widely-accepted pattern], so that may lead to undesirable qualities in your project.
+|Pattern|Notes|
+|:--|:--|
+| [`Attachable`](./src/primitives/) | |
+| [`Detachable`](./src/primitives/) | |
+| [`Emitter`](./src/primitives/) | Returns values. |
+| [`Executable`](./src/primitives/) | Triggers some block of code. |
+| [`Handler`](./src/primitives/) | Consumes some value. |
+| [`Transformer`](./src/primitives/) | Consumes and returns values. |
 
-## Heap Pool
-![Heap pool pattern UML class diagram](src/heap_pool/heap_pool.svg)
+## Patterns
+The commonly accepted / GoF-style patterns, which are most commonly used by developers.
+|Pattern|Notes|
+|:--|:--|
+| [`Abstract Factory`](./src/patterns/abstract_factory/) | |
+| [`Builder`](./src/patterns/builder/) | |
+| [`Command`](./src/patterns/command/) | |
+| [`Heap Pool`](./src/patterns/heap_pool/) | |
+| [`Observer`](./src/patterns/observer/) | |
+| [`State`](./src/patterns/state/) | |
 
+## Aggregates
+These patterns build on the common and primitive functions to provide bridges between patterns.
+E.g: `Command` and the primitive `Executable` correspond closely, so there is a bridge struct which implements `Executable` for `Command` via a marker class which indirects calls via a `Box<dyn>`.
+These are provided to make the common case of moving between the given traits simpler.
+|Pattern|Notes|
+|:--|:--|
+| [`Executable Command`](./src/aggregates/executable_command/) | |
+| [`Observing Command`](./src/aggregates/observing_command/) | |
+| [`Publisher Subscriber`](./src/aggregates/publisher_subscriber/) | |
+| [`Subscribing Handler`](./src/aggregates/subscribing_handler/) | |
 
-## Crosscutting Patterns
+# Examples
+## [lambda-logger](./examples/lambda-logger/)
+Demonstrates a stateful, functional-style logger system of a contrived logging system.
 
-### Command Observer
-![Command Observer pattern UML class diagram](src/observing_command/observing_command.svg)
+## [structuted-logger](./examples/structured-logger/)
+Demonstrates a decoupled logging system.
 
-## Primatives
+# A Quick Note on Issues
+Issues in this project are tracked with the system itself, not via an integrated tool, such as GitHub.
+This enables issues to be tied to the repo, instead.
+It may be beneficial to factor out issues into a separate repository for some independence, but necessitating a particular tool is unhealthy for the portability of this project.
+[Issues are currently tracked here](./issues.md)
 
-## Executable
+# Dependencies
+- `delegate`
+
+This package is used extensively to minimize boilerplate.
+In particular, Rust does not have a trait inheritance system, so inheritance (where appropriate) needs to be implemented manually.
+The `delegate!` macro enables these streamlined implementations.
