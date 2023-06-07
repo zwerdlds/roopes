@@ -31,36 +31,36 @@ Traits describing patterns are placed in one of three categories:
 ## Primitives
 These form the basis of re-used abstractions used by patterns.
 They can be used independently, but don't necessarily conform to a [widely-accepted pattern], so that may lead to undesirable qualities in your project.
-|Pattern|Notes|
-|:--|:--|
-| [`Attachable`](./src/primitives/) | |
-| [`Detachable`](./src/primitives/) | |
-| [`Emitter`](./src/primitives/) | Returns values. |
-| [`Executable`](./src/primitives/) | Triggers some block of code. |
-| [`Handler`](./src/primitives/) | Consumes some value. |
-| [`Transformer`](./src/primitives/) | Consumes and returns values. |
+| Pattern                            | Notes                                        |
+| :--------------------------------- | :------------------------------------------- |
+| [`Attachable`](./src/primitives/)  |                                              |
+| [`Detachable`](./src/primitives/)  |                                              |
+| [`Emitter`](./src/primitives/)     | Returns values.                              |
+| [`Executable`](./src/primitives/)  | Obfuscates the execution some block of code. |
+| [`Handler`](./src/primitives/)     | Consumes some value.                         |
+| [`Transformer`](./src/primitives/) | Consumes and returns values.                 |
 
 ## Patterns
 The commonly accepted / GoF-style patterns, which are most commonly used by developers.
-|Pattern|Notes|
-|:--|:--|
-| [`Abstract Factory`](./src/patterns/abstract_factory/) | |
-| [`Builder`](./src/patterns/builder/) | |
-| [`Command`](./src/patterns/command/) | |
-| [`Heap Pool`](./src/patterns/heap_pool/) | |
-| [`Observer`](./src/patterns/observer/) | |
-| [`State`](./src/patterns/state/) | |
+| Pattern                                                          | Notes |
+| :--------------------------------------------------------------- | :---- |
+| [`Abstract Factory`](./src/patterns/abstract_factory/)           |       |
+| [`Builder`](./src/patterns/builder/)                             |       |
+| [`Command`](./src/patterns/command/)                             |       |
+| [`Heap Pool`](./src/patterns/heap_pool/)                         |       |
+| [`Observer`](./src/patterns/observer/)                           |       |
+| [`State`](./src/patterns/state/)                                 |       |
+| [`Publisher Subscriber`](./src/aggregates/publisher_subscriber/) |       |
 
 ## Aggregates
 These patterns build on the common and primitive functions to provide bridges between patterns.
 E.g: `Command` and the primitive `Executable` correspond closely, so there is a bridge struct which implements `Executable` for `Command` via a marker class which indirects calls via a `Box<dyn ...>`.
 These are provided to make the common case of moving between the given traits simpler.
-|Pattern|Notes|
-|:--|:--|
-| [`Executable Command`](./src/aggregates/executable_command/) | |
-| [`Observing Command`](./src/aggregates/observing_command/) | |
-| [`Publisher Subscriber`](./src/aggregates/publisher_subscriber/) | |
-| [`Subscribing Handler`](./src/aggregates/subscribing_handler/) | |
+| Pattern                                                        | Notes |
+| :------------------------------------------------------------- | :---- |
+| [`Executable Command`](./src/aggregates/executable_command/)   |       |
+| [`Observing Command`](./src/aggregates/observing_command/)     |       |
+| [`Subscribing Handler`](./src/aggregates/subscribing_handler/) |       |
 
 # Examples
 ## [lambda-logger](./examples/lambda-logger/)
@@ -78,6 +78,10 @@ It may be beneficial to factor out issues into a separate repository for some in
 # Dependencies
 - `delegate`
 
-This package is used extensively to minimize boilerplate.
+This package is used to minimize boilerplate.
 In particular, Rust does not have a trait inheritance system, so inheritance (where appropriate) needs to be implemented manually.
 The `delegate!` macro enables these streamlined implementations.
+
+- `enclose`
+
+This package is used to simplify the process of copying reference-counted objects to and from lambdas.
