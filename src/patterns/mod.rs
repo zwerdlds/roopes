@@ -13,4 +13,9 @@ pub use observer::{
     Observer,
     Subject,
 };
+pub mod publisher_subscriber;
+pub use publisher_subscriber::{
+    Publisher,
+    Subscriber,
+};
 pub use state::State;
