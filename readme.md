@@ -49,8 +49,8 @@ The commonly accepted / GoF-style patterns, which are most commonly used by deve
 | [`Command`](./src/patterns/command/)                             |       |
 | [`Heap Pool`](./src/patterns/heap_pool/)                         |       |
 | [`Observer`](./src/patterns/observer/)                           |       |
-| [`State`](./src/patterns/state/)                                 |       |
 | [`Publisher Subscriber`](./src/aggregates/publisher_subscriber/) |       |
+| [`State`](./src/patterns/state/)                                 |       |
 
 ## Aggregates
 These patterns build on the common and primitive functions to provide bridges between patterns.
