@@ -17,3 +17,7 @@ name = "structured-logger"
 [[example]]
 name = "lambda-logger"
 
+
+[[example]]
+name = "collision-simulator"
+

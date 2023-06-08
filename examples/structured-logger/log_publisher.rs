@@ -2,6 +2,7 @@ use crate::{
     log_message::LogMessage,
     log_message_subscriber::LogMessageSubscriber,
 };
+use delegate::delegate;
 use ropes_lib::prelude::{
     publisher_subscriber::VecPublisher,
     *,
@@ -31,24 +32,11 @@ impl LogPublisher
     }
 }
 
-impl Publisher<LogMessage> for LogPublisher
-{
-    fn publish(
-        &self,
-        message: &LogMessage,
-    )
-    {
-        self.log(message);
-    }
-}
-
 impl Attachable<LogMessageSubscriber> for LogPublisher
 {
-    fn attach(
-        &mut self,
-        subscriber: LogMessageSubscriber,
-    )
-    {
-        self.publisher.attach(subscriber);
+    delegate! {
+        to self.publisher{
+            fn attach(&mut self, subscriber: LogMessageSubscriber);
+        }
     }
 }

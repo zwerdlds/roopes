@@ -2,20 +2,40 @@ use crate::{
     patterns::command::Command,
     primitives::executable::Executable,
 };
+use delegate::delegate;
 
 pub struct ExecutableCommand<C>
 where
     C: Command,
 {
-    cmd: C,
+    command: C,
+}
+
+impl<C> ExecutableCommand<C>
+where
+    C: Command,
+{
+    pub fn new(command: C) -> ExecutableCommand<C>
+    {
+        ExecutableCommand { command }
+    }
 }
 
 impl<C> Executable for ExecutableCommand<C>
 where
     C: Command,
 {
-    fn execute(&self)
+    delegate! { to self.command {
+        fn execute(&self);
+    } }
+}
+
+impl<C> From<C> for ExecutableCommand<C>
+where
+    C: Command,
+{
+    fn from(command: C) -> Self
     {
-        self.cmd.execute();
+        ExecutableCommand::new(command)
     }
 }
