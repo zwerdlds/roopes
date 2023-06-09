@@ -3,15 +3,13 @@ use crate::{
     log_message_subscriber::LogMessageSubscriber,
 };
 use delegate::delegate;
-use ropes_lib::prelude::{
-    publisher_subscriber::VecPublisher,
-    *,
-};
+use ropes::prelude::*;
 
 #[derive(Default)]
 pub(crate) struct LogPublisher
 {
-    publisher: VecPublisher<LogMessage, LogMessageSubscriber>,
+    publisher:
+        publisher_subscriber::VecPublisher<LogMessage, LogMessageSubscriber>,
 }
 
 impl LogPublisher
@@ -25,7 +23,10 @@ impl LogPublisher
     }
 
     pub(crate) fn new(
-        publisher: VecPublisher<LogMessage, LogMessageSubscriber>
+        publisher: publisher_subscriber::VecPublisher<
+            LogMessage,
+            LogMessageSubscriber,
+        >
     ) -> Self
     {
         LogPublisher { publisher }

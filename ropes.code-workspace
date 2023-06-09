@@ -13,7 +13,11 @@
     "cSpell.words": [
       "Hashable",
       "hashset",
-      "roopes"
+      "indirected",
+      "println",
+      "roopes",
+      "struct",
+      "structuted"
     ],
     "[rust]": {
       "editor.formatOnSave": true

@@ -1,5 +1,5 @@
 use crate::log_message::LogMessage;
-use ropes_lib::prelude::*;
+use ropes::prelude::*;
 
 pub(crate) struct LogMessageSubscriber
 {

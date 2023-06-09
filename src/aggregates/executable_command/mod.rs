@@ -1,7 +1,4 @@
-use crate::{
-    patterns::command::Command,
-    primitives::executable::Executable,
-};
+use crate::prelude::*;
 use delegate::delegate;
 
 pub struct ExecutableCommand<C>

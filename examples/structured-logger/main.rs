@@ -7,7 +7,7 @@ use log_message_subscriber::LogMessageSubscriber;
 use log_publisher::LogPublisher;
 use logger::Logger;
 use println_printer::PrintlnPrinter;
-use ropes_lib::{
+use ropes::{
     prelude::{
         publisher_subscriber::vec_publisher::VecPublisher,
         SubscribingHandler,

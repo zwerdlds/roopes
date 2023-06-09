@@ -2,11 +2,11 @@ use crate::{
     vehicle::Vehicle,
     vehicle_visitor::VehicleVisitor,
 };
-use ropes_lib::prelude::*;
+use ropes::prelude::*;
 
 pub(crate) struct Truck {}
 
-impl visitor::Element<VehicleVisitor, Box<dyn Vehicle>> for Truck
+impl visitor::Element<VehicleVisitor, Vehicle> for Truck
 {
     fn accept(
         &self,

@@ -7,7 +7,7 @@ pub mod primitives;
 
 pub mod prelude
 {
-    use crate::{
+    use super::{
         aggregates,
         patterns,
         primitives,

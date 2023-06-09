@@ -7,22 +7,13 @@ dev-loop:
     clear
     just dev-loop-inner
 
-dev-loop-inner: build-diagrams format test run-doctest verify run-examples 
+dev-loop-inner: build-diagrams format test run-doctest verify test-examples 
 
 test:
     cargo test -q
 
-run-examples:
-    #!/bin/bash
-    for example_path in ./examples/*
-    do
-        example_name="$(basename ${example_path})";
-        echo "---";
-        if [ -e "./examples/${example_name}" ] ;
-        then
-            cargo run --example "${example_name}";
-        fi
-    done
+test-examples:
+    cargo test --examples
 
 run-doctest:
     cargo test --doc -q

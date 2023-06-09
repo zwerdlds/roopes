@@ -1,6 +1,12 @@
-use crate::vehicle::Vehicle;
-use ropes_lib::prelude::Visitor;
+use crate::truck::Truck;
+use ropes::prelude::*;
 
 pub(crate) struct VehicleVisitor {}
 
-impl Visitor<Box<dyn Vehicle>, Box<dyn Vehicle>> for VehicleVisitor {}
+impl Visitor<Truck> for VehicleVisitor
+{
+    fn visit(element: Truck)
+    {
+        todo!()
+    }
+}

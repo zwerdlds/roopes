@@ -3,6 +3,7 @@ pub mod builder;
 pub mod command;
 pub mod heap_pool;
 pub mod observer;
+pub mod publisher_subscriber;
 pub mod state;
 pub mod visitor;
 
@@ -14,7 +15,6 @@ pub use observer::{
     Observer,
     Subject,
 };
-pub mod publisher_subscriber;
 pub use publisher_subscriber::{
     Publisher,
     Subscriber,

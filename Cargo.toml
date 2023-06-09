@@ -1,5 +1,5 @@
 [package]
-name = "ropes-lib"
+name = "ropes"
 version = "0.1.0"
 edition = "2021"
 
@@ -17,7 +17,5 @@ name = "structured-logger"
 [[example]]
 name = "lambda-logger"
 
-
-[[example]]
-name = "collision-simulator"
-
+# [[example]]
+# name = "collision-simulator"

@@ -77,7 +77,8 @@ where
 #[cfg(test)]
 mod tests
 {
-    use crate::prelude::*;
+    use crate::patterns::command;
+    use command::Command;
     use std::{
         cell::RefCell,
         rc::Rc,
