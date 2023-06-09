@@ -16,3 +16,5 @@ pub mod prelude
     pub use patterns::*;
     pub use primitives::*;
 }
+
+extern crate ropes_derive;

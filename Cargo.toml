@@ -1,21 +1,2 @@
-[package]
-name = "ropes"
-version = "0.1.0"
-edition = "2021"
-
-
-[lib]
-doctest = true
-
-[dependencies]
-enclose = "1.1.8"
-delegate = "0.9.0"
-
-[[example]]
-name = "structured-logger"
-
-[[example]]
-name = "lambda-logger"
-
-# [[example]]
-# name = "collision-simulator"
+[workspace]
+members = ["ropes", "ropes_derive", "ropes_examples"]

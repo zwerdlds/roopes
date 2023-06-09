@@ -1,0 +1,12 @@
+[package]
+name = "ropes"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+doctest = true
+
+[dependencies]
+enclose = "1.1.8"
+delegate = "0.9.0"
+ropes_derive = { path = "../ropes_derive" }

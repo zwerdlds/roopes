@@ -1,12 +1,12 @@
-DIAGRAMS_SRC := $(wildcard src/**/*.plantuml)
+DIAGRAMS_SRC := $(wildcard **/*.plantuml)
 DIAGRAMS_SVG := $(addsuffix .svg, $(basename $(DIAGRAMS_SRC)))
 
 svg: $(DIAGRAMS_SVG)
 
 clean:
-	rm -f $(DIAGRAMS_PNG) $(DIAGRAMS_SVG)
+	rm -f $(DIAGRAMS_SVG)
 
-src/%.svg: src/%.plantuml
+%.svg: %.plantuml
 	plantuml -tsvg $^
 
 .PHONY: svg clean

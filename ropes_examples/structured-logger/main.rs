@@ -45,3 +45,15 @@ fn main()
     log_publisher.log(&msg);
     log_publisher.log(&msg);
 }
+
+#[cfg(test)]
+mod tests
+{
+    use crate::main;
+
+    #[test]
+    fn run_main()
+    {
+        main();
+    }
+}
