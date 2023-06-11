@@ -3,7 +3,7 @@ use crate::{
     log_message_subscriber::LogMessageSubscriber,
 };
 use delegate::delegate;
-use ropes::prelude::*;
+use ropes_lib::prelude::*;
 
 #[derive(Default)]
 pub(crate) struct LogPublisher

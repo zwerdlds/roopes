@@ -7,13 +7,7 @@ use log_message_subscriber::LogMessageSubscriber;
 use log_publisher::LogPublisher;
 use logger::Logger;
 use println_printer::PrintlnPrinter;
-use ropes::{
-    prelude::{
-        publisher_subscriber::vec_publisher::VecPublisher,
-        SubscribingHandler,
-    },
-    primitives::Attachable,
-};
+use ropes_lib::prelude::*;
 
 mod log_formatter;
 mod log_message;
@@ -33,7 +27,8 @@ fn main()
 
     let pretty_stdout_logger = SubscribingHandler::new(pretty_stdout_logger);
 
-    let mut log_publisher = LogPublisher::new(VecPublisher::default());
+    let mut log_publisher =
+        LogPublisher::new(publisher_subscriber::VecPublisher::default());
 
     log_publisher
         .attach(LogMessageSubscriber::new(Box::new(pretty_stdout_logger)));

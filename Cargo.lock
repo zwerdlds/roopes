@@ -38,15 +38,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "ropes"
-version = "0.1.0"
-dependencies = [
- "delegate",
- "enclose",
- "ropes_derive",
-]
-
-[[package]]
 name = "ropes_derive"
 version = "0.1.0"
 dependencies = [
@@ -60,7 +51,25 @@ name = "ropes_examples"
 version = "0.1.0"
 dependencies = [
  "delegate",
- "ropes",
+ "ropes_lib",
+]
+
+[[package]]
+name = "ropes_lib"
+version = "0.1.0"
+dependencies = [
+ "delegate",
+ "enclose",
+ "ropes_derive",
+ "ropes_primitives",
+]
+
+[[package]]
+name = "ropes_primitives"
+version = "0.1.0"
+dependencies = [
+ "delegate",
+ "enclose",
 ]
 
 [[package]]

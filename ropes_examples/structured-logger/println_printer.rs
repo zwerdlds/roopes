@@ -1,4 +1,4 @@
-use ropes::prelude::*;
+use ropes_lib::prelude::*;
 
 pub(crate) struct PrintlnPrinter {}
 

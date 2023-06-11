@@ -17,9 +17,8 @@ On the other hand, optimizing for execution speed can often conflict with the ma
 Traits provided should give zero-cost-abstractions while possible.
 However, working with v-tables has an inherent cost, so when it comes to the provided implementations, no guarantees about speed are provided.
 
-It has also been noted elsewhere that the use of `dyn` is inherently inefficient in Rust due to the inability for the compiler to see the indirected code in the client code.
-This eliminates a good number of optimizations the compiler would otherwise be able to use on client code, most likely resulting in less optimized builds.
-`dyn` should not be used in the provided traits, but implementations often use it directly (e.g: `Box`) or indirectly (e.g: `Vec`).
+It has also been observed that the use of `dyn` is inherently inefficient in Rust due to the inability for the compiler to see the indirected code in the client code, eliminating a good number of optimizations the compiler would otherwise be able to use on client code, probably resulting in less optimized builds.
+`dyn` should occur in the provided traits, but implementations often use it (e.g: `Box`) or indirectly (e.g: `Vec`).
 
 ## Usage
 To install, add the crate to your `cargo.toml` as usual.
@@ -43,25 +42,25 @@ They can be used independently, but don't necessarily conform to a more widely-a
 [Please don't @ me.](https://en.wikipedia.org/wiki/Greenspun%27s_tenth_rule)
 | Pattern                            | Use                                                     | Namespace under `prelude` |
 | :--------------------------------- | :------------------------------------------------------ | :------------------------ |
-| [`Attachable`](./src/primitives/)  | Provide an object to reference by another object.       | `attachable`              |
-| [`Detachable`](./src/primitives/)  | Remove a previously added object from being referenced. | `detachable`              |
-| [`Emitter`](./src/primitives/)     | Returns values.                                         | `emitter`                 |
-| [`Executable`](./src/primitives/)  | Obfuscates the execution some block of code.            | `executable`              |
-| [`Handler`](./src/primitives/)     | Consumes some value.                                    | `handler`                 |
-| [`Transformer`](./src/primitives/) | Consumes and returns values.                            | `transformer`             |
+| [`Attachable`](./ropes_primitives/src)  | Provide an object to reference by another object.       | `attachable`              |
+| [`Detachable`](./ropes_primitives/src)  | Remove a previously added object from being referenced. | `detachable`              |
+| [`Emitter`](./ropes_primitives/src)     | Returns values.                                         | `emitter`                 |
+| [`Executable`](./ropes_primitives/src)  | Obfuscates the execution some block of code.            | `executable`              |
+| [`Handler`](./ropes_primitives/src)     | Consumes some value.                                    | `handler`                 |
+| [`Transformer`](./ropes_primitives/src) | Consumes and returns values.                            | `transformer`             |
 
 ## Patterns
 The generally accepted, GoF-style patterns, most commonly used by developers.
 | Pattern                                                          | Use                                          | Namespace under `prelude` |
 | :--------------------------------------------------------------- | :------------------------------------------- | :------------------------ |
-| [`Abstract Factory`](./src/patterns/abstract_factory/)           | Abstracts creating objects.                  | `abstract_factory`        |
-| [`Builder`](./src/patterns/builder/)                             | Aids in the construction of similar objects. | `builder`                 |
-| [`Command`](./src/patterns/command/)                             | Encapsulates a block of executable code.     | `command`                 |
-| [`Heap Pool`](./src/patterns/heap_pool/)                         | Reduces heap thrashing.                      | `heap_pool`               |
-| [`Observer`](./src/patterns/observer/)                           | Executes dynamic blocks of code.             | `observer`                |
-| [`Publisher Subscriber`](./src/aggregates/publisher_subscriber/) | Sends messages to consuming blocks of code.  | `publisher_subscriber`    |
-| [`State`](./src/patterns/state/)                                 | Alters its context's behavior dynamically.   | `state`                   |
-| [`Visitor`](./src/patterns/visitor/)                             | Type-based, multiple-object interactions.    | `visitor`                 |
+| [`Abstract Factory`](./ropes/src/patterns/abstract_factory/)           | Abstracts creating objects.                  | `abstract_factory`        |
+| [`Builder`](./ropes/src/patterns/builder/)                             | Aids in the construction of similar objects. | `builder`                 |
+| [`Command`](./ropes/src/patterns/command/)                             | Encapsulates a block of executable code.     | `command`                 |
+| [`Heap Pool`](./ropes/src/patterns/heap_pool/)                         | Reduces heap thrashing.                      | `heap_pool`               |
+| [`Observer`](./ropes/src/patterns/observer/)                           | Executes dynamic blocks of code.             | `observer`                |
+| [`Publisher Subscriber`](./ropes/src/patterns/publisher_subscriber/) | Sends messages to consuming blocks of code.  | `publisher_subscriber`    |
+| [`State`](./ropes/src/patterns/state/)                                 | Alters its context's behavior dynamically.   | `state`                   |
+| [`Visitor`](./ropes/src/patterns/visitor/)                             | Type-based, multiple-object interactions.    | `visitor`                 |
 
 ## Aggregates
 These patterns build on the common and primitive functions to provide bridges between patterns.
@@ -69,15 +68,15 @@ E.g: `Command` and the primitive `Executable` correspond closely, so a bridge st
 These are provided to make the common case of moving between the given traits simpler, most often by calling `.into`.
 | Pattern                                                        | Use                                 | Namespace under `prelude` |
 | :------------------------------------------------------------- | :---------------------------------- | :------------------------ |
-| [`Executable Command`](./src/aggregates/executable_command/)   | Adapts `Executable` from `Command`. | `executable_command`      |
-| [`Observing Command`](./src/aggregates/observing_command/)     | Adapts `Observer` from `Command`.   | `observing_command`       |
-| [`Subscribing Handler`](./src/aggregates/subscribing_handler/) | Adapts `Subscriber` from `Handler`. | `subscribing_handler`     |
+| [`Executable Command`](./ropes/src/aggregates/executable_command/)   | Adapts `Executable` from `Command`. | `executable_command`      |
+| [`Observing Command`](./ropes/src/aggregates/observing_command/)     | Adapts `Observer` from `Command`.   | `observing_command`       |
+| [`Subscribing Handler`](./ropes/src/aggregates/subscribing_handler/) | Adapts `Subscriber` from `Handler`. | `subscribing_handler`     |
 
 # Examples
-## [lambda-logger](./examples/lambda-logger/)
+## [lambda-logger](./ropes_examples/lambda-logger/)
 Demonstrates a stateful, functional-style logger system of a contrived logging system.
 
-## [structuted-logger](./examples/structured-logger/)
+## [structuted-logger](./ropes_examples/structured-logger/)
 Demonstrates a decoupled logging system.
 
 # A Quick Note on Issues

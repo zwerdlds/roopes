@@ -1,20 +1,24 @@
 #![feature(trait_alias)]
 #![feature(associated_type_bounds)]
 
+#[allow(unused_imports)]
+#[macro_use]
+extern crate ropes_derive;
+
+#[allow(unused_imports)]
+extern crate ropes_primitives;
+
 pub mod aggregates;
 pub mod patterns;
-pub mod primitives;
 
 pub mod prelude
 {
-    use super::{
+    pub use super::{
         aggregates,
         patterns,
-        primitives,
     };
     pub use aggregates::*;
     pub use patterns::*;
-    pub use primitives::*;
+    pub use ropes_derive::*;
+    pub use ropes_primitives::prelude::*;
 }
-
-extern crate ropes_derive;

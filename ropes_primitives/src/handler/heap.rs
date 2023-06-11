@@ -1,4 +1,4 @@
-use super::Handler;
+use crate::prelude::*;
 use delegate::delegate;
 
 pub struct Heap<M>

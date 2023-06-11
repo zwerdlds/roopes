@@ -2,8 +2,9 @@ use crate::{
     log_formatter::LogFormatter,
     log_message::LogMessage,
 };
-use ropes::prelude::*;
+use ropes_lib::prelude::*;
 
+#[derive(Builder)]
 pub(crate) struct Logger
 {
     printer: Box<dyn Handler<String>>,
