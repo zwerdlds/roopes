@@ -3,24 +3,17 @@ use crate::{
     log_message::LogMessage,
 };
 use ropes_lib::prelude::*;
+use std::rc::Rc;
 
 #[derive(Builder)]
 pub(crate) struct Logger
 {
-    printer: Box<dyn Handler<String>>,
-    formatter: Box<dyn LogFormatter>,
+    printer: Rc<dyn Handler<String>>,
+    formatter: Rc<dyn LogFormatter>,
 }
 
 impl Logger
 {
-    pub(crate) fn new(
-        printer: Box<dyn Handler<String>>,
-        formatter: Box<dyn LogFormatter>,
-    ) -> Logger
-    {
-        Logger { printer, formatter }
-    }
-
     pub(crate) fn log(
         &self,
         message: &LogMessage,

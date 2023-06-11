@@ -17,7 +17,7 @@ pub trait HashSetObserver = Observer + Eq + Hash;
 ///
 /// # Examples
 /// ```
-/// use ropes::prelude::*;
+/// use ropes_lib::prelude::*;
 /// use std::{
 ///     cell::RefCell,
 ///     rc::Rc,

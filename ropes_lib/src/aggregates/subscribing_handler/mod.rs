@@ -6,7 +6,7 @@ where
     H: Handler<M>,
 {
     handler: H,
-    _t: PhantomData<M>,
+    _retain_types: PhantomData<M>,
 }
 
 impl<H, M> SubscribingHandler<H, M>
@@ -17,7 +17,7 @@ where
     {
         SubscribingHandler {
             handler,
-            _t: PhantomData::default(),
+            _retain_types: PhantomData::default(),
         }
     }
 }

@@ -13,7 +13,7 @@ use super::{
 ///
 /// # Examples
 /// ```
-/// use ropes::prelude::*;
+/// use ropes_lib::prelude::*;
 /// use std::{
 ///     cell::RefCell,
 ///     rc::Rc,

@@ -41,8 +41,11 @@ dependencies = [
 name = "ropes_derive"
 version = "0.1.0"
 dependencies = [
+ "delegate",
+ "enclose",
  "proc-macro2",
  "quote",
+ "ropes_primitives",
  "syn 2.0.18",
 ]
 

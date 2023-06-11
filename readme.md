@@ -96,3 +96,16 @@ The `delegate!` macro enables these streamlined implementations.
 - `enclose`
 
 This package is used to simplify the process of copying reference-counted objects to and from lambdas.
+
+# Adendum
+## OOP in Rust?  Are you crazy!?
+Nope!
+Once you accept that `Rc<...>` doesn't incur that much overhead, especially if the client algorithms are organized to help with memory locality, it's really not that bad.
+Client code should also try to organize by sub-system - if the borrow checker is involved, it's a good idea to try and observer a sort of system-level coherence.
+In essence: if code is large enough to require OOP, it's probably at a point in its lifecycle where development time is incurring more cost than runtime.
+
+## Why tho?
+Rust's type-system is, in this developer's opinion, the best compromise between safety and usability.
+Undoubtedly, architecting large systems without patterns is difficult.
+It is also certain that some patterns here will open possibilities for bugs that could be avoided by more directly using Rust's type-system.
+This library represents a compromise to leverage the patterns OOP gives us, to enable larger-scale projects, but also have Rust's type-system and borrow checker in appropriate places.

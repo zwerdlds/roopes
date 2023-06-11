@@ -8,7 +8,7 @@ where
     D: Delegate<R>,
 {
     delegate: D,
-    _t: PhantomData<(D, R)>,
+    _retain_types: PhantomData<(D, R)>,
 }
 
 impl<D, R> AbstractFactory<R> for Lambda<D, R>
@@ -29,7 +29,7 @@ where
     {
         Lambda {
             delegate,
-            _t: PhantomData,
+            _retain_types: PhantomData,
         }
     }
 }

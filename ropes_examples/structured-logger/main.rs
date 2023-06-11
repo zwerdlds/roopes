@@ -1,14 +1,6 @@
 #![feature(trait_alias)]
 #![feature(unboxed_closures)]
 
-use crate::prefix_formatter::PrefixFormatter;
-use log_message::LogMessage;
-use log_message_subscriber::LogMessageSubscriber;
-use log_publisher::LogPublisher;
-use logger::Logger;
-use println_printer::PrintlnPrinter;
-use ropes_lib::prelude::*;
-
 mod log_formatter;
 mod log_message;
 mod log_message_subscriber;
@@ -17,13 +9,26 @@ mod logger;
 mod prefix_formatter;
 mod println_printer;
 
+use crate::prefix_formatter::PrefixFormatter;
+use log_message::LogMessage;
+use log_message_subscriber::LogMessageSubscriber;
+use log_publisher::LogPublisher;
+use logger::LoggerBuilder;
+use println_printer::PrintlnPrinter;
+use ropes_lib::prelude::*;
+use std::rc::Rc;
+
 fn main()
 {
-    let println_printer = PrintlnPrinter::new();
-    let prefix_formatter = PrefixFormatter::new("Prefix Demo".into());
+    let mut logger_builder = LoggerBuilder::new();
 
-    let pretty_stdout_logger =
-        Logger::new(Box::new(println_printer), Box::new(prefix_formatter));
+    let println_printer = Rc::new(PrintlnPrinter::new());
+    let prefix_formatter = Rc::new(PrefixFormatter::new("Prefix Demo".into()));
+
+    logger_builder.set_printer(println_printer);
+    logger_builder.set_formatter(prefix_formatter);
+
+    let pretty_stdout_logger = logger_builder.build();
 
     let pretty_stdout_logger = SubscribingHandler::new(pretty_stdout_logger);
 

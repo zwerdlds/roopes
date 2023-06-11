@@ -17,7 +17,8 @@
       "println",
       "roopes",
       "struct",
-      "structuted"
+      "structuted",
+      "typestate"
     ],
     "[rust]": {
       "editor.formatOnSave": true

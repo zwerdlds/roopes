@@ -1,5 +1,4 @@
 # Issues
-- Investigate the use of typestate/const enum/? in Builder pattern.
 - Implement patterns
   - Visitor
   - Prototype
@@ -40,5 +39,21 @@
    - publisher subscriber
    - subscribing handler
 - Move docs into .rs files
-- Builder from procmac
-- Visitor from procmac
+- Builder from proc macro
+- Visitor from proc macro
+- Documentation on builder
+- Condense dependencies to workspace where possible
+- Unify generics ordering (IOT vs TIO)
+- Generics naming conventions
+- Investigate using GATs
+- builder <-> emitter
+- investigate unit test state
+- parameterized docs
+- refactor builder
+  - impl builder<i,o> on proc_macro version
+  - investigate if builder should be emitter
+  - params struct in BuilderTokenStreamBuilder
+  - split up BuilderTokenStreamBuilder::build
+  - Investigate the use of typestate/const enum/? in Builder pattern.
+    - I think a const enum with generics in the other slots could be an implementation option here.
+  - Outputted type must impl builder (lol!)

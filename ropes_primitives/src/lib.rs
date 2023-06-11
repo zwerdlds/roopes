@@ -6,6 +6,7 @@ pub mod detachable;
 pub mod emitter;
 pub mod executable;
 pub mod handler;
+pub mod parameterized;
 pub mod transformer;
 
 pub mod prelude

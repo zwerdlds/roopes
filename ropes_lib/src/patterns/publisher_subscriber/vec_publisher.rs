@@ -10,7 +10,7 @@ where
     S: Subscriber<M>,
 {
     listeners: Vec<S>,
-    _t: PhantomData<M>,
+    _retain_types: PhantomData<M>,
 }
 
 impl<M, S> VecPublisher<M, S>
@@ -22,7 +22,7 @@ where
     {
         VecPublisher {
             listeners,
-            _t: PhantomData::default(),
+            _retain_types: PhantomData::default(),
         }
     }
 }
