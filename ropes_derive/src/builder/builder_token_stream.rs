@@ -28,25 +28,59 @@ impl Builder<TokenStream, TokenStream> for BuilderTokenStream
         let ast = parse_macro_input!(tokens as syn::DeriveInput);
         let build_target = ast.ident.clone();
         let builder = format_ident!("{build_target}Builder");
-        let vis = ast.vis;
+        let vis = ast.vis.clone();
+
+        let syn::DeriveInput {
+            data:
+                syn::Data::Struct(syn::DataStruct {
+                    fields:
+                        syn::Fields::Named(syn::FieldsNamed {
+                            named: fields, ..
+                        }),
+                    ..
+                }),
+            ..
+        } = ast else {
+            unimplemented!(
+                "derive(Builder) only supports structs with named fields"
+            )
+        };
+
+        let fields_declare = fields.iter().map(|field| {
+            let field = field.clone();
+            let id = field.ident.unwrap();
+            let ty = field.ty;
+
+            quote! {
+                #id: std::option::Option<#ty>
+            }
+        });
+
+        let fields_init = fields.iter().map(|field| {
+            let id = field.clone().ident.unwrap();
+            quote! { #id: std::option::Option::None }
+        });
+
+        let build_build = fields.iter().map(|field| {
+            let id = field.clone().ident.unwrap();
+
+            quote! { #id: self.#id.as_ref().unwrap().clone() }
+        });
 
         quote! {
             #vis struct #builder {
-                printer: Option<Rc<dyn Handler<String>>>,
-                formatter: Option<Rc<dyn LogFormatter>>,
+                #(#fields_declare),*
             }
             impl #builder {
                 pub fn new() -> LoggerBuilder {
                     LoggerBuilder {
-                        printer: Option::None,
-                        formatter: Option::None,
+                        #(#fields_init),*
                     }
                 }
 
                 pub fn build(&self) -> #build_target {
                     #build_target {
-                        printer: self.printer.as_ref().unwrap().clone(),
-                        formatter: self.formatter.as_ref().unwrap().clone(),
+                        #(#build_build),*
                     }
                 }
 
