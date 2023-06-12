@@ -6,12 +6,12 @@ use quote::{
 };
 use syn::parse_macro_input;
 
-pub(super) struct BuilderTokenStream
+pub(super) struct TokenStreamBuilderBuilder
 {
     token_stream: TokenStream,
 }
 
-impl BuilderTokenStream
+impl TokenStreamBuilderBuilder
 {
     pub(super) fn new_from_token_stream(token_stream: TokenStream) -> Self
     {
@@ -19,7 +19,7 @@ impl BuilderTokenStream
     }
 }
 
-impl Builder<TokenStream, TokenStream> for BuilderTokenStream
+impl Builder<TokenStream, TokenStream> for TokenStreamBuilderBuilder
 {
     fn build(&self) -> TokenStream
     {
@@ -67,6 +67,21 @@ impl Builder<TokenStream, TokenStream> for BuilderTokenStream
             quote! { #id: self.#id.as_ref().unwrap().clone() }
         });
 
+        let setters = fields.iter().map(|field| {
+            let field = field.clone();
+            let id = field.ident.unwrap();
+            let ty = field.ty;
+
+            let setter_id = format_ident!("set_{id}");
+
+            quote! { pub fn #setter_id(&mut self, #id: #ty) -> &mut Self
+                {
+                    self.#id = Some(#id);
+                    self
+                }
+            }
+        });
+
         quote! {
             #vis struct #builder {
                 #(#fields_declare),*
@@ -84,19 +99,7 @@ impl Builder<TokenStream, TokenStream> for BuilderTokenStream
                     }
                 }
 
-                pub fn set_printer(
-                    &mut self,
-                    printer: Rc<dyn Handler<String>>
-                ) {
-                    self.printer = Some(printer.clone());
-                }
-
-                pub fn set_formatter(
-                    &mut self,
-                    formatter: Rc<dyn LogFormatter>
-                ) {
-                    self.formatter = Some(formatter.clone());
-                }
+                #(#setters)*
             }
         }
         .into()

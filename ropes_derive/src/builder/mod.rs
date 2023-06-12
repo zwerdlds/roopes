@@ -1,5 +1,4 @@
 #[allow(clippy::module_name_repetitions)]
-pub mod builder_token_stream;
 pub mod derive;
 
 pub trait Builder<I, O>
