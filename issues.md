@@ -39,7 +39,6 @@
    - publisher subscriber
    - subscribing handler
 - Move docs into .rs files
-- Builder from proc macro
 - Visitor from proc macro
 - Documentation on builder
 - Condense dependencies to workspace where possible
@@ -50,6 +49,7 @@
 - investigate unit test state
 - parameterized docs
 - refactor builder
+  - Builder from proc macro
   - impl builder<i,o> on proc_macro version
   - investigate if builder should be emitter
   - params struct in BuilderTokenStreamBuilder
@@ -57,3 +57,4 @@
   - Investigate the use of typestate/const enum/? in Builder pattern.
     - I think a const enum with generics in the other slots could be an implementation option here.
   - Outputted type must impl builder (lol!)
+- Implement this list in kibana
