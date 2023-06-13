@@ -64,3 +64,5 @@
   - add support for other types of enum structs
   - investigate adding deref on `#acceptor`
 - submodules block diagram
+- extends macro
+- top level traits could be better as structs (simplifies boxing) - need investigation on this vs type aliasing, and manual boxing

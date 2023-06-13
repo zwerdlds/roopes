@@ -8,6 +8,7 @@ pub mod heap_pool;
 pub mod observer;
 pub mod publisher_subscriber;
 pub mod state;
+pub mod transformer_chain;
 
 pub mod prelude
 {
@@ -18,6 +19,7 @@ pub mod prelude
         observer,
         publisher_subscriber,
         state,
+        transformer_chain,
     };
     pub use abstract_factory::AbstractFactory;
     pub use command::Command;
