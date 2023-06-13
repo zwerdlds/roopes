@@ -20,6 +20,22 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1056f553da426e9c025a662efa48b52e62e0a3a7648aa2d15aeaaf7f0d329357"
 
 [[package]]
+name = "heck"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "95505c38b4572b2d910cecb0281560f54b440a19336cbbcb27bf6ce6adc6f5a8"
+
+[[package]]
+name = "prettyplease"
+version = "0.2.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3b69d39aab54d069e7f2fe8cb970493e7834601ca2d8c65fd7bbd183578080d1"
+dependencies = [
+ "proc-macro2",
+ "syn 2.0.18",
+]
+
+[[package]]
 name = "proc-macro2"
 version = "1.0.60"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -38,13 +54,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "ropes_aggregates"
+version = "0.1.0"
+dependencies = [
+ "delegate",
+ "enclose",
+ "ropes_derive",
+ "ropes_patterns",
+ "ropes_primitives",
+]
+
+[[package]]
 name = "ropes_derive"
 version = "0.1.0"
 dependencies = [
  "delegate",
  "enclose",
+ "heck",
+ "prettyplease",
  "proc-macro2",
  "quote",
+ "ropes_patterns",
  "ropes_primitives",
  "syn 2.0.18",
 ]
@@ -63,7 +93,18 @@ version = "0.1.0"
 dependencies = [
  "delegate",
  "enclose",
+ "ropes_aggregates",
  "ropes_derive",
+ "ropes_patterns",
+ "ropes_primitives",
+]
+
+[[package]]
+name = "ropes_patterns"
+version = "0.1.0"
+dependencies = [
+ "delegate",
+ "enclose",
  "ropes_primitives",
 ]
 
@@ -73,6 +114,19 @@ version = "0.1.0"
 dependencies = [
  "delegate",
  "enclose",
+]
+
+[[package]]
+name = "ropes_tests"
+version = "0.1.0"
+dependencies = [
+ "delegate",
+ "enclose",
+ "ropes_aggregates",
+ "ropes_examples",
+ "ropes_lib",
+ "ropes_patterns",
+ "ropes_primitives",
 ]
 
 [[package]]

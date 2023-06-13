@@ -20,17 +20,16 @@ use std::rc::Rc;
 
 fn main()
 {
-    let mut logger_builder = LoggerBuilder::new();
-
     let println_printer = Rc::new(PrintlnPrinter::new());
     let prefix_formatter = Rc::new(PrefixFormatter::new("Prefix Demo".into()));
 
-    logger_builder.set_printer(println_printer);
-    logger_builder.set_formatter(prefix_formatter);
+    let mut logger_builder = LoggerBuilder::new();
 
-    let pretty_stdout_logger = logger_builder.build();
+    logger_builder
+        .set_printer(println_printer)
+        .set_formatter(prefix_formatter);
 
-    let pretty_stdout_logger = SubscribingHandler::new(pretty_stdout_logger);
+    let pretty_stdout_logger = SubscribingHandler::new(logger_builder.build());
 
     let mut log_publisher =
         LogPublisher::new(publisher_subscriber::VecPublisher::default());

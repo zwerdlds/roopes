@@ -1,4 +1,6 @@
 use crate::prelude::*;
+use ropes_patterns::prelude::*;
+use ropes_primitives::prelude::*;
 use std::hash::Hash;
 
 pub struct ObservingCommand<C>

@@ -5,6 +5,7 @@
 use proc_macro::TokenStream;
 
 mod builder;
+mod visitor;
 
 #[proc_macro_derive(Builder)]
 pub fn derive_builder(input: TokenStream) -> TokenStream
@@ -12,8 +13,8 @@ pub fn derive_builder(input: TokenStream) -> TokenStream
     builder::derive::derive(input)
 }
 
-pub(crate) mod prelude
+#[proc_macro_derive(Visitor)]
+pub fn derive_visitor(input: TokenStream) -> TokenStream
 {
-    pub(crate) use super::builder;
-    pub(crate) use builder::Builder;
+    visitor::derive::derive(input)
 }

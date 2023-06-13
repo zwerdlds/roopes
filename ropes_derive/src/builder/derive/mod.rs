@@ -1,13 +1,9 @@
-pub mod token_stream_builder_builder;
+pub mod token_stream_builder_factory;
 
-use super::Builder;
 use proc_macro::TokenStream;
-use token_stream_builder_builder::TokenStreamBuilderBuilder;
+use token_stream_builder_factory::TokenStreamBuilderFactory;
 
 pub fn derive(input: TokenStream) -> TokenStream
 {
-    let builder_token_stream =
-        TokenStreamBuilderBuilder::new_from_token_stream(input);
-
-    builder_token_stream.build()
+    TokenStreamBuilderFactory::new_from_token_stream(input).build()
 }

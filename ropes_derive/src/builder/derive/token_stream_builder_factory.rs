@@ -1,4 +1,3 @@
-use crate::prelude::*;
 use proc_macro::TokenStream;
 use quote::{
     format_ident,
@@ -6,22 +5,19 @@ use quote::{
 };
 use syn::parse_macro_input;
 
-pub(super) struct TokenStreamBuilderBuilder
+pub(super) struct TokenStreamBuilderFactory
 {
     token_stream: TokenStream,
 }
 
-impl TokenStreamBuilderBuilder
+impl TokenStreamBuilderFactory
 {
     pub(super) fn new_from_token_stream(token_stream: TokenStream) -> Self
     {
         Self { token_stream }
     }
-}
 
-impl Builder<TokenStream, TokenStream> for TokenStreamBuilderBuilder
-{
-    fn build(&self) -> TokenStream
+    pub fn build(&self) -> TokenStream
     {
         let tokens = self.token_stream.clone();
 
@@ -82,7 +78,7 @@ impl Builder<TokenStream, TokenStream> for TokenStreamBuilderBuilder
             }
         });
 
-        quote! {
+        let output = quote! {
             #vis struct #builder {
                 #(#fields_declare),*
             }
@@ -101,20 +97,10 @@ impl Builder<TokenStream, TokenStream> for TokenStreamBuilderBuilder
 
                 #(#setters)*
             }
-        }
-        .into()
-    }
+        };
 
-    fn get_params(&self) -> &TokenStream
-    {
-        &self.token_stream
-    }
+        // eprintln!("{}", output);
 
-    fn set_params(
-        &mut self,
-        token_stream: TokenStream,
-    )
-    {
-        self.token_stream = token_stream;
+        output.into()
     }
 }

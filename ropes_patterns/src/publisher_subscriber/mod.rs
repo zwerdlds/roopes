@@ -1,5 +1,6 @@
 pub mod vec_publisher;
 use crate::prelude::*;
+use ropes_primitives::prelude::*;
 pub use vec_publisher::VecPublisher;
 
 pub trait Publisher<M>

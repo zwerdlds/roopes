@@ -5,19 +5,16 @@
 #[macro_use]
 extern crate ropes_derive;
 
-extern crate ropes_primitives;
+extern crate ropes_aggregates;
 
-pub mod aggregates;
-pub mod patterns;
+extern crate ropes_patterns;
+
+extern crate ropes_primitives;
 
 pub mod prelude
 {
-    pub use super::{
-        aggregates,
-        patterns,
-    };
-    pub use aggregates::*;
-    pub use patterns::*;
+    pub use ropes_aggregates::prelude::*;
     pub use ropes_derive::*;
+    pub use ropes_patterns::prelude::*;
     pub use ropes_primitives::prelude::*;
 }

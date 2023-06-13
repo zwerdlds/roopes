@@ -17,27 +17,27 @@
   - Strategy
   - Template Method
 - UML for primitives
-   - attachable
-   - emitter
-   - detachable
-   - executable
-   - transformer
+  - attachable
+  - emitter
+  - detachable
+  - executable
+  - transformer
 - UML for aggregates
-   - executable command
-   - observing command
-   - publisher subscriber
-   - subscribing handler
+  - executable command
+  - observing command
+  - publisher subscriber
+  - subscribing handler
 - Docs for primitives
-   - attachable
-   - emitter
-   - detachable
-   - executable
-   - transformer
+  - attachable
+  - emitter
+  - detachable
+  - executable
+  - transformer
 - UML for aggregates
-   - executable command
-   - observing command
-   - publisher subscriber
-   - subscribing handler
+  - executable command
+  - observing command
+  - publisher subscriber
+  - subscribing handler
 - Move docs into .rs files
 - Visitor from proc macro
 - Documentation on builder
@@ -49,12 +49,18 @@
 - investigate unit test state
 - parameterized docs
 - refactor builder
-  - Builder from proc macro
   - impl builder<i,o> on proc_macro version
   - investigate if builder should be emitter
   - params struct in BuilderTokenStreamBuilder
   - split up BuilderTokenStreamBuilder::build
   - Investigate the use of typestate/const enum/? in Builder pattern.
     - I think a const enum with generics in the other slots could be an implementation option here.
-  - Outputted type must impl builder (lol!)
+  - Outputted type must impl `Builder`
+  - Tests
 - Implement this list in kibana
+- refactor visitor
+  - Investigate the use of typestate/const enum/? in Builder pattern.
+  - Visitor implements handler
+  - add support for other types of enum structs
+  - investigate adding deref on `#acceptor`
+- submodules block diagram

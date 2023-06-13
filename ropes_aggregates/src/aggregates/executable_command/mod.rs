@@ -1,5 +1,7 @@
 use crate::prelude::*;
 use delegate::delegate;
+use ropes_patterns::prelude::*;
+use ropes_primitives::prelude::*;
 
 pub struct ExecutableCommand<C>
 where

@@ -3,6 +3,7 @@ pub mod vec_subject;
 
 use crate::prelude::*;
 pub use hash_subject::HashSubject;
+use ropes_primitives::prelude::*;
 pub use vec_subject::VecSubject;
 
 /// An object which notifies some group of [`Observer`]s.  When it is notified,
