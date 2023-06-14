@@ -9,3 +9,8 @@ pub trait Detachable<O, E>
         object: O,
     ) -> Result<(), E>;
 }
+
+pub mod prelude
+{
+    pub use super::Detachable;
+}

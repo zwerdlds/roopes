@@ -8,3 +8,8 @@ pub trait HeapPool<C>
         container: C,
     );
 }
+
+pub mod prelude
+{
+    pub use super::HeapPool;
+}

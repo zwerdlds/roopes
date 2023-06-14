@@ -23,3 +23,8 @@ where
         Heap::new(Box::new(transformer))
     }
 }
+
+pub mod prelude
+{
+    pub use super::Transformer;
+}

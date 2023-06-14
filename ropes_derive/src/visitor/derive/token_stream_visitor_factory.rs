@@ -44,7 +44,11 @@ impl TokenStreamVisitorFactory
         .push(VisitorTransformer)
         .transform(&ast);
 
-        // eprintln!("{}", result.to_string());
+        // eprintln!("Results:");
+        // let contents =
+        //     syn::parse_file(&result.to_string()).expect("Syn parsing
+        // failed."); let formatted = prettyplease::unparse(&contents);
+        // eprintln!("{formatted}");
 
         result.into()
     }
@@ -201,61 +205,6 @@ impl Transformer<DeriveInput, VisitorTransformerParams>
         }
     }
 }
-
-// struct OutputTransformer;
-// struct OutputFields
-// {
-//     visibility: Visibility,
-//     visitor: Ident,
-//     visitor_function_signatures: TokenStream2,
-//     acceptor: Ident,
-//     visit_target: Ident,
-//     match_branches: TokenStream2,
-// }
-// impl Transformer<OutputFields, TokenStream2> for OutputTransformer
-// {
-//     fn transform(
-//         &self,
-//         fields: &OutputFields,
-//     ) -> TokenStream2
-//     {
-//         let visibility = fields.visibility;
-//         let visitor = fields.visitor;
-//         let visitor_function_signatures = fields.visitor_function_signatures;
-//         let acceptor = fields.acceptor;
-//         let visit_target = fields.visit_target;
-//         let match_branches = fields.match_branches;
-
-//         quote! {
-//             use #visit_target::*;
-
-//             #visibility trait #visitor {
-//                 #(#visitor_function_signatures);*;
-//             }
-
-//             #visibility struct #acceptor<V>
-//                 where V: #visitor
-//             {
-//                 delegate: V
-//             }
-
-//             impl<V> #acceptor<V> where V: #visitor {
-//                 fn new(delegate: V) -> #acceptor<V>
-//                 {
-//                     #acceptor {
-//                         delegate
-//                     }
-//                 }
-
-//                 #visibility fn accept(&self, e: &#visit_target) {
-//                     match e {
-//                         #(#match_branches),*
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
 
 struct PreambleTransformerParams
 {

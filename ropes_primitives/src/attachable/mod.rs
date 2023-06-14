@@ -7,3 +7,8 @@ pub trait Attachable<O>
         object: O,
     );
 }
+
+pub mod prelude
+{
+    pub use super::Attachable;
+}

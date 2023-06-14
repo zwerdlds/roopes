@@ -12,32 +12,32 @@ use super::{
 /// implemented.
 //
 //  # Examples
-//  ```
-// // use ropes_patterns::prelude::*;
-// // use std::{
-// //     cell::RefCell,
-// //     rc::Rc,
-// // };
-// // use ropes_primitives::prelude::*;
-// //
-// // let mut vs = observer::VecSubject::default();
-// //
-// // let has_run = Rc::new(RefCell::new(false));
-// // {
-// //     let has_run = has_run.clone();
-// //
-// //     let lc: ObservingCommand<_> =
-// //         command::Lambda::new(move || {
-// //             (*has_run.borrow_mut()) = true;
-// //         })
-// //         .into();
-// //
-// //     vs.attach(lc);
-// // }
-// //
-// // assert!(!(*has_run.borrow()));
-// // vs.notify();
-// // assert!((*has_run.borrow()));
+//  ``` rust
+// use ropes_lib::prelude::*;
+// use std::{
+//     cell::RefCell,
+//     rc::Rc,
+// };
+// use ropes_primitives::prelude::*;
+//
+// let mut vs = observer::VecSubject::default();
+//
+// let has_run = Rc::new(RefCell::new(false));
+// {
+//     let has_run = has_run.clone();
+//
+//     let lc: ObservingCommand<_> =
+//         command::Lambda::new(move || {
+//             (*has_run.borrow_mut()) = true;
+//         })
+//         .into();
+//
+//     vs.attach(lc);
+// }
+//
+// assert!(!(*has_run.borrow()));
+// vs.notify();
+// assert!((*has_run.borrow()));
 //  ```
 pub struct VecSubject<O>
 where

@@ -15,27 +15,27 @@ pub trait HashSetObserver = Observer + Eq + Hash;
 /// [`PartialEq`] and  [`Hash`].
 ///
 /// # Examples
-/// ```
-/// // use ropes_patterns::prelude::*;
-/// // use std::{
-/// //     cell::RefCell,
-/// //     rc::Rc,
-/// // };
-/// // use enclose::enclose;
-/// //
-/// // let mut hs = observer::HashSubject::default();
-/// //
-/// // let has_run = Rc::new(RefCell::new(false));
-/// // let lc:ObservingCommand<_> = command::Hashable::new(
-/// //     command::Lambda::new(enclose!((has_run) move || {
-/// //         (*has_run.borrow_mut()) = true;
-/// //     })), "Has Run").into();
-/// //
-/// // hs.attach(lc);
-/// //
-/// // assert!(!(*has_run.borrow()));
-/// // hs.notify();
-/// // assert!((*has_run.borrow()));
+/// ``` rust
+/// use ropes_lib::prelude::*;
+/// use std::{
+///     cell::RefCell,
+///     rc::Rc,
+/// };
+/// use enclose::enclose;
+///
+/// let mut hs = observer::HashSubject::default();
+///
+/// let has_run = Rc::new(RefCell::new(false));
+/// let lc:ObservingCommand<_> = command::Hashable::new(
+///     command::Lambda::new(enclose!((has_run) move || {
+///         (*has_run.borrow_mut()) = true;
+///     })), "Has Run").into();
+///
+/// hs.attach(lc);
+///
+/// assert!(!(*has_run.borrow()));
+/// hs.notify();
+/// assert!((*has_run.borrow()));
 /// ```
 pub struct HashSubject<O>
 where

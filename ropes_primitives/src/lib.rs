@@ -19,10 +19,10 @@ pub mod prelude
         handler,
         transformer,
     };
-    pub use attachable::Attachable;
-    pub use detachable::Detachable;
-    pub use emitter::Emitter;
-    pub use executable::Executable;
-    pub use handler::Handler;
-    pub use transformer::Transformer;
+    pub use attachable::prelude::*;
+    pub use detachable::prelude::*;
+    pub use emitter::prelude::*;
+    pub use executable::prelude::*;
+    pub use handler::prelude::*;
+    pub use transformer::prelude::*;
 }

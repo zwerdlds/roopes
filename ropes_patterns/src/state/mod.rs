@@ -12,3 +12,8 @@ pub trait State
     #[must_use]
     fn execute(&self) -> Self;
 }
+
+pub mod prelude
+{
+    pub use super::State;
+}

@@ -14,13 +14,15 @@
       "Hashable",
       "hashset",
       "indirected",
+      "prettyplease",
       "println",
       "roopes",
       "snek",
       "struct",
       "structs",
       "structuted",
-      "typestate"
+      "typestate",
+      "unparse"
     ],
     "[rust]": {
       "editor.formatOnSave": true

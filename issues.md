@@ -4,7 +4,6 @@
   - Prototype
   - Singleton
   - Adapter
-    - Can it be done automatically with `delegate!`?
   - Bridge
   - Composite
   - Decorator
@@ -46,7 +45,7 @@
 - Generics naming conventions
 - Investigate using GATs
 - builder <-> emitter
-- investigate unit test state
+- investigate state of unit tests
 - parameterized docs
 - refactor builder
   - impl builder<i,o> on proc_macro version

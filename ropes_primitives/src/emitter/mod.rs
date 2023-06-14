@@ -8,3 +8,8 @@ pub trait Emitter<O>
 {
     fn emit(&self) -> O;
 }
+
+pub mod prelude
+{
+    pub use super::Emitter;
+}

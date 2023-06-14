@@ -8,3 +8,8 @@ pub trait Command
 {
     fn execute(&self);
 }
+
+pub mod prelude
+{
+    pub use super::Command;
+}

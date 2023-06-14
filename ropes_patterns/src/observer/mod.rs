@@ -32,3 +32,11 @@ where
     O: Observer,
 {
 }
+
+pub mod prelude
+{
+    pub use super::{
+        Observer,
+        Subject,
+    };
+}

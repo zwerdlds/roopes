@@ -105,6 +105,7 @@ version = "0.1.0"
 dependencies = [
  "delegate",
  "enclose",
+ "ropes_lib",
  "ropes_primitives",
 ]
 
@@ -114,6 +115,7 @@ version = "0.1.0"
 dependencies = [
  "delegate",
  "enclose",
+ "ropes_lib",
 ]
 
 [[package]]
@@ -123,7 +125,6 @@ dependencies = [
  "delegate",
  "enclose",
  "ropes_aggregates",
- "ropes_examples",
  "ropes_lib",
  "ropes_patterns",
  "ropes_primitives",

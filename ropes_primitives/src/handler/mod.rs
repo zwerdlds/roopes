@@ -4,6 +4,7 @@ pub mod lambda;
 pub use heap::Heap;
 pub use lambda::Lambda;
 
+/// Defines a primitive interface which consumes messages.
 pub trait Handler<M>
 {
     fn handle(
@@ -21,4 +22,9 @@ where
     {
         Heap::new(Box::new(handler))
     }
+}
+
+pub mod prelude
+{
+    pub use super::Handler;
 }
