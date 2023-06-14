@@ -8,7 +8,7 @@ pub trait Delegate<M> = Fn(&M);
 ///
 /// # Examples
 /// ``` rust
-/// use ropes_lib::prelude::*;
+/// use ropes::prelude::*;
 /// let handler = handler::Lambda::new(|msg| {
 ///     println!("{msg}");
 /// });

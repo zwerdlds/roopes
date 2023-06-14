@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests
 {
-    use crate::prelude::*;
+    use ropes::prelude::*;
     use std::{
         cell::RefCell,
         rc::Rc,

@@ -3,6 +3,7 @@
 #![allow(unused_imports)]
 
 pub mod command;
+pub mod emitter;
 pub mod handler;
 pub mod observer;
 pub mod transformer;

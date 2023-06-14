@@ -54,6 +54,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "ropes"
+version = "0.1.0"
+dependencies = [
+ "delegate",
+ "enclose",
+ "ropes_aggregates",
+ "ropes_derive",
+ "ropes_patterns",
+ "ropes_primitives",
+]
+
+[[package]]
 name = "ropes_aggregates"
 version = "0.1.0"
 dependencies = [
@@ -84,19 +96,7 @@ name = "ropes_examples"
 version = "0.1.0"
 dependencies = [
  "delegate",
- "ropes_lib",
-]
-
-[[package]]
-name = "ropes_lib"
-version = "0.1.0"
-dependencies = [
- "delegate",
- "enclose",
- "ropes_aggregates",
- "ropes_derive",
- "ropes_patterns",
- "ropes_primitives",
+ "ropes",
 ]
 
 [[package]]
@@ -105,7 +105,7 @@ version = "0.1.0"
 dependencies = [
  "delegate",
  "enclose",
- "ropes_lib",
+ "ropes",
  "ropes_primitives",
 ]
 
@@ -115,7 +115,7 @@ version = "0.1.0"
 dependencies = [
  "delegate",
  "enclose",
- "ropes_lib",
+ "ropes",
 ]
 
 [[package]]
@@ -124,8 +124,8 @@ version = "0.1.0"
 dependencies = [
  "delegate",
  "enclose",
+ "ropes",
  "ropes_aggregates",
- "ropes_lib",
  "ropes_patterns",
  "ropes_primitives",
 ]

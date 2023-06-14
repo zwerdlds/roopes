@@ -1,4 +1,4 @@
-use ropes_lib::prelude::*;
+use ropes::prelude::*;
 use std::cell::RefCell;
 
 // This demo shows how OOP + Rust can be used to create a mostly functional but

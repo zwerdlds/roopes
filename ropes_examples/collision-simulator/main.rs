@@ -1,4 +1,4 @@
-use ropes_lib::prelude::*;
+use ropes::prelude::*;
 
 #[derive(Clone, Copy)]
 struct Boxes(usize);

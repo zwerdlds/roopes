@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests
 {
-    use ropes_lib::prelude::*;
+    use ropes::prelude::*;
     use std::{
         cell::RefCell,
         rc::Rc,

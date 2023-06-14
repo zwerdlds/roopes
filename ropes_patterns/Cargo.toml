@@ -13,4 +13,4 @@ ropes_primitives = { path = "../ropes_primitives" }
 
 
 [dev-dependencies]
-ropes_lib ={ path = "../ropes_lib"}
+ropes ={ path = "../ropes_lib"}

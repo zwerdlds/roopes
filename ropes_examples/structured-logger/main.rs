@@ -15,7 +15,7 @@ use log_message_subscriber::LogMessageSubscriber;
 use log_publisher::LogPublisher;
 use logger::LoggerBuilder;
 use println_printer::PrintlnPrinter;
-use ropes_lib::prelude::*;
+use ropes::prelude::*;
 use std::rc::Rc;
 
 fn main()
