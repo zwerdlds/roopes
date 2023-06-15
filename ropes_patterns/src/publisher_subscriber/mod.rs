@@ -27,7 +27,7 @@ pub enum DetachError
 }
 
 pub trait MutablePublisher<M>:
-    Attachable<M> + Detachable<M, DetachError> + Subscriber<M>
+    Attachable<M> + Detachable<M, (), DetachError> + Subscriber<M>
 where
     M: Observer,
 {

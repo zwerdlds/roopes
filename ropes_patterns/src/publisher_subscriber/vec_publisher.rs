@@ -71,7 +71,7 @@ pub enum DetachError
     SubscriberNotFound,
 }
 
-impl<M, S> Detachable<S, DetachError> for VecPublisher<M, S>
+impl<M, S> Detachable<S, (), DetachError> for VecPublisher<M, S>
 where
     S: Subscriber<M> + Eq,
 {

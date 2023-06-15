@@ -27,7 +27,7 @@ pub enum DetachError
 }
 
 pub trait MutableSubject<O>:
-    Attachable<O> + Detachable<O, DetachError> + Subject
+    Attachable<O> + Detachable<O, (), DetachError> + Subject
 where
     O: Observer,
 {

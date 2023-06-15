@@ -90,7 +90,7 @@ where
     }
 }
 
-impl<O> Detachable<O, DetachError> for VecSubject<O>
+impl<O> Detachable<O, (), DetachError> for VecSubject<O>
 where
     O: Observer + Eq,
 {

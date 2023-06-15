@@ -1,5 +1,4 @@
-/// Gives the ability for additional [`Observer`]s to be added to the list of
-/// notified objects.
+/// Objects can be attached to the implementing object.
 pub trait Attachable<O>
 {
     fn attach(
@@ -8,7 +7,13 @@ pub trait Attachable<O>
     );
 }
 
+#[allow(clippy::module_name_repetitions)]
+pub type BoxedAttachable<O> = Box<dyn Attachable<O>>;
+
 pub mod prelude
 {
-    pub use super::Attachable;
+    pub use super::{
+        Attachable,
+        BoxedAttachable,
+    };
 }

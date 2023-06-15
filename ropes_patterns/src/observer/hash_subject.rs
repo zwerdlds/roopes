@@ -90,7 +90,7 @@ where
     }
 }
 
-impl<O> Detachable<O, DetachError> for HashSubject<O>
+impl<O> Detachable<O, (), DetachError> for HashSubject<O>
 where
     O: HashSetObserver,
 {

@@ -1,5 +1,5 @@
-/// Objects can be removed from something.
-pub trait Detachable<O, E>
+/// Objects can be removed from the implementing object.
+pub trait Detachable<O, S, E>
 {
     ///Removed the object from [Self].
     /// # Errors
@@ -7,10 +7,15 @@ pub trait Detachable<O, E>
     fn detach(
         &mut self,
         object: O,
-    ) -> Result<(), E>;
+    ) -> Result<S, E>;
 }
+#[allow(clippy::module_name_repetitions)]
+pub type BoxedDetachable<O, S, E> = Box<dyn Detachable<O, S, E>>;
 
 pub mod prelude
 {
-    pub use super::Detachable;
+    pub use super::{
+        BoxedDetachable,
+        Detachable,
+    };
 }
