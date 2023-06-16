@@ -1,3 +1,4 @@
+pub mod heap;
 pub mod vec_publisher;
 use crate::prelude::*;
 use ropes_primitives::prelude::*;

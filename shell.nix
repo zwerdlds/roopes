@@ -12,19 +12,18 @@ stable.mkShell rec {
       clippy
       openssl
       freetype
-      expat
-      llvmPackages.bintools
       git-lfs
-      git-cliff
       rust-analyzer
-      cargo-hack
       cargo-watch
+      cargo-llvm-cov
+      llvmPackages_16.bintools-unwrapped
       just
       rustfmt
     ]);
 
   RUST_SRC_PATH = "${stable.rust.packages.stable.rustPlatform.rustLibSrc}";
   shellHook = ''
+    export RUSTUP_TOOLCHAIN="nightly";
     export PATH="$CARGO_HOME:$PATH";
     export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${stable.lib.makeLibraryPath buildInputs}";
   '';

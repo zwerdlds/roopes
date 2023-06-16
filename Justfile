@@ -1,22 +1,27 @@
 watch:
     cargo watch \
+        --why \
         --shell "just dev-loop" \
-        --ignore '*.svg'
+        --ignore '*.svg' \
+        --ignore 'lcov.info'
 
 dev-loop:
     clear
     just dev-loop-inner
 
-dev-loop-inner: build-diagrams format test run-doctest verify test-examples 
+dev-loop-inner: 
+    just build-diagrams
+    just format
+    just test
+    just test-examples
+    just verify
+    just update-coverage
 
 test:
-    cargo test -q
+    cargo test --workspace -q
 
 test-examples:
-    cargo test --examples
-
-run-doctest:
-    cargo test --doc -q
+    cargo test --examples -q
 
 verify: verify-check verify-clippy
 
@@ -35,3 +40,10 @@ format:
 
 build-diagrams:
     make svg
+
+update-coverage:
+    cargo tarpaulin \
+        --out Lcov \
+        --skip-clean \
+        \
+        &> /dev/null
