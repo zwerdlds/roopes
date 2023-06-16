@@ -1,11 +1,12 @@
-use super::{
-    Publisher,
-    Subscriber,
-};
 use crate::prelude::*;
 use core::marker::PhantomData;
 use ropes_primitives::prelude::*;
 
+/// Implements a [`Publisher`] based on a [`Vec`] of [`Subscriber`]s.
+/// # Example
+/// ``` rust
+/// 
+/// ```
 pub struct VecPublisher<M, S>
 where
     S: Subscriber<M>,
