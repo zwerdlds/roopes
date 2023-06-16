@@ -1,2 +1,2 @@
 [workspace]
-members = ["ropes_lib", "ropes_examples", "ropes_tests"]
+members = ["roopes_lib", "roopes_examples", "roopes_tests"]

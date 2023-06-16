@@ -1,0 +1,16 @@
+[package]
+name = "roopes_patterns"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+doctest = true
+
+[dependencies]
+enclose = "1.1.8"
+delegate = "0.9.0"
+roopes_primitives = { path = "../roopes_primitives" }
+
+
+[dev-dependencies]
+roopes ={ path = "../roopes_lib"}

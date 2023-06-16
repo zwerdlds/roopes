@@ -1,6 +1,6 @@
-![ropes project logo](promo/Logo.svg)
+![roopes project logo](promo/Logo.svg)
 
-Ropes is a Rust Object Oriented Programming Element System.
+Roopes is a Rust Object Oriented Programming Element System.
 This crate provides generic traits and implementations for typical object-oriented patterns in Rust.
 It is intended to be used as a cluster of utility classes for implementing OOP-architected executables -- *in Rust!*.
 
@@ -24,7 +24,7 @@ It has also been observed that the use of `dyn` is inherently inefficient in Rus
 To install, add the crate to your `cargo.toml` as usual.
 The types provided are minimal, but the provided implementations should facilitate the most common uses.
 
-`use ropes::prelude::*` will expose the essential traits.
+`use roopes::prelude::*` will expose the essential traits.
 Implementations are not exposed through `prelude` -- to use them, the specific implementation must be referenced in their module, such as `ropes::patterns::builder::Lambda`.
 Users are suggested to use implementations in the following pattern to maintain hygienic namespace references.
 Note in particular, `command::Lambda` is referable directly after including `prelude::*`:
@@ -43,25 +43,25 @@ They can be used independently, but don't necessarily conform to a more widely-a
 [Please don't @ me.](https://en.wikipedia.org/wiki/Greenspun%27s_tenth_rule)
 | Pattern                                              | Use                                                     | Namespace under `prelude` |
 | :--------------------------------------------------- | :------------------------------------------------------ | :------------------------ |
-| [`Attachable`](./ropes_primitives/src/attachable/)   | Provide an object to reference by another object.       | `attachable`              |
-| [`Detachable`](./ropes_primitives/src/detachable/)   | Remove a previously added object from being referenced. | `detachable`              |
-| [`Emitter`](./ropes_primitives/src/emitter/)         | Returns values.                                         | `emitter`                 |
-| [`Executable`](./ropes_primitives/src/executable/)   | Obfuscates the execution some block of code.            | `executable`              |
-| [`Handler`](./ropes_primitives/src/handler/)         | Consumes some value.                                    | `handler`                 |
-| [`Transformer`](./ropes_primitives/src/transformer/) | Consumes and returns values.                            | `transformer`             |
+| [`Attachable`](./roopes_primitives/src/attachable/)   | Provide an object to reference by another object.       | `attachable`              |
+| [`Detachable`](./roopes_primitives/src/detachable/)   | Remove a previously added object from being referenced. | `detachable`              |
+| [`Emitter`](./roopes_primitives/src/emitter/)         | Returns values.                                         | `emitter`                 |
+| [`Executable`](./roopes_primitives/src/executable/)   | Obfuscates the execution some block of code.            | `executable`              |
+| [`Handler`](./roopes_primitives/src/handler/)         | Consumes some value.                                    | `handler`                 |
+| [`Transformer`](./roopes_primitives/src/transformer/) | Consumes and returns values.                            | `transformer`             |
 
 ## Patterns
 The generally accepted, GoF-style patterns, most commonly used by developers.
 | Pattern                                                                  | Use                                          | Namespace under `prelude` |
 | :----------------------------------------------------------------------- | :------------------------------------------- | :------------------------ |
-| [`Abstract Factory`](./ropes_lib/src/patterns/abstract_factory/)         | Abstracts creating objects.                  | `abstract_factory`        |
+| [`Abstract Factory`](./roopes_lib/src/patterns/abstract_factory/)         | Abstracts creating objects.                  | `abstract_factory`        |
 | [`Builder`](./ropes_derive/src/builder/)                                 | Aids in the construction of similar objects. | `builder`                 |
-| [`Command`](./ropes_lib/src/patterns/command/)                           | Encapsulates a block of executable code.     | `command`                 |
-| [`Heap Pool`](./ropes_lib/src/patterns/heap_pool/)                       | Reduces heap thrashing.                      | `heap_pool`               |
-| [`Observer`](./ropes_lib/src/patterns/observer/)                         | Executes dynamic blocks of code.             | `observer`                |
-| [`Publisher Subscriber`](./ropes_lib/src/patterns/publisher_subscriber/) | Sends messages to consuming blocks of code.  | `publisher_subscriber`    |
-| [`State`](./ropes_lib/src/patterns/state/)                               | Alters its context's behavior dynamically.   | `state`                   |
-| [`Visitor`](./ropes_lib/src/patterns/visitor/)                           | Type-based, multiple-object interactions.    | `visitor`                 |
+| [`Command`](./roopes_lib/src/patterns/command/)                           | Encapsulates a block of executable code.     | `command`                 |
+| [`Heap Pool`](./roopes_lib/src/patterns/heap_pool/)                       | Reduces heap thrashing.                      | `heap_pool`               |
+| [`Observer`](./roopes_lib/src/patterns/observer/)                         | Executes dynamic blocks of code.             | `observer`                |
+| [`Publisher Subscriber`](./roopes_lib/src/patterns/publisher_subscriber/) | Sends messages to consuming blocks of code.  | `publisher_subscriber`    |
+| [`State`](./roopes_lib/src/patterns/state/)                               | Alters its context's behavior dynamically.   | `state`                   |
+| [`Visitor`](./roopes_lib/src/patterns/visitor/)                           | Type-based, multiple-object interactions.    | `visitor`                 |
 
 ## Aggregates
 These patterns build on the common and primitive functions to provide bridges between patterns.
@@ -69,15 +69,15 @@ E.g: `Command` and the primitive `Executable` correspond closely, so a bridge st
 These are provided to make the common case of moving between the given traits simpler, most often by calling `.into`.
 | Pattern                                                                  | Use                                 | Namespace under `prelude` |
 | :----------------------------------------------------------------------- | :---------------------------------- | :------------------------ |
-| [`Executable Command`](./ropes_lib/src/aggregates/executable_command/)   | Adapts `Executable` from `Command`. | `executable_command`      |
-| [`Observing Command`](./ropes_lib/src/aggregates/observing_command/)     | Adapts `Observer` from `Command`.   | `observing_command`       |
-| [`Subscribing Handler`](./ropes_lib/src/aggregates/subscribing_handler/) | Adapts `Subscriber` from `Handler`. | `subscribing_handler`     |
+| [`Executable Command`](./roopes_lib/src/aggregates/executable_command/)   | Adapts `Executable` from `Command`. | `executable_command`      |
+| [`Observing Command`](./roopes_lib/src/aggregates/observing_command/)     | Adapts `Observer` from `Command`.   | `observing_command`       |
+| [`Subscribing Handler`](./roopes_lib/src/aggregates/subscribing_handler/) | Adapts `Subscriber` from `Handler`. | `subscribing_handler`     |
 
 # Examples
-## [lambda-logger](./ropes_examples/lambda-logger/)
+## [lambda-logger](./roopes_examples/lambda-logger/)
 Demonstrates a stateful, functional-style logger system of a contrived logging system.
 
-## [structuted-logger](./ropes_examples/structured-logger/)
+## [structuted-logger](./roopes_examples/structured-logger/)
 Demonstrates a decoupled logging system.
 
 # A Note on Issues

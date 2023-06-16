@@ -54,30 +54,30 @@ dependencies = [
 ]
 
 [[package]]
-name = "ropes"
+name = "roopes"
 version = "0.1.0"
 dependencies = [
  "delegate",
  "enclose",
- "ropes_aggregates",
- "ropes_derive",
- "ropes_patterns",
- "ropes_primitives",
+ "roopes_aggregates",
+ "roopes_derive",
+ "roopes_patterns",
+ "roopes_primitives",
 ]
 
 [[package]]
-name = "ropes_aggregates"
+name = "roopes_aggregates"
 version = "0.1.0"
 dependencies = [
  "delegate",
  "enclose",
- "ropes_derive",
- "ropes_patterns",
- "ropes_primitives",
+ "roopes_derive",
+ "roopes_patterns",
+ "roopes_primitives",
 ]
 
 [[package]]
-name = "ropes_derive"
+name = "roopes_derive"
 version = "0.1.0"
 dependencies = [
  "delegate",
@@ -86,48 +86,49 @@ dependencies = [
  "prettyplease",
  "proc-macro2",
  "quote",
- "ropes_patterns",
- "ropes_primitives",
+ "roopes_patterns",
+ "roopes_primitives",
  "syn 2.0.18",
 ]
 
 [[package]]
-name = "ropes_examples"
+name = "roopes_examples"
 version = "0.1.0"
 dependencies = [
  "delegate",
- "ropes",
+ "roopes",
+ "roopes_derive",
 ]
 
 [[package]]
-name = "ropes_patterns"
+name = "roopes_patterns"
 version = "0.1.0"
 dependencies = [
  "delegate",
  "enclose",
- "ropes",
- "ropes_primitives",
+ "roopes",
+ "roopes_primitives",
 ]
 
 [[package]]
-name = "ropes_primitives"
+name = "roopes_primitives"
 version = "0.1.0"
 dependencies = [
  "delegate",
  "enclose",
- "ropes",
+ "roopes",
 ]
 
 [[package]]
-name = "ropes_tests"
+name = "roopes_tests"
 version = "0.1.0"
 dependencies = [
  "delegate",
  "enclose",
- "ropes",
- "ropes_aggregates",
- "ropes_patterns",
- "ropes_primitives",
+ "roopes",
+ "roopes_aggregates",
+ "roopes_patterns",
+ "roopes_primitives",
 ]
 
 [[package]]

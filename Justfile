@@ -11,9 +11,9 @@ dev-loop:
 
 dev-loop-inner: 
     just build-diagrams
-    just format
     just test
     just test-examples
+    just format
     just verify
     just update-coverage
 
