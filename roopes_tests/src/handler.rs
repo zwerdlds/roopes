@@ -4,6 +4,7 @@ use std::marker::PhantomData;
 mod tests
 {
     use roopes::prelude::*;
+    use roopes_patterns::abstract_factory::lambda::Delegate;
     use std::{
         cell::RefCell,
         rc::Rc,
@@ -15,10 +16,13 @@ mod tests
         let has_run = Rc::new(RefCell::new(false));
         let has_run_ext = has_run.clone();
 
-        let lc = handler::Lambda::new(move |v| {
+        let fn_handler = move |v: &bool| {
             (*has_run_ext.borrow_mut()) = *v;
-        });
-        lc.handle(&true);
+        };
+
+        let lambda_handler: handler::Lambda<_, bool> = fn_handler.into();
+
+        lambda_handler.handle(&true);
 
         assert!((*has_run.borrow()));
     }

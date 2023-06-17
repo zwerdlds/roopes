@@ -33,6 +33,8 @@ mod tests
 
         publisher.attach(subscriber);
 
+        assert!(!(*has_run.borrow()));
+
         publisher.publish(&true);
 
         assert!((*has_run.borrow()));

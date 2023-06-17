@@ -3,6 +3,7 @@ mod tests
 {
     use enclose::enclose;
     use roopes::prelude::*;
+    use roopes_patterns::abstract_factory::lambda;
     use std::{
         cell::RefCell,
         rc::Rc,
@@ -69,6 +70,43 @@ mod tests
 
         hs.notify();
         assert!((*has_run_toggle.borrow()));
+    }
+
+    #[test]
+    fn observing_command_equality()
+    {
+        let lambda_command = command::Lambda::new(|| {}.into());
+        let lambda_command2 = command::Lambda::new(|| {}.into());
+
+        let heap_command = command::Heap::new(Box::new(lambda_command));
+        let heap_command2 = command::Heap::new(Box::new(lambda_command2));
+
+        let hashable_command =
+            command::Hashable::new(heap_command, TestCommands::HasRunToggle);
+        let hashable_command2 =
+            command::Hashable::new(heap_command2, TestCommands::HasRunToggle);
+
+        let observing_command: ObservingCommand<_> = hashable_command.into();
+        let observing_command2: ObservingCommand<_> = hashable_command2.into();
+
+        assert!(observing_command == observing_command2);
+    }
+
+    #[test]
+    fn toggle_subject_inequality()
+    {
+        let lambda_command = command::Lambda::new(|| {}.into());
+        let lambda_command2 = command::Lambda::new(|| {}.into());
+
+        let heap_command = command::Heap::new(Box::new(lambda_command));
+        let heap_command2 = command::Heap::new(Box::new(lambda_command2));
+
+        let hashable_command =
+            command::Hashable::new(heap_command, TestCommands::HasRunToggle);
+        let hashable_command2 =
+            command::Hashable::new(heap_command2, TestCommands::HasRunTwo);
+
+        assert!(hashable_command != hashable_command2);
     }
 
     #[test]

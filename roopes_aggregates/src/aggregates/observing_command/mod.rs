@@ -59,7 +59,7 @@ where
         other: &Self,
     ) -> bool
     {
-        self.command == other.command
+        self.command.eq(&other.command)
     }
 }
 

@@ -1,21 +1,22 @@
 watch:
     cargo watch \
         --why \
-        --shell "just dev-loop" \
+        --shell 'just dev-loop' \
         --ignore '*.svg' \
-        --ignore 'lcov.info'
+        --ignore 'lcov.info' \
+        --ignore '/home/zwerdlds/Development/roopes/mutants.out*/**'
 
 dev-loop:
-    clear
     just dev-loop-inner
 
 dev-loop-inner: 
-    just build-diagrams
+    just build-diagrams &
     just test
     just test-examples
     just format
     just verify
     just update-coverage
+    just mutants
 
 test:
     cargo test --workspace -q
@@ -44,6 +45,7 @@ build-diagrams:
 update-coverage:
     cargo tarpaulin \
         --out Lcov \
-        --skip-clean \
-        \
-        &> /dev/null
+        --skip-clean
+
+mutants:
+    cargo mutants --jobs 24

@@ -1,7 +1,9 @@
 pub mod hashable;
+pub mod heap;
 pub mod lambda;
 
 pub use hashable::Hashable;
+pub use heap::Heap;
 pub use lambda::Lambda;
 
 pub trait Command

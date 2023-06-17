@@ -5,7 +5,6 @@ use roopes_primitives::prelude::*;
 /// Implements a [`Publisher`] based on a [`Vec`] of [`Subscriber`]s.
 /// # Example
 /// ``` rust
-/// 
 /// ```
 pub struct VecPublisher<M, S>
 where
