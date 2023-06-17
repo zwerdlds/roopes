@@ -120,18 +120,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "roopes_tests"
-version = "0.1.0"
-dependencies = [
- "delegate",
- "enclose",
- "roopes",
- "roopes_aggregates",
- "roopes_patterns",
- "roopes_primitives",
-]
-
-[[package]]
 name = "syn"
 version = "1.0.109"
 source = "registry+https://github.com/rust-lang/crates.io-index"

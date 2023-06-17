@@ -1,2 +1,2 @@
 [workspace]
-members = ["roopes_lib", "roopes_examples", "roopes_tests"]
+members = ["roopes_lib", "roopes_examples"]

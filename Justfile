@@ -48,4 +48,4 @@ update-coverage:
         --skip-clean
 
 mutants:
-    cargo mutants --jobs 24
+    cargo mutants --no-times

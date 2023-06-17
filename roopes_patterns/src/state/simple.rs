@@ -3,6 +3,7 @@ use super::{
     State,
 };
 
+#[allow(clippy::module_name_repetitions)]
 pub struct SimpleContext<S>
 where
     S: State,
@@ -19,6 +20,11 @@ where
         Self {
             state: starting_state,
         }
+    }
+
+    pub fn get_state(&self) -> &S
+    {
+        &self.state
     }
 }
 
