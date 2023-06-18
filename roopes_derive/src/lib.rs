@@ -10,11 +10,11 @@ mod visitor;
 #[proc_macro_derive(Builder)]
 pub fn derive_builder(input: TokenStream) -> TokenStream
 {
-    builder::derive::derive(input)
+    builder::derive(input)
 }
 
 #[proc_macro_derive(Visitor)]
 pub fn derive_visitor(input: TokenStream) -> TokenStream
 {
-    visitor::derive::derive(input)
+    visitor::derive(input)
 }

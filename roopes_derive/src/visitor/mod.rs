@@ -1,11 +1,9 @@
-#[allow(clippy::module_name_repetitions)]
-pub mod derive;
+pub mod token_stream_visitor_factory;
 
-// pub trait Element<V>
-// where
-//     V: Visitor<Self>,
-// {
-//     fn accept(visitor: &V);
-// }
+use proc_macro::TokenStream;
+use token_stream_visitor_factory::TokenStreamVisitorFactory;
 
-// pub trait Visitor<E> {}
+pub fn derive(input: TokenStream) -> TokenStream
+{
+    TokenStreamVisitorFactory::new_from_token_stream(input).build()
+}

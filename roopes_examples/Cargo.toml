@@ -3,6 +3,8 @@ name = "roopes_examples"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+
 [dependencies]
 roopes = { path = "../roopes_lib" }
 delegate = "0.9.0"
@@ -10,12 +12,12 @@ roopes_derive = { path = "../roopes_derive" }
 
 [[example]]
 name = "structured-logger"
-path = "structured-logger/main.rs"
+path = "src/structured-logger/main.rs"
 
 [[example]]
 name = "lambda-logger"
-path = "lambda-logger/main.rs"
+path = "src/lambda-logger/main.rs"
 
 [[example]]
 name = "collision-simulator"
-path = "collision-simulator/main.rs"
+path = "src/collision-simulator/main.rs"

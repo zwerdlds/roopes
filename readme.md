@@ -41,8 +41,8 @@ Traits describing patterns are placed in one of three categories:
 These form the basis of re-used abstractions used by patterns.
 They can be used independently, but don't necessarily conform to a more widely-accepted pattern, so that may lead to undesirable qualities in your project if used directly.
 [Please don't @ me.](https://en.wikipedia.org/wiki/Greenspun%27s_tenth_rule)
-| Pattern                                              | Use                                                     | Namespace under `prelude` |
-| :--------------------------------------------------- | :------------------------------------------------------ | :------------------------ |
+| Pattern                                               | Use                                                     | Namespace under `prelude` |
+| :---------------------------------------------------- | :------------------------------------------------------ | :------------------------ |
 | [`Attachable`](./roopes_primitives/src/attachable/)   | Provide an object to reference by another object.       | `attachable`              |
 | [`Detachable`](./roopes_primitives/src/detachable/)   | Remove a previously added object from being referenced. | `detachable`              |
 | [`Emitter`](./roopes_primitives/src/emitter/)         | Returns values.                                         | `emitter`                 |
@@ -52,23 +52,23 @@ They can be used independently, but don't necessarily conform to a more widely-a
 
 ## Patterns
 The generally accepted, GoF-style patterns, most commonly used by developers.
-| Pattern                                                                  | Use                                          | Namespace under `prelude` |
-| :----------------------------------------------------------------------- | :------------------------------------------- | :------------------------ |
+| Pattern                                                                   | Use                                          | Namespace under `prelude` |
+| :------------------------------------------------------------------------ | :------------------------------------------- | :------------------------ |
 | [`Abstract Factory`](./roopes_lib/src/patterns/abstract_factory/)         | Abstracts creating objects.                  | `abstract_factory`        |
-| [`Builder`](./ropes_derive/src/builder/)                                 | Aids in the construction of similar objects. | `builder`                 |
+| [`Builder`](./ropes_derive/src/builder/)                                  | Aids in the construction of similar objects. | `builder`                 |
 | [`Command`](./roopes_lib/src/patterns/command/)                           | Encapsulates a block of executable code.     | `command`                 |
 | [`Heap Pool`](./roopes_lib/src/patterns/heap_pool/)                       | Reduces heap thrashing.                      | `heap_pool`               |
 | [`Observer`](./roopes_lib/src/patterns/observer/)                         | Executes dynamic blocks of code.             | `observer`                |
 | [`Publisher Subscriber`](./roopes_lib/src/patterns/publisher_subscriber/) | Sends messages to consuming blocks of code.  | `publisher_subscriber`    |
-| [`State`](./roopes_lib/src/patterns/state/)                               | Alters its context's behavior dynamically.   | `state`                   |
+| [`State`](./roopes_lib/src/patterns/state/)                               | Controls a parent context.                   | `state`                   |
 | [`Visitor`](./roopes_lib/src/patterns/visitor/)                           | Type-based, multiple-object interactions.    | `visitor`                 |
 
 ## Aggregates
 These patterns build on the common and primitive functions to provide bridges between patterns.
 E.g: `Command` and the primitive `Executable` correspond closely, so a bridge struct which implements `Executable` for `Command` via a marker class forwards calls via a `Box<dyn Command>`.
 These are provided to make the common case of moving between the given traits simpler, most often by calling `.into`.
-| Pattern                                                                  | Use                                 | Namespace under `prelude` |
-| :----------------------------------------------------------------------- | :---------------------------------- | :------------------------ |
+| Pattern                                                                   | Use                                 | Namespace under `prelude` |
+| :------------------------------------------------------------------------ | :---------------------------------- | :------------------------ |
 | [`Executable Command`](./roopes_lib/src/aggregates/executable_command/)   | Adapts `Executable` from `Command`. | `executable_command`      |
 | [`Observing Command`](./roopes_lib/src/aggregates/observing_command/)     | Adapts `Observer` from `Command`.   | `observing_command`       |
 | [`Subscribing Handler`](./roopes_lib/src/aggregates/subscribing_handler/) | Adapts `Subscriber` from `Handler`. | `subscribing_handler`     |
@@ -97,7 +97,7 @@ The `delegate!` macro enables these streamlined implementations.
 
 This package is used to simplify the process of copying reference-counted objects to and from lambdas.
 
-# Adendum
+# Addendum
 ## OOP in Rust?  Are you crazy!?
 Nope!
 Once you accept that `Rc<...>` doesn't incur that much overhead, especially if the client algorithms are organized to help with memory locality, it's really not that bad.

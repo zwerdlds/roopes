@@ -59,21 +59,17 @@ version = "0.1.0"
 dependencies = [
  "delegate",
  "enclose",
- "roopes_aggregates",
+ "roopes_core",
  "roopes_derive",
- "roopes_patterns",
- "roopes_primitives",
 ]
 
 [[package]]
-name = "roopes_aggregates"
+name = "roopes_core"
 version = "0.1.0"
 dependencies = [
  "delegate",
  "enclose",
- "roopes_derive",
- "roopes_patterns",
- "roopes_primitives",
+ "roopes",
 ]
 
 [[package]]
@@ -86,8 +82,7 @@ dependencies = [
  "prettyplease",
  "proc-macro2",
  "quote",
- "roopes_patterns",
- "roopes_primitives",
+ "roopes_core",
  "syn 2.0.18",
 ]
 
@@ -98,25 +93,6 @@ dependencies = [
  "delegate",
  "roopes",
  "roopes_derive",
-]
-
-[[package]]
-name = "roopes_patterns"
-version = "0.1.0"
-dependencies = [
- "delegate",
- "enclose",
- "roopes",
- "roopes_primitives",
-]
-
-[[package]]
-name = "roopes_primitives"
-version = "0.1.0"
-dependencies = [
- "delegate",
- "enclose",
- "roopes",
 ]
 
 [[package]]
