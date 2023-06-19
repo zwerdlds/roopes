@@ -37,7 +37,7 @@ impl Attachable<LogMessageSubscriber> for LogPublisher
 {
     delegate! {
         to self.publisher{
-            fn attach(&mut self, subscriber: LogMessageSubscriber);
+            fn attach(&self, subscriber: LogMessageSubscriber);
         }
     }
 }

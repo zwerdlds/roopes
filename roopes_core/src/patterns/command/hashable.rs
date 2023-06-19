@@ -7,37 +7,37 @@ pub trait Subject = Hash + Eq;
 #[derive(Debug)]
 pub struct Hashable<D, H>
 where
-    D: Delegate,
+    D: Command,
     H: Subject,
 {
-    delegate: D,
+    command: D,
     id: H,
 }
 
 impl<D, H> Hashable<D, H>
 where
-    D: Delegate,
+    D: Command,
     H: Subject,
 {
     pub fn new(
-        delegate: D,
+        command: D,
         id: H,
     ) -> Hashable<D, H>
     {
-        Hashable { delegate, id }
+        Hashable { command, id }
     }
 }
 
 impl<D, H> Eq for Hashable<D, H>
 where
-    D: Delegate,
+    D: Command,
     H: Subject,
 {
 }
 
 impl<D, H> PartialEq<Self> for Hashable<D, H>
 where
-    D: Delegate,
+    D: Command,
     H: Subject,
 {
     fn eq(
@@ -51,7 +51,7 @@ where
 
 impl<D, H> Hash for Hashable<D, H>
 where
-    D: Delegate,
+    D: Command,
     H: Subject,
 {
     fn hash<R: std::hash::Hasher>(
@@ -65,11 +65,11 @@ where
 
 impl<D, H> Command for Hashable<D, H>
 where
-    D: Delegate,
+    D: Command,
     H: Subject,
 {
     fn execute(&self)
     {
-        self.delegate.execute();
+        self.command.execute();
     }
 }

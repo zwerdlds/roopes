@@ -5,6 +5,8 @@ use super::{
 };
 use crate::prelude::*;
 use std::{
+    borrow::BorrowMut,
+    cell::RefCell,
     collections::HashSet,
     hash::Hash,
 };
@@ -26,10 +28,11 @@ pub trait HashSetObserver = Observer + Eq + Hash;
 /// let mut hs = observer::HashSubject::default();
 ///
 /// let has_run = Rc::new(RefCell::new(false));
-/// let lc:ObservingCommand<_> = command::Hashable::new(
-///     command::Lambda::new(enclose!((has_run) move || {
+/// let lc: ObservingCommand<_> = command::Hashable::new(
+///     command::Executable::new_lambda(enclose!((has_run) move || {
 ///         (*has_run.borrow_mut()) = true;
-///     })), "Has Run").into();
+///     })),
+///     "Has Run").into();
 ///
 /// hs.attach(lc);
 ///
@@ -41,18 +44,7 @@ pub struct HashSubject<O>
 where
     O: HashSetObserver,
 {
-    listeners: HashSet<O>,
-}
-
-impl<O> HashSubject<O>
-where
-    O: HashSetObserver,
-{
-    #[must_use]
-    pub fn new(listeners: HashSet<O>) -> HashSubject<O>
-    {
-        HashSubject { listeners }
-    }
+    listeners: RefCell<HashSet<O>>,
 }
 
 impl<O> Default for HashSubject<O>
@@ -61,9 +53,18 @@ where
 {
     fn default() -> HashSubject<O>
     {
-        let listeners = HashSet::new();
+        Self::new(RefCell::default())
+    }
+}
 
-        HashSubject::new(listeners)
+impl<O> HashSubject<O>
+where
+    O: HashSetObserver,
+{
+    #[must_use]
+    pub fn new(listeners: RefCell<HashSet<O>>) -> HashSubject<O>
+    {
+        HashSubject { listeners }
     }
 }
 
@@ -73,7 +74,7 @@ where
 {
     fn notify(&self)
     {
-        self.listeners.iter().for_each(Observer::notify);
+        self.listeners.borrow().iter().for_each(Observer::notify);
     }
 }
 
@@ -82,11 +83,11 @@ where
     O: HashSetObserver,
 {
     fn attach(
-        &mut self,
+        &self,
         attach_observer: O,
     )
     {
-        self.listeners.insert(attach_observer);
+        self.listeners.borrow_mut().insert(attach_observer);
     }
 }
 
@@ -95,11 +96,11 @@ where
     O: HashSetObserver,
 {
     fn detach(
-        &mut self,
-        detach_observer: O,
+        &self,
+        detach_observer: &O,
     ) -> Result<(), DetachError>
     {
-        if self.listeners.remove(&detach_observer) {
+        if self.listeners.borrow_mut().remove(detach_observer) {
             Ok(())
         } else {
             Err(DetachError::ObserverNotFound)

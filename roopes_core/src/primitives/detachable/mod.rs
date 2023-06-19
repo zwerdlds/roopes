@@ -5,8 +5,8 @@ pub trait Detachable<O, S, E>
     /// # Errors
     /// E: The detaching somehow encountered a fault.
     fn detach(
-        &mut self,
-        object: O,
+        &self,
+        object: &O,
     ) -> Result<S, E>;
 }
 #[allow(clippy::module_name_repetitions)]

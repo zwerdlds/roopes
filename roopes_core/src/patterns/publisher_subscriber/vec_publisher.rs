@@ -1,5 +1,6 @@
 use crate::prelude::*;
 use core::marker::PhantomData;
+use std::cell::RefCell;
 
 /// Implements a [`Publisher`] based on a [`Vec`] of [`Subscriber`]s.
 /// # Example
@@ -9,22 +10,8 @@ pub struct VecPublisher<M, S>
 where
     S: Subscriber<M>,
 {
-    listeners: Vec<S>,
+    listeners: RefCell<Vec<S>>,
     _retain_types: PhantomData<M>,
-}
-
-impl<M, S> VecPublisher<M, S>
-where
-    S: Subscriber<M>,
-{
-    #[must_use]
-    pub fn new(listeners: Vec<S>) -> VecPublisher<M, S>
-    {
-        VecPublisher {
-            listeners,
-            _retain_types: PhantomData::default(),
-        }
-    }
 }
 
 impl<M, S> Default for VecPublisher<M, S>
@@ -33,7 +20,21 @@ where
 {
     fn default() -> Self
     {
-        Self::new(Vec::new())
+        Self::new(RefCell::default())
+    }
+}
+
+impl<M, S> VecPublisher<M, S>
+where
+    S: Subscriber<M>,
+{
+    #[must_use]
+    pub fn new(listeners: RefCell<Vec<S>>) -> VecPublisher<M, S>
+    {
+        VecPublisher {
+            listeners,
+            _retain_types: PhantomData::default(),
+        }
     }
 }
 
@@ -46,7 +47,10 @@ where
         message: &M,
     )
     {
-        self.listeners.iter().for_each(|s| s.receive(message));
+        self.listeners
+            .borrow()
+            .iter()
+            .for_each(|s| s.receive(message));
     }
 }
 
@@ -55,11 +59,11 @@ where
     S: Subscriber<M>,
 {
     fn attach(
-        &mut self,
+        &self,
         attach_subscriber: S,
     )
     {
-        self.listeners.push(attach_subscriber);
+        self.listeners.borrow_mut().push(attach_subscriber);
     }
 }
 
@@ -75,18 +79,19 @@ where
     S: Subscriber<M> + Eq,
 {
     fn detach(
-        &mut self,
-        detach_subscriber: S,
+        &self,
+        detach_subscriber: &S,
     ) -> Result<(), DetachError>
     {
         let (i, _) = self
             .listeners
+            .borrow()
             .iter()
             .enumerate()
-            .find(|(_, o)| o.eq(&&detach_subscriber))
+            .find(|(_, o)| o.eq(&detach_subscriber))
             .ok_or(DetachError::SubscriberNotFound)?;
 
-        self.listeners.swap_remove(i);
+        self.listeners.borrow_mut().swap_remove(i);
 
         Ok(())
     }

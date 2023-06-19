@@ -1,5 +1,8 @@
+use crate::prelude::{
+    observer::HashSubject,
+    *,
+};
 use enclose::enclose;
-use roopes::prelude::*;
 use std::{
     cell::RefCell,
     rc::Rc,
@@ -15,16 +18,14 @@ enum TestCommands
 #[test]
 fn simple_hashset_subject_notify()
 {
-    let mut hs = observer::HashSubject::default();
+    let hs = observer::HashSubject::default();
 
     let has_run = Rc::new(RefCell::new(false));
     let has_run_ext = has_run.clone();
 
-    let lc = command::Lambda::new(move || {
-        {
-            (*has_run_ext.borrow_mut()) = true;
-        }
-    });
+    let lc = command::Executable::new(executable::Lambda::new(move || {
+        (*has_run_ext.borrow_mut()) = true;
+    }));
 
     let hc: observing_command::ObservingCommand<_> =
         command::Hashable::new(lc, TestCommands::HasRun).into();
@@ -39,18 +40,17 @@ fn simple_hashset_subject_notify()
 #[test]
 fn toggle_hashset_subject_notify()
 {
-    let mut hs = observer::HashSubject::default();
+    let hs = observer::HashSubject::default();
 
     let has_run_toggle = Rc::new(RefCell::new(false));
-    let lc = command::Lambda::new(enclose!(
-        (has_run_toggle) move || {
-            {
-                let tgl = *has_run_toggle.borrow();
-                (*has_run_toggle.borrow_mut()) = !tgl;
-            }
-            .into()
+    let lc = command::Executable::new(executable::Lambda::new(enclose!(
+    (has_run_toggle) move || {
+        {
+            let tgl = *has_run_toggle.borrow();
+            (*has_run_toggle.borrow_mut()) = !tgl;
         }
-    ));
+        .into()
+    })));
 
     let hc: ObservingCommand<_> =
         command::Hashable::new(lc, TestCommands::HasRunToggle).into();
@@ -71,8 +71,8 @@ fn toggle_hashset_subject_notify()
 #[test]
 fn observing_command_equality()
 {
-    let lambda_command = command::Lambda::new(|| {}.into());
-    let lambda_command2 = command::Lambda::new(|| {}.into());
+    let lambda_command = command::Executable::new_lambda(|| {});
+    let lambda_command2 = command::Executable::new_lambda(|| {});
 
     let heap_command = command::Heap::new(Box::new(lambda_command));
     let heap_command2 = command::Heap::new(Box::new(lambda_command2));
@@ -91,8 +91,8 @@ fn observing_command_equality()
 #[test]
 fn toggle_subject_inequality()
 {
-    let lambda_command = command::Lambda::new(|| {}.into());
-    let lambda_command2 = command::Lambda::new(|| {}.into());
+    let lambda_command = command::Executable::new_lambda(|| {}.into());
+    let lambda_command2 = command::Executable::new_lambda(|| {}.into());
 
     let heap_command = command::Heap::new(Box::new(lambda_command));
     let heap_command2 = command::Heap::new(Box::new(lambda_command2));
@@ -108,11 +108,11 @@ fn toggle_subject_inequality()
 #[test]
 fn multiple_hashset_subject_notify()
 {
-    let mut hs = observer::HashSubject::default();
+    let hs = observer::HashSubject::default();
 
     let has_run_1 = Rc::new(RefCell::new(false));
 
-    let lc = command::Lambda::new(enclose!(
+    let lc = command::Executable::new_lambda(enclose!(
         (has_run_1) move || {
             (*has_run_1.borrow_mut()) = true;
         }
@@ -127,18 +127,22 @@ fn multiple_hashset_subject_notify()
     hs.notify();
     assert!((*has_run_1.borrow()));
 
-    let mut hs: observer::HashSubject<ObservingCommand<_>> = Default::default();
+    let hs: HashSubject<_> = observer::HashSubject::default();
 
     let has_run_2 = Rc::new(RefCell::new(false));
 
-    let lc = command::Lambda::new(enclose!(
-        (has_run_2) move || {
-            (*has_run_2.borrow_mut()) = true;
-        }
-    ));
-    let hc = command::Hashable::new(lc, TestCommands::HasRunTwo);
+    let lc = command::Heap::new(Box::new(command::Executable::new_lambda(
+        enclose!(
+            (has_run_2) move || {
+                (*has_run_2.borrow_mut()) = true;
+            }
+        ),
+    )));
 
-    hs.attach(hc.into());
+    let hc: ObservingCommand<_> =
+        command::Hashable::new(lc, TestCommands::HasRunTwo).into();
+
+    hs.attach(hc);
 
     assert!((*has_run_1.borrow()));
     assert!(!(*has_run_2.borrow()));
@@ -152,27 +156,28 @@ fn multiple_hashset_subject_notify()
 #[test]
 fn overwrite_hashset_subject_notify()
 {
-    let mut hs = observer::HashSubject::default();
+    let hs = observer::HashSubject::default();
 
     let has_run_1 = Rc::new(RefCell::new(false));
 
-    let lc = command::Lambda::new(enclose!(
+    let lc = command::Heap::new(Box::new(command::Executable::new_lambda(
+        enclose!(
         (has_run_1) move || {
             (*has_run_1.borrow_mut()) = true;
-        }
-    ));
+        }),
+    )));
 
     let hc: ObservingCommand<_> =
         command::Hashable::new(lc, TestCommands::HasRun).into();
 
     hs.attach(hc);
 
-    let mut hs: observer::HashSubject<ObservingCommand<_>> =
+    let hs: observer::HashSubject<ObservingCommand<_>> =
         observer::HashSubject::default();
 
     let has_run_2 = Rc::new(RefCell::new(false));
 
-    let lc = command::Lambda::new(enclose!(
+    let lc = command::Executable::new_lambda(enclose!(
         (has_run_2) move || {
             (*has_run_2.borrow_mut()) = true;
         }
@@ -193,12 +198,12 @@ fn overwrite_hashset_subject_notify()
 #[test]
 fn simple_vector_subject_notify()
 {
-    let mut vs = observer::VecSubject::default();
+    let vs = observer::VecSubject::default();
 
     let has_run = Rc::new(RefCell::new(false));
     let has_run_ext = has_run.clone();
 
-    let lc: ObservingCommand<_> = command::Lambda::new(move || {
+    let lc: ObservingCommand<_> = command::Executable::new_lambda(move || {
         (*has_run_ext.borrow_mut()) = true;
     })
     .into();
@@ -212,12 +217,12 @@ fn simple_vector_subject_notify()
 #[test]
 fn toggle_vector_subject_notify()
 {
-    let mut vs = observer::VecSubject::default();
+    let vs = observer::VecSubject::default();
 
     let has_run_toggle = Rc::new(RefCell::new(false));
     let has_run_toggle_ext = has_run_toggle.clone();
 
-    let lc: ObservingCommand<_> = command::Lambda::new(move || {
+    let lc: ObservingCommand<_> = command::Executable::new_lambda(move || {
         let tgl = *has_run_toggle_ext.borrow();
 
         (*has_run_toggle_ext.borrow_mut()) = !tgl;
@@ -241,12 +246,12 @@ fn toggle_vector_subject_notify()
 #[test]
 fn multiple_vector_subject_notify()
 {
-    let mut vs = observer::VecSubject::default();
+    let vs = observer::VecSubject::default();
 
     let has_run_1 = Rc::new(RefCell::new(false));
     let has_run_1_ext = has_run_1.clone();
 
-    let lc: ObservingCommand<_> = command::Lambda::new(move || {
+    let lc: ObservingCommand<_> = command::Executable::new_lambda(move || {
         (*has_run_1_ext.borrow_mut()) = true;
     })
     .into();
@@ -258,12 +263,12 @@ fn multiple_vector_subject_notify()
     vs.notify();
     assert!((*has_run_1.borrow()));
 
-    let mut vs = observer::VecSubject::default();
+    let vs = observer::VecSubject::default();
 
     let has_run_2 = Rc::new(RefCell::new(false));
     let has_run_2_ext = has_run_2.clone();
 
-    let lc: ObservingCommand<_> = command::Lambda::new(move || {
+    let lc: ObservingCommand<_> = command::Executable::new_lambda(move || {
         (*has_run_2_ext.borrow_mut()) = true;
     })
     .into();

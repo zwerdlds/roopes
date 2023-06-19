@@ -2,7 +2,7 @@
 pub trait Attachable<O>
 {
     fn attach(
-        &mut self,
+        &self,
         object: O,
     );
 }

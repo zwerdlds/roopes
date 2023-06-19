@@ -1,11 +1,10 @@
 use super::AbstractFactory;
+use crate::prelude::*;
 use std::marker::PhantomData;
-
-pub trait Delegate<R> = (Fn() -> R);
 
 pub struct Lambda<D, R>
 where
-    D: Delegate<R>,
+    D: Emitter<R>,
 {
     delegate: D,
     _retain_types: PhantomData<(D, R)>,
@@ -13,17 +12,17 @@ where
 
 impl<D, R> AbstractFactory<R> for Lambda<D, R>
 where
-    D: Delegate<R>,
+    D: Emitter<R>,
 {
     fn create(&self) -> R
     {
-        (self.delegate)()
+        self.delegate.emit()
     }
 }
 
 impl<D, R> Lambda<D, R>
 where
-    D: Delegate<R>,
+    D: Emitter<R>,
 {
     pub fn new(delegate: D) -> Lambda<D, R>
     {
@@ -36,7 +35,7 @@ where
 
 impl<D, R> From<D> for Lambda<D, R>
 where
-    D: Delegate<R>,
+    D: Emitter<R>,
 {
     fn from(delegate: D) -> Self
     {
