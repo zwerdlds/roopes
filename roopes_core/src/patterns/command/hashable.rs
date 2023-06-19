@@ -1,14 +1,11 @@
 use super::Command;
 use std::hash::Hash;
 
-pub trait Delegate = Command;
-pub trait Subject = Hash + Eq;
-
 #[derive(Debug)]
 pub struct Hashable<D, H>
 where
     D: Command,
-    H: Subject,
+    H: Hash + Eq,
 {
     command: D,
     id: H,
@@ -17,7 +14,7 @@ where
 impl<D, H> Hashable<D, H>
 where
     D: Command,
-    H: Subject,
+    H: Hash + Eq,
 {
     pub fn new(
         command: D,
@@ -31,14 +28,14 @@ where
 impl<D, H> Eq for Hashable<D, H>
 where
     D: Command,
-    H: Subject,
+    H: Hash + Eq,
 {
 }
 
 impl<D, H> PartialEq<Self> for Hashable<D, H>
 where
     D: Command,
-    H: Subject,
+    H: Hash + Eq,
 {
     fn eq(
         &self,
@@ -52,7 +49,7 @@ where
 impl<D, H> Hash for Hashable<D, H>
 where
     D: Command,
-    H: Subject,
+    H: Hash + Eq,
 {
     fn hash<R: std::hash::Hasher>(
         &self,
@@ -66,7 +63,7 @@ where
 impl<D, H> Command for Hashable<D, H>
 where
     D: Command,
-    H: Subject,
+    H: Hash + Eq,
 {
     fn execute(&self)
     {

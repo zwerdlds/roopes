@@ -1,5 +1,11 @@
 use crate::prelude::*;
-use std::marker::PhantomData;
+use std::{
+    hash::Hash,
+    marker::PhantomData,
+};
+
+#[cfg(test)]
+mod test;
 
 pub mod prelude
 {
@@ -40,6 +46,19 @@ where
     }
 }
 
+impl<H, M> Handler<M> for SubscribingHandler<H, M>
+where
+    H: Handler<M>,
+{
+    fn handle(
+        &self,
+        message: &M,
+    )
+    {
+        self.handler.handle(message);
+    }
+}
+
 impl<H, M> From<H> for SubscribingHandler<H, M>
 where
     H: Handler<M>,
@@ -47,5 +66,33 @@ where
     fn from(handler: H) -> Self
     {
         SubscribingHandler::new(handler)
+    }
+}
+
+impl<H, M> PartialEq for SubscribingHandler<H, M>
+where
+    H: PartialEq + Handler<M>,
+{
+    fn eq(
+        &self,
+        other: &Self,
+    ) -> bool
+    {
+        self.handler.eq(&other.handler)
+    }
+}
+
+impl<H, M> Eq for SubscribingHandler<H, M> where H: Eq + Handler<M> {}
+
+impl<H, M> Hash for SubscribingHandler<H, M>
+where
+    H: Handler<M> + Hash,
+{
+    fn hash<S: std::hash::Hasher>(
+        &self,
+        state: &mut S,
+    )
+    {
+        self.handler.hash(state);
     }
 }

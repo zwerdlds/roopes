@@ -22,6 +22,7 @@ pub trait Observer
 }
 
 /// An Error which occurs during detachment.
+#[derive(Debug)]
 pub enum DetachError
 {
     /// The specified observer couldn't be found.

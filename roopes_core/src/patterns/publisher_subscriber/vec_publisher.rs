@@ -68,6 +68,7 @@ where
 }
 
 /// An Error which occurs during detachment.
+#[derive(Debug)]
 pub enum DetachError
 {
     /// The specified subscriber couldn't be found.

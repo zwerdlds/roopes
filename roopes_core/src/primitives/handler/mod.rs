@@ -1,6 +1,8 @@
+pub mod hash;
 pub mod heap;
 pub mod lambda;
 
+pub use hash::Hashable;
 pub use heap::Heap;
 pub use lambda::Lambda;
 

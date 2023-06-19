@@ -17,6 +17,7 @@ dev-loop-inner:
     just verify
     just update-coverage
     just mutants
+    echo -e "\033[0;32mAll Qualitative Tests Passed Successfully.\033[0m"
 
 test:
     cargo test --workspace -q
