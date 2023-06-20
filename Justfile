@@ -1,60 +1,63 @@
-defaultwatch:= "dev-loop-fast"
+defaultwatch:= "dev-loop-iter"
 
 watch watchtarget=defaultwatch:
     cargo watch \
+        --quiet \
+        --clear \
         --why \
         --shell 'just {{watchtarget}}' \
-        --ignore '*.svg' \
-        --ignore 'lcov.info' \
-        --ignore '/home/zwerdlds/Development/roopes/mutants.out*/**'
+        --ignore './**/*.svg' \
+        --ignore './lcov.info' \
+        --ignore './mutants.out*/**'
 
+reinit-workspace:
+    cargo install cargo-watch --force
+    cargo install cargo-tarpaulin --force
+    cargo install cargo-doc --force
+    cargo install cargo-mutants --force
 
-dev-loop:
-    clear
-    just dev-loop-fast
-    echo "format \
+dev-loop-iter:
+    parallel --tty just quietly ::: \
+        test \
+        test-examples \
+        format \
         build-diagrams \
         verify \
         update-coverage \
-        doc" | \
-    parallel --tty just silently {}
-    just silently mutants
-    @echo -e "\033[0;32m .-------------------------------.\033[0m"
-    @echo -e "\033[0;32m | Dev Loop Exited Without Error |\033[0m"
-    @echo -e "\033[0;32m .-------------------------------.\033[0m"
+        doc
 
-
-
-dev-loop-fast:
-    @just silently format
-    @just silently test
+dev-loop-iter-mutants:
+    just dev-loop-iter
+    just mutants
 
 dev-doc:
-    @just dev-loop-fast
-    @just doc
+    just dev-loop-iter-fast
+    just doc
 
 test:
     CARGO_TERM_COLOR="always" \
     cargo test \
-        --target-dir target/tests \
-        --workspace -q
+        --target-dir target/just-test \
+        --workspace \
+        -q
 
-silently recipe:
-    chronic just {{recipe}}
-    @echo -e "\033[0;32m{{recipe}} Exited Without Error.\033[0m"
+quietly recipe:
+    @chronic unbuffer just {{recipe}}
+    @echo -e "\033[0;32m{{recipe}} exited without error.\033[0m"
 
 test-examples:
     CARGO_TERM_COLOR="always" \
     cargo test \
-        --target-dir target/test-examples \
-        --examples -q
+        --target-dir target/just-test-examples \
+        --examples \
+        -q
 
 verify: verify-check verify-clippy
 
 verify-check:
     CARGO_TERM_COLOR="always" \
     cargo check \
-        --target-dir target/check \
+        --target-dir target/just-check \
         --workspace \
         --all-features
 
@@ -62,7 +65,7 @@ verify-clippy:
     CARGO_TERM_COLOR="always" \
     cargo clippy \
         --workspace \
-        --target-dir target/clippy \
+        --target-dir target/just-clippy \
         -- \
             --deny clippy::pedantic \
             --deny clippy::correctness \
@@ -79,7 +82,7 @@ build-diagrams:
 update-coverage:
     CARGO_TERM_COLOR="always" \
     cargo tarpaulin \
-        --target-dir target/tarpaulin \
+        --target-dir target/just-tarpaulin \
         --out Lcov \
         --skip-clean
 
@@ -92,4 +95,4 @@ doc:
     CARGO_TERM_COLOR="always" \
     RUSTFLAGS="-Dmissing_docs" \
     cargo doc \
-        --target-dir target/doc \
+        --target-dir target/just-doc \

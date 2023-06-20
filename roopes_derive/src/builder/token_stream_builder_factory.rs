@@ -83,8 +83,8 @@ impl TokenStreamBuilderFactory
                 #(#fields_declare),*
             }
             impl #builder {
-                pub fn new() -> LoggerBuilder {
-                    LoggerBuilder {
+                pub fn new() -> #builder {
+                    #builder {
                         #(#fields_init),*
                     }
                 }

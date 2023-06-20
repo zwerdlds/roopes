@@ -1,10 +1,15 @@
-pub mod heap;
+//! This module implements the State pattern.
+
 pub mod simple;
 
+/// This trait holds the active state, and acts as a persistent handle for the
+/// state machine, which could otherwise be the states themselves.
 pub trait Context<S>
 where
     S: State,
 {
+    /// Delegates the state transition to the currently active state held by the
+    /// context, probably triggering a state change by the context.
     fn handle(&mut self);
 }
 

@@ -21,6 +21,7 @@ stable.mkShell rec {
       parallel
       rustfmt
       moreutils
+      expect
     ]);
 
   RUST_SRC_PATH = "${stable.rust.packages.stable.rustPlatform.rustLibSrc}";

@@ -1,9 +1,10 @@
-//! Provides a simple wrapper struct around [`Delegate`], `Fn(&I)`
+//! Provides a simple wrapper [`Lambda`] struct around [`Delegate`], `Fn(&I)`
 //! types.
 
 use super::Handler;
 use std::marker::PhantomData;
 
+/// A [`Lambda`] [`Delegate`] receives a borrowed message.
 pub trait Delegate<M> = Fn(&M);
 
 /// Defines an encapsulated [`Handler`] as a struct, which just delegates its

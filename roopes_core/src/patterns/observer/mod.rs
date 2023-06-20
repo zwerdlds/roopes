@@ -1,3 +1,7 @@
+//! Contains types which implement the "Observer" pattern, in which a single
+//! object is used to delegate notifications to a group of dynamic listening
+//! object.
+
 pub mod hash_subject;
 pub mod vec_subject;
 
@@ -12,25 +16,31 @@ mod tests;
 /// all the listeners are notified.
 pub trait Subject
 {
+    /// Triggers the [`Observer`]s corresponding `notify` implementations.
     fn notify(&self);
 }
 
 /// An object notified by a [`Subject`].
 pub trait Observer
 {
+    /// Executes some arbitrary block in the implementing object.
     fn notify(&self);
 }
 
+/// Allows [`Observer`]s to be added to the implementing [`Subject`].
 pub trait AttachableSubject<O>: Subject
 where
     O: Observer,
 {
+    /// Adds the [`Observer`] to the list of elements notified when the
+    /// [`Subject`] is notified.
     fn attach(
         &mut self,
         attach_observer: O,
     );
 }
 
+/// Allows [`Observer`]s to be removed from the implementing [`Subject`].
 pub trait DetachableSubject<O, E>: Subject
 where
     O: Observer,

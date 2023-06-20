@@ -82,6 +82,7 @@ dependencies = [
  "prettyplease",
  "proc-macro2",
  "quote",
+ "roopes",
  "roopes_core",
  "syn 2.0.18",
 ]

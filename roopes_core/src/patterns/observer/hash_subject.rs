@@ -1,3 +1,6 @@
+//! Contains types which allow [`Observer`]s (which implement the appropriate
+//! [`Hash`] and [`Eq`] traits) to be removed dynamically.
+
 use super::{
     Observer,
     Subject,
@@ -10,6 +13,8 @@ use std::{
     hash::Hash,
 };
 
+/// Convenience type representing types which can be added and removed from the
+/// [`HashSetObserver`].
 pub trait HashSetObserver = Observer + Eq + Hash;
 
 /// Implements [`Subject`] backed by a [`HashSet<T>`]. `T` must implement

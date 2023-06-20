@@ -8,8 +8,12 @@ extern crate roopes_derive;
 
 extern crate roopes_core;
 
+/// Exposes the most used types from the library.
 pub mod prelude
 {
     pub use roopes_core::prelude::*;
-    pub use roopes_derive::*;
+    pub use roopes_derive::{
+        Builder,
+        Visitor,
+    };
 }

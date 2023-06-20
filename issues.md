@@ -1,6 +1,19 @@
 # Issues
+## Top
+- Finish initial documentation
+- Maximize test coverage
+- Preview docs
+- Unify docs
+  - ensure svgs are referenced properly
+  - branding reference works in rustdocs
+
+## Medium
+- Sort through backlog
+
+## Backlog
+
+## Incoming
 - Implement patterns
-  - Visitor
   - Prototype
   - Singleton
   - Adapter
@@ -45,7 +58,6 @@
 - Generics naming conventions
 - Investigate using GATs
 - builder <-> emitter
-- investigate state of unit tests
 - parameterized docs
 - refactor builder
   - impl builder<i,o> on proc_macro version
@@ -65,3 +77,7 @@
 - submodules block diagram
 - extends macro
 - top level traits could be better as structs (simplifies boxing) - need investigation on this vs type aliasing, and manual boxing
+- improve use of `delegate`.
+- Visitor macro breakup megamethod creating params
+- justfile dev loop parallelization cleanup
+- visitor add tuple (and one-ple) support

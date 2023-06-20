@@ -1,3 +1,6 @@
+//! Contains an implementation of [`Publisher`] which stores its [`Subscriber`]s
+//! in a [`Vec`].
+
 use super::{
     AttachablePublisher,
     DetachablePublisher,
@@ -65,12 +68,14 @@ impl<M, S> VecPublisher<M, S>
 where
     S: Subscriber<M>,
 {
+    /// Creates a new [`VecPublisher`] with the given [`Vec`] of starting
+    /// [`Subscriber`]s.
     #[must_use]
     pub fn new(listeners: Vec<S>) -> VecPublisher<M, S>
     {
         VecPublisher {
             listeners,
-            _retain_types: PhantomData::default(),
+            _retain_types: PhantomData,
         }
     }
 }

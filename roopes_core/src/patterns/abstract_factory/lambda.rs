@@ -4,6 +4,7 @@ use super::AbstractFactory;
 use crate::prelude::*;
 use std::marker::PhantomData;
 
+/// Created new objects by repeatedly calling its delegated [`Emitter`].
 pub struct Lambda<D, R>
 where
     D: Emitter<R>,
@@ -27,6 +28,7 @@ impl<D, R> Lambda<D, R>
 where
     D: Emitter<R>,
 {
+    /// Creates a new [`Lambda`] from the supplied [`Emitter`].
     pub fn new(delegate: D) -> Lambda<D, R>
     {
         Lambda {

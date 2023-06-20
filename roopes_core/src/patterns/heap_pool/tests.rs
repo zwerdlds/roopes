@@ -44,12 +44,12 @@ fn use_test_obj(test_obj: &RefCell<TestObj>)
 #[test]
 fn heap_pool_direct_expansion()
 {
-    let heap_pool: RefCellBox<
+    let mut heap_pool: RefCellBox<
         TestObj,
         emitter::Lambda<_, _>,
         handler::Lambda<_, _>,
     > = RefCellBox::new(
-        RefCell::new(Vec::new()),
+        Vec::new(),
         create_test_obj.into(),
         5,
         clean_test_obj.into(),
@@ -65,12 +65,12 @@ fn heap_pool_direct_expansion()
 #[test]
 fn heap_pool_indirect_expansion()
 {
-    let heap_pool: RefCellBox<
+    let mut heap_pool: RefCellBox<
         TestObj,
         emitter::Lambda<_, _>,
         handler::Lambda<_, _>,
     > = RefCellBox::new(
-        RefCell::new(Vec::new()),
+        Vec::new(),
         create_test_obj.into(),
         5,
         clean_test_obj.into(),
@@ -86,12 +86,12 @@ fn heap_pool_indirect_expansion()
 #[test]
 fn heap_pool_washing()
 {
-    let heap_pool: RefCellBox<
+    let mut heap_pool: RefCellBox<
         TestObj,
         emitter::Lambda<_, _>,
         handler::Lambda<_, _>,
     > = RefCellBox::new(
-        RefCell::new(Vec::new()),
+        Vec::new(),
         create_test_obj.into(),
         5,
         clean_test_obj.into(),

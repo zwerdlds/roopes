@@ -1,5 +1,7 @@
 //! Provides a simple wrapper struct around [`Delegate`], `Fn(&I)->O`
 //! types.
+
+/// [`Lambda`] [`Delegate`]s given input and produce owned output.
 pub trait Delegate<I, O> = Fn(&I) -> O;
 
 use super::Transformer;

@@ -1,3 +1,5 @@
+//! Contains types which implement the Observer pattern via an internal [`Vec`].
+
 use super::{
     AttachableSubject,
     DetachableSubject,

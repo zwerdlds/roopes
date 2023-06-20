@@ -15,4 +15,7 @@ quote = "1.0.23"
 heck = "0.4.1"
 prettyplease = "0.2.6"
 syn = { version = "2.0.18", features = ["extra-traits"] }
-roopes_core = {path="../roopes_core"}
+roopes_core = { path = "../roopes_core" }
+
+[dev-dependencies]
+roopes = { path = "../roopes_lib" }

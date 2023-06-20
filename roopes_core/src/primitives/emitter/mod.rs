@@ -6,6 +6,8 @@ pub mod lambda;
 pub use iterator::Iterator;
 pub use lambda::Lambda;
 
+/// The [`Emitter`] [`Delegate`] must be capable of returning potentially
+/// unlimited owned values.
 pub trait Delegate<O> = Fn() -> O;
 
 /// [`Emitter`]s are capable of continuously returning an owned object to the

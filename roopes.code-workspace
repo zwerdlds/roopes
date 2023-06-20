@@ -24,9 +24,6 @@
       "typestate",
       "unparse"
     ],
-    "[rust]": {
-      "editor.formatOnSave": true
-    },
     "rust-analyzer.showUnlinkedFileNotification": false
   },
   "launch": {

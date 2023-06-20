@@ -1,5 +1,5 @@
-//! Exposes types which conform most directly to the GoF and other commonly
-//! accepted OOP-style patterns.
+//! Exposes types which conform most directly to the "Gang of Four" and other
+//! commonly accepted OOP-style patterns.
 
 pub mod abstract_factory;
 pub mod command;

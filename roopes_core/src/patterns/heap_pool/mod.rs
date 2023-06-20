@@ -1,13 +1,20 @@
+//! Contains types which allow client code to generate, use, and re-use
+//! heap-allocated objects efficiently.
 pub mod refcell_box;
 
 #[cfg(test)]
 mod tests;
 
+/// Holds a list of allocated objects in a scalable pool.  Previously allocated
+/// objects can be checked back in after use, to prevent immediate deallocation.
 pub trait HeapPool<C>
 {
-    fn check_out(&self) -> C;
+    /// Get a value from the [`HeapPool`].
+    fn check_out(&mut self) -> C;
+
+    /// Give a value back to the [`HeapPool`].
     fn check_in(
-        &self,
+        &mut self,
         container: C,
     );
 }

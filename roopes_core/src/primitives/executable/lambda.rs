@@ -2,6 +2,7 @@
 //! types.
 use super::Executable;
 
+/// An [`Executable`] [`Delegate`] takes no parameters and returns nothing.
 pub trait Delegate = Fn();
 
 /// Defines an encapsulated [`Executable`] as a struct, which just delegates its

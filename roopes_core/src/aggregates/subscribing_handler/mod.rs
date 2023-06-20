@@ -35,7 +35,7 @@ where
     {
         SubscribingHandler {
             handler,
-            _retain_types: PhantomData::default(),
+            _retain_types: PhantomData,
         }
     }
 }
