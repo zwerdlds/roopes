@@ -62,7 +62,7 @@ fn main()
     let ccc_logger: ObservingCommand<_> = logger_factory.create();
 
     // Attach a logger to a minimal subject.
-    let example_subject = observer::VecSubject::default();
+    let mut example_subject = observer::VecSubject::default();
     example_subject.attach(bbb_logger);
 
     // Demonstrate the lambda being called repeatedly.

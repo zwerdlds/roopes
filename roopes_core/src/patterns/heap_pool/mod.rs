@@ -12,6 +12,7 @@ pub trait HeapPool<C>
     );
 }
 
+/// Exposes the [`HeapPool`] types at the library level.
 pub mod prelude
 {
     pub use super::HeapPool;

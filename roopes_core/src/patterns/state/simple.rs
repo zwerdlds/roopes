@@ -1,3 +1,5 @@
+//! Implements a basic wrapper [`Context`] which contains a [`State`] object.
+
 use super::{
     Context,
     State,

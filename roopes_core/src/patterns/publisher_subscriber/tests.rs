@@ -9,14 +9,14 @@ fn vec_publisher_publish()
 {
     let has_run = Rc::new(RefCell::new(false));
 
-    let publisher = publisher_subscriber::VecPublisher::default();
+    let mut publisher = publisher_subscriber::VecPublisher::default();
 
     let has_run_ext = has_run.clone();
 
-    let heap_handler: handler::Heap<_> = handler::Lambda::new(move |v| {
-        (*has_run_ext.borrow_mut()) = *v;
-    })
-    .into();
+    let heap_handler =
+        handler::Heap::new(Box::new(handler::Lambda::new(move |v| {
+            (*has_run_ext.borrow_mut()) = *v;
+        })));
 
     let sub_handler: SubscribingHandler<_, _> = heap_handler.into();
 
@@ -68,7 +68,7 @@ fn vec_publisher_detach()
     let subscribing_handler_a_2: SubscribingHandler<_, _> = handler_a().into();
     let subscribing_handler_b_1: SubscribingHandler<_, _> = handler_b().into();
     let subscribing_handler_b_2: SubscribingHandler<_, _> = handler_b().into();
-    let vs = publisher_subscriber::VecPublisher::default();
+    let mut vs = publisher_subscriber::VecPublisher::default();
 
     vs.attach(subscribing_handler_a_1);
     vs.attach(subscribing_handler_b_1);

@@ -15,6 +15,7 @@ impl Heap
     }
 }
 
+#[allow(clippy::inline_always)]
 impl Command for Heap
 {
     delegate! {

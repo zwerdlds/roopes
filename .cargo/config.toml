@@ -1,4 +1,0 @@
-# [build]
-# rustflags = ["-Cinstrument-coverage", "-Zinstrument-coverage"]
-#, "-D missing_docs"]
-# profiler = true

@@ -21,24 +21,37 @@ pub trait Observer
     fn notify(&self);
 }
 
-/// An Error which occurs during detachment.
-#[derive(Debug)]
-pub enum DetachError
-{
-    /// The specified observer couldn't be found.
-    ObserverNotFound,
-}
-
-pub trait MutableSubject<O>:
-    Attachable<O> + Detachable<O, (), DetachError> + Subject
+pub trait AttachableSubject<O>: Subject
 where
     O: Observer,
 {
+    fn attach(
+        &mut self,
+        attach_observer: O,
+    );
 }
 
+pub trait DetachableSubject<O, E>: Subject
+where
+    O: Observer,
+{
+    /// Detaches the given [`Observer`] from the [`Subject`] so it would no
+    /// longer receive notifications.
+    ///
+    /// # Errors
+    /// E: The error that occurred during detachment.
+    fn detach(
+        &mut self,
+        detach_observer: &O,
+    ) -> Result<(), E>;
+}
+
+/// Exposes the [`Observer`] and [`Subject`] types at the library level.
 pub mod prelude
 {
     pub use super::{
+        AttachableSubject,
+        DetachableSubject,
         Observer,
         Subject,
     };

@@ -18,7 +18,9 @@ stable.mkShell rec {
       cargo-llvm-cov
       llvmPackages_16.bintools-unwrapped
       just
+      parallel
       rustfmt
+      moreutils
     ]);
 
   RUST_SRC_PATH = "${stable.rust.packages.stable.rustPlatform.rustLibSrc}";

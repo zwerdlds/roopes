@@ -1,3 +1,6 @@
+//! The [`subscribing_handler`] module creates [`Subscriber`]s
+//! from arbitrary [`Handler`]s.
+
 use crate::prelude::*;
 use std::{
     hash::Hash,
@@ -7,11 +10,14 @@ use std::{
 #[cfg(test)]
 mod test;
 
+/// Exposes the [`SubscribingHandler`] type at the library level.
 pub mod prelude
 {
     pub use super::SubscribingHandler;
 }
 
+/// Provides the [`Subscriber`] and [`Handler`] traits for a wrapped [`Handler`]
+/// delegate.
 pub struct SubscribingHandler<H, M>
 where
     H: Handler<M>,
@@ -24,6 +30,7 @@ impl<H, M> SubscribingHandler<H, M>
 where
     H: Handler<M>,
 {
+    /// Creates a [`SubscribingHandler`] from a given [`Handler`].
     pub fn new(handler: H) -> SubscribingHandler<H, M>
     {
         SubscribingHandler {

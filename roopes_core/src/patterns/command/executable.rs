@@ -19,7 +19,7 @@ where
 
 impl<C> Executable<executable::Lambda<C>>
 where
-    C: executable::Delegate,
+    C: executable::lambda::Delegate,
 {
     pub fn new_lambda(delegate: C) -> Executable<executable::Lambda<C>>
     {

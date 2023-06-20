@@ -1,3 +1,6 @@
+//! Exposes types which conform most directly to the GoF and other commonly
+//! accepted OOP-style patterns.
+
 pub mod abstract_factory;
 pub mod command;
 pub mod heap_pool;
@@ -6,6 +9,7 @@ pub mod publisher_subscriber;
 pub mod state;
 pub mod transformer_chain;
 
+/// Exposes submodules and their preludes at the library level.
 pub mod prelude
 {
     pub use super::{
@@ -23,5 +27,4 @@ pub mod prelude
     pub use observer::prelude::*;
     pub use publisher_subscriber::prelude::*;
     pub use state::prelude::*;
-    pub use transformer_chain::prelude::*;
 }

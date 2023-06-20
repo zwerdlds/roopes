@@ -60,7 +60,7 @@ fn notify_observable_command()
         }));
 
     let observing_command: ObservingCommand<_> = command.into();
-    let vs = observer::VecSubject::default();
+    let mut vs = observer::VecSubject::default();
 
     vs.attach(observing_command);
 
@@ -103,7 +103,7 @@ fn observable_detach_hash_command()
     let observing_command_a: ObservingCommand<_> = command_a.into();
     let observing_command_b_1: ObservingCommand<_> = command_b().into();
     let observing_command_b_2: ObservingCommand<_> = command_b().into();
-    let vs = observer::HashSubject::default();
+    let mut vs = observer::HashSubject::default();
 
     vs.attach(observing_command_a);
     vs.attach(observing_command_b_1);
@@ -151,7 +151,7 @@ fn observable_detach_vec_command()
     let observing_command_a: ObservingCommand<_> = command_a.into();
     let observing_command_b_1: ObservingCommand<_> = command_b().into();
     let observing_command_b_2: ObservingCommand<_> = command_b().into();
-    let vs = observer::VecSubject::default();
+    let mut vs = observer::VecSubject::default();
 
     vs.attach(observing_command_a);
     vs.attach(observing_command_b_1);

@@ -1,10 +1,7 @@
-mod tests
-{
-    use crate::main;
+use crate::main;
 
-    #[test]
-    fn run_main()
-    {
-        main();
-    }
+#[test]
+fn run_main()
+{
+    main();
 }

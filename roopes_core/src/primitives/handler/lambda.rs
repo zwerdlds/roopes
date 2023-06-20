@@ -1,5 +1,10 @@
+//! Provides a simple wrapper struct around [`Delegate`], `Fn(&I)`
+//! types.
+
 use super::Handler;
 use std::marker::PhantomData;
+
+pub trait Delegate<M> = Fn(&M);
 
 /// Defines an encapsulated [`Handler`] as a struct, which just delegates its
 /// execution to the attached [`Delegate`].
@@ -15,7 +20,7 @@ use std::marker::PhantomData;
 #[derive(Clone)]
 pub struct Lambda<C, M>
 where
-    C: super::Delegate<M>,
+    C: Delegate<M>,
 {
     delegate: C,
     _t: PhantomData<M>,
@@ -23,8 +28,9 @@ where
 
 impl<C, M> Lambda<C, M>
 where
-    C: super::Delegate<M>,
+    C: Delegate<M>,
 {
+    /// Creates a [`Lambda`] from a given [`Delegate`].
     pub fn new(delegate: C) -> Lambda<C, M>
     {
         Lambda {
@@ -36,7 +42,7 @@ where
 
 impl<C, M> Handler<M> for Lambda<C, M>
 where
-    C: super::Delegate<M>,
+    C: Delegate<M>,
 {
     fn handle(
         &self,
@@ -49,7 +55,7 @@ where
 
 impl<C, M> From<C> for Lambda<C, M>
 where
-    C: super::Delegate<M>,
+    C: Delegate<M>,
 {
     fn from(delegate: C) -> Self
     {

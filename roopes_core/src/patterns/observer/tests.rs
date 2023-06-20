@@ -18,7 +18,7 @@ enum TestCommands
 #[test]
 fn simple_hashset_subject_notify()
 {
-    let hs = observer::HashSubject::default();
+    let mut hs = observer::HashSubject::default();
 
     let has_run = Rc::new(RefCell::new(false));
     let has_run_ext = has_run.clone();
@@ -40,7 +40,7 @@ fn simple_hashset_subject_notify()
 #[test]
 fn toggle_hashset_subject_notify()
 {
-    let hs = observer::HashSubject::default();
+    let mut hs = observer::HashSubject::default();
 
     let has_run_toggle = Rc::new(RefCell::new(false));
     let lc = command::Executable::new(executable::Lambda::new(enclose!(
@@ -108,7 +108,7 @@ fn toggle_subject_inequality()
 #[test]
 fn multiple_hashset_subject_notify()
 {
-    let hs = observer::HashSubject::default();
+    let mut hs = observer::HashSubject::default();
 
     let has_run_1 = Rc::new(RefCell::new(false));
 
@@ -127,7 +127,7 @@ fn multiple_hashset_subject_notify()
     hs.notify();
     assert!((*has_run_1.borrow()));
 
-    let hs: HashSubject<_> = observer::HashSubject::default();
+    let mut hs: HashSubject<_> = observer::HashSubject::default();
 
     let has_run_2 = Rc::new(RefCell::new(false));
 
@@ -156,7 +156,7 @@ fn multiple_hashset_subject_notify()
 #[test]
 fn overwrite_hashset_subject_notify()
 {
-    let hs = observer::HashSubject::default();
+    let mut hs = observer::HashSubject::default();
 
     let has_run_1 = Rc::new(RefCell::new(false));
 
@@ -172,7 +172,7 @@ fn overwrite_hashset_subject_notify()
 
     hs.attach(hc);
 
-    let hs: observer::HashSubject<ObservingCommand<_>> =
+    let mut hs: observer::HashSubject<ObservingCommand<_>> =
         observer::HashSubject::default();
 
     let has_run_2 = Rc::new(RefCell::new(false));
@@ -198,7 +198,7 @@ fn overwrite_hashset_subject_notify()
 #[test]
 fn simple_vector_subject_notify()
 {
-    let vs = observer::VecSubject::default();
+    let mut vs = observer::VecSubject::default();
 
     let has_run = Rc::new(RefCell::new(false));
     let has_run_ext = has_run.clone();
@@ -217,7 +217,7 @@ fn simple_vector_subject_notify()
 #[test]
 fn toggle_vector_subject_notify()
 {
-    let vs = observer::VecSubject::default();
+    let mut vs = observer::VecSubject::default();
 
     let has_run_toggle = Rc::new(RefCell::new(false));
     let has_run_toggle_ext = has_run_toggle.clone();
@@ -246,7 +246,7 @@ fn toggle_vector_subject_notify()
 #[test]
 fn multiple_vector_subject_notify()
 {
-    let vs = observer::VecSubject::default();
+    let mut vs = observer::VecSubject::default();
 
     let has_run_1 = Rc::new(RefCell::new(false));
     let has_run_1_ext = has_run_1.clone();
@@ -263,7 +263,7 @@ fn multiple_vector_subject_notify()
     vs.notify();
     assert!((*has_run_1.borrow()));
 
-    let vs = observer::VecSubject::default();
+    let mut vs = observer::VecSubject::default();
 
     let has_run_2 = Rc::new(RefCell::new(false));
     let has_run_2_ext = has_run_2.clone();

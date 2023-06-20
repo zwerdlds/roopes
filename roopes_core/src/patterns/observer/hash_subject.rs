@@ -1,5 +1,4 @@
 use super::{
-    DetachError,
     Observer,
     Subject,
 };
@@ -44,7 +43,7 @@ pub struct HashSubject<O>
 where
     O: HashSetObserver,
 {
-    listeners: RefCell<HashSet<O>>,
+    listeners: HashSet<O>,
 }
 
 impl<O> Default for HashSubject<O>
@@ -53,7 +52,7 @@ where
 {
     fn default() -> HashSubject<O>
     {
-        Self::new(RefCell::default())
+        Self::new(HashSet::default())
     }
 }
 
@@ -61,10 +60,50 @@ impl<O> HashSubject<O>
 where
     O: HashSetObserver,
 {
+    /// Creates a new [`HashSubject`] with an interior-mutable listener set.
+    /// [`HashSubject::default`] is probably preferable in most situations.
     #[must_use]
-    pub fn new(listeners: RefCell<HashSet<O>>) -> HashSubject<O>
+    pub fn new(listeners: HashSet<O>) -> HashSubject<O>
     {
         HashSubject { listeners }
+    }
+}
+
+impl<O> AttachableSubject<O> for HashSubject<O>
+where
+    O: HashSetObserver,
+{
+    fn attach(
+        &mut self,
+        attach_observer: O,
+    )
+    {
+        self.listeners.borrow_mut().insert(attach_observer);
+    }
+}
+
+/// An Error which occurs during detachment.
+#[derive(Debug)]
+pub enum DetachError
+{
+    /// The specified observer couldn't be found.
+    ObserverNotFound,
+}
+
+impl<O> DetachableSubject<O, DetachError> for HashSubject<O>
+where
+    O: HashSetObserver,
+{
+    fn detach(
+        &mut self,
+        detach_observer: &O,
+    ) -> Result<(), DetachError>
+    {
+        if self.listeners.remove(detach_observer) {
+            Ok(())
+        } else {
+            Err(DetachError::ObserverNotFound)
+        }
     }
 }
 
@@ -74,36 +113,6 @@ where
 {
     fn notify(&self)
     {
-        self.listeners.borrow().iter().for_each(Observer::notify);
-    }
-}
-
-impl<O> Attachable<O> for HashSubject<O>
-where
-    O: HashSetObserver,
-{
-    fn attach(
-        &self,
-        attach_observer: O,
-    )
-    {
-        self.listeners.borrow_mut().insert(attach_observer);
-    }
-}
-
-impl<O> Detachable<O, (), DetachError> for HashSubject<O>
-where
-    O: HashSetObserver,
-{
-    fn detach(
-        &self,
-        detach_observer: &O,
-    ) -> Result<(), DetachError>
-    {
-        if self.listeners.borrow_mut().remove(detach_observer) {
-            Ok(())
-        } else {
-            Err(DetachError::ObserverNotFound)
-        }
+        self.listeners.iter().for_each(Observer::notify);
     }
 }

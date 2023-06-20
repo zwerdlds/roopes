@@ -20,6 +20,7 @@ impl<M> Subscriber<M>
     }
 }
 
+#[allow(clippy::inline_always)]
 impl<M> publisher_subscriber::Subscriber<M> for Subscriber<M>
 {
     delegate! {

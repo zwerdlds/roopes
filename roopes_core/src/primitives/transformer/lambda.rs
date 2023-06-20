@@ -1,10 +1,16 @@
+//! Provides a simple wrapper struct around [`Delegate`], `Fn(&I)->O`
+//! types.
+pub trait Delegate<I, O> = Fn(&I) -> O;
+
 use super::Transformer;
 use std::marker::PhantomData;
 
+/// Provides a type which redirects transformations to its enclosed
+/// [`Delegate`].
 #[derive(Clone)]
 pub struct Lambda<C, I, O>
 where
-    C: super::Delegate<I, O>,
+    C: Delegate<I, O>,
 {
     delegate: C,
     _t: PhantomData<(I, O)>,
@@ -12,8 +18,9 @@ where
 
 impl<C, I, O> Lambda<C, I, O>
 where
-    C: super::Delegate<I, O>,
+    C: Delegate<I, O>,
 {
+    /// Creates a [`Lambda`] from a given [`Delegate`].
     pub fn new(delegate: C) -> Lambda<C, I, O>
     {
         Lambda {
@@ -25,7 +32,7 @@ where
 
 impl<C, I, O> Transformer<I, O> for Lambda<C, I, O>
 where
-    C: super::Delegate<I, O>,
+    C: Delegate<I, O>,
 {
     fn transform(
         &self,
@@ -38,7 +45,7 @@ where
 
 impl<C, I, O> From<C> for Lambda<C, I, O>
 where
-    C: super::Delegate<I, O>,
+    C: Delegate<I, O>,
 {
     fn from(delegate: C) -> Self
     {

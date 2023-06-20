@@ -1,3 +1,4 @@
+#![doc = include_str!("../../readme.md")]
 #![feature(trait_alias)]
 #![feature(associated_type_bounds)]
 #![allow(unused_imports)]

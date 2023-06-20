@@ -25,12 +25,12 @@ To install, add the crate to your `cargo.toml` as usual.
 The types provided are minimal, but the provided implementations should facilitate the most common uses.
 
 `use roopes::prelude::*` will expose the essential traits.
-Implementations are not exposed through `prelude` -- to use them, the specific implementation must be referenced in their module, such as `ropes::patterns::builder::Lambda`.
-Users are suggested to use implementations in the following pattern to maintain hygienic namespace references.
-Note in particular, `command::Lambda` is referable directly after including `prelude::*`:
+Implementations are **not** exposed through `prelude` -- to use them, the specific implementation must be referenced in their module, such as `roopes::patterns::builder::Lambda`.
+To mitigate manually importing a large number of implementations, roopes re-exports submodules which should make the direct referencing of these types easier and more hygienic.
+In this example, `roopes::patterns::command::Executable` is re-used directly from the `prelude` import:
 ``` rust
-use ropes::prelude::*;
-let command = command::Lambda::new(|| { println!("Hello world!"); });
+use roopes::prelude::*;
+let command = command::Executable::new_lambda(|| { println!("Hello world!"); }.into());
 command.execute();
 ```
 
@@ -100,7 +100,8 @@ This package is used to simplify the process of copying reference-counted object
 # Addendum
 ## OOP in Rust?  Are you crazy!?
 Nope!
-Once you accept that `Rc<...>` doesn't incur that much overhead, especially if the client algorithms are organized to help with memory locality, it's really not that bad.
+Okay, maybe a little.
+Once you accept that `Rc<...>` doesn't incur that much overhead, especially if the client algorithms are organized for memory locality, it's really not that bad.
 Client code should also try to organize by sub-system - if the borrow checker is involved, it's a good idea to try and observer a sort of system-level coherence.
 In essence: if code is large enough to require OOP, it's probably at a point in its lifecycle where development time is incurring more cost than runtime.
 

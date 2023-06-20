@@ -1,8 +1,6 @@
 use super::{
-    Attachable,
-    DetachError,
-    Detachable,
-    MutableSubject,
+    AttachableSubject,
+    DetachableSubject,
     Observer,
     Subject,
 };
@@ -12,8 +10,8 @@ use std::{
 };
 
 /// Implements [`Subject`] backed by a [`Vec<T>`].  If `T` implements [`Eq`],
-/// then [`Detachable`] is also implemented.  [`Attachable`] is always
-/// implemented.
+/// then [`DetachableSubject`] is also provided.  [`AttachableSubject`] is
+/// always provided.
 ///
 ///  # Examples
 ///  ``` rust
@@ -54,10 +52,55 @@ impl<O> VecSubject<O>
 where
     O: Observer,
 {
+    /// Creates a new [`VecSubject`] with an existing list of listeners.
+    /// [`VecSubject::default`] is probably preferable in most circumstances.
     #[must_use]
     pub fn new(listeners: RefCell<Vec<O>>) -> VecSubject<O>
     {
         VecSubject { listeners }
+    }
+}
+
+impl<O> AttachableSubject<O> for VecSubject<O>
+where
+    O: Observer,
+{
+    fn attach(
+        &mut self,
+        attach_observer: O,
+    )
+    {
+        self.listeners.borrow_mut().push(attach_observer);
+    }
+}
+
+/// An Error which occurs during detachment.
+#[derive(Debug)]
+pub enum DetachError
+{
+    /// The specified observer couldn't be found.
+    ObserverNotFound,
+}
+impl<O> DetachableSubject<O, DetachError> for VecSubject<O>
+where
+    O: Observer + Eq,
+{
+    fn detach(
+        &mut self,
+        detach_observer: &O,
+    ) -> Result<(), DetachError>
+    {
+        let (i, _) = self
+            .listeners
+            .borrow()
+            .iter()
+            .enumerate()
+            .find(|(_, o)| o.eq(&detach_observer))
+            .ok_or(DetachError::ObserverNotFound)?;
+
+        self.listeners.borrow_mut().swap_remove(i);
+
+        Ok(())
     }
 }
 
@@ -80,41 +123,3 @@ where
         self.listeners.borrow().iter().for_each(Observer::notify);
     }
 }
-
-impl<O> Attachable<O> for VecSubject<O>
-where
-    O: Observer,
-{
-    fn attach(
-        &self,
-        attach_observer: O,
-    )
-    {
-        self.listeners.borrow_mut().push(attach_observer);
-    }
-}
-
-impl<O> Detachable<O, (), DetachError> for VecSubject<O>
-where
-    O: Observer + Eq,
-{
-    fn detach(
-        &self,
-        detach_observer: &O,
-    ) -> Result<(), DetachError>
-    {
-        let (i, _) = self
-            .listeners
-            .borrow()
-            .iter()
-            .enumerate()
-            .find(|(_, o)| o.eq(&detach_observer))
-            .ok_or(DetachError::ObserverNotFound)?;
-
-        self.listeners.borrow_mut().swap_remove(i);
-
-        Ok(())
-    }
-}
-
-impl<O> MutableSubject<O> for VecSubject<O> where O: Observer + Eq {}

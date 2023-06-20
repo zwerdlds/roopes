@@ -1,3 +1,5 @@
+//! Provides a simple wrapper struct around [`Emitter`], `Fn()->T`
+//! types.
 use super::AbstractFactory;
 use crate::prelude::*;
 use std::marker::PhantomData;
@@ -14,6 +16,7 @@ impl<D, R> AbstractFactory<R> for Lambda<D, R>
 where
     D: Emitter<R>,
 {
+    /// Creates the given type from the [`delegate`].
     fn create(&self) -> R
     {
         self.delegate.emit()

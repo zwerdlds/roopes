@@ -34,7 +34,7 @@ fn main()
 
     let pretty_stdout_logger = SubscribingHandler::new(logger_builder.build());
 
-    let log_publisher =
+    let mut log_publisher =
         LogPublisher::new(publisher_subscriber::VecPublisher::default());
 
     log_publisher
