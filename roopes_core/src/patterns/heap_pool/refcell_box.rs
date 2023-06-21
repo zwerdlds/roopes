@@ -1,5 +1,6 @@
-//! Contains an implementation of [`HeapPool`] which allow client code to
-//! generate, use, and re-use heap-allocated objects efficiently.
+//! Contains an implementation of [`HeapPool`]
+//! which allow client code to generate, use, and
+//! re-use heap-allocated objects efficiently.
 
 use super::HeapPool;
 use crate::prelude::*;
@@ -8,8 +9,10 @@ use std::{
     cell::RefCell,
 };
 
-/// Holds a list of allocated objects in a scalable pool.  Previously allocated
-/// objects can be checked back in after use, to prevent immediate deallocation.
+/// Holds a list of allocated objects in a
+/// scalable pool.  Previously allocated
+/// objects can be checked back in after use, to
+/// prevent immediate deallocation.
 pub struct RefCellBox<T, F, W>
 where
     F: Emitter<T>,
@@ -42,14 +45,16 @@ where
         }
     }
 
-    /// Gets the current number of un-checked-out items in the pool.  The
+    /// Gets the current number of un-checked-out
+    /// items in the pool.  The
     /// current "reserve" size.
     pub fn unused_pool_size(&self) -> usize
     {
         self.unused_pool.len()
     }
 
-    /// Grows the [`RefCellBox`] pool by the previously specified quantity.
+    /// Grows the [`RefCellBox`] pool by the
+    /// previously specified quantity.
     pub fn expand(&mut self)
     {
         (0..self.grow_size).for_each(|_| {

@@ -1,14 +1,16 @@
-//! Provides a simple wrapper [`Lambda`] struct around [`Delegate`], `Fn(&I)`
-//! types.
+//! Provides a simple wrapper [`Lambda`] struct
+//! around [`Delegate`], `Fn(&I)` types.
 
 use super::Handler;
 use std::marker::PhantomData;
 
-/// A [`Lambda`] [`Delegate`] receives a borrowed message.
+/// A [`Lambda`] [`Delegate`] receives a borrowed
+/// message.
 pub trait Delegate<M> = Fn(&M);
 
-/// Defines an encapsulated [`Handler`] as a struct, which just delegates its
-/// execution to the attached [`Delegate`].
+/// Defines an encapsulated [`Handler`] as a
+/// struct, which just delegates its execution to
+/// the attached [`Delegate`].
 ///
 /// # Examples
 /// ``` rust
@@ -31,7 +33,8 @@ impl<C, M> Lambda<C, M>
 where
     C: Delegate<M>,
 {
-    /// Creates a [`Lambda`] from a given [`Delegate`].
+    /// Creates a [`Lambda`] from a given
+    /// [`Delegate`].
     pub fn new(delegate: C) -> Lambda<C, M>
     {
         Lambda {

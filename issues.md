@@ -1,6 +1,5 @@
 # Issues
 ## Top
-- Finish initial documentation
 - Maximize test coverage
 - Preview docs
 - Unify docs

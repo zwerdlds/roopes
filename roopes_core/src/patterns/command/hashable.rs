@@ -1,12 +1,15 @@
-//! Contains an implementation of [`Command`] which requires the instantiation
-//! to supply a method of determining both [`Hash`] and [`Eq`].  Can be used
+//! Contains an implementation of [`Command`]
+//! which requires the instantiation to supply a
+//! method of determining both [`Hash`] and
+//! [`Eq`].  Can be used
 //! with [`observer::HashSubject`].
 
 use crate::prelude::*;
 use std::hash::Hash;
 
-/// Delegates [`Command::execute`] calls to a delegate command while delegating
-/// [`Eq`] and [`Hash`] to an `id` object.
+/// Delegates [`Command::execute`] calls to a
+/// delegate command while delegating [`Eq`] and
+/// [`Hash`] to an `id` object.
 #[derive(Debug)]
 pub struct Hashable<D, H>
 where
@@ -22,8 +25,8 @@ where
     D: Command,
     H: Hash + Eq,
 {
-    /// Creates a [`Hashable`] with the specified delegate [`Command`] and
-    /// identifier.
+    /// Creates a [`Hashable`] with the specified
+    /// delegate [`Command`] and identifier.
     pub fn new(
         command: D,
         id: H,

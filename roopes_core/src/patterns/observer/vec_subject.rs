@@ -1,4 +1,5 @@
-//! Contains types which implement the Observer pattern via an internal [`Vec`].
+//! Contains types which implement the Observer
+//! pattern via an internal [`Vec`].
 
 use super::{
     AttachableSubject,
@@ -11,9 +12,10 @@ use std::{
     cell::RefCell,
 };
 
-/// Implements [`Subject`] backed by a [`Vec<T>`].  If `T` implements [`Eq`],
-/// then [`DetachableSubject`] is also provided.  [`AttachableSubject`] is
-/// always provided.
+/// Implements [`Subject`] backed by a [`Vec<T>`].
+/// If `T` implements [`Eq`],
+/// then [`DetachableSubject`] is also provided.
+/// [`AttachableSubject`] is always provided.
 ///
 ///  # Examples
 ///  ``` rust
@@ -30,9 +32,9 @@ use std::{
 ///     let has_run = has_run.clone();
 ///
 ///     let lc: ObservingCommand<_> =
-///         command::Executable::new_lambda(move || {
-///             (*has_run.borrow_mut()) = true;
-///         })
+///         command::Executable::new_lambda(move
+/// || {             (*has_run.borrow_mut()) =
+/// true;         })
 ///         .into();
 ///
 ///     vs.attach(lc);
@@ -54,8 +56,10 @@ impl<O> VecSubject<O>
 where
     O: Observer,
 {
-    /// Creates a new [`VecSubject`] with an existing list of listeners.
-    /// [`VecSubject::default`] is probably preferable in most circumstances.
+    /// Creates a new [`VecSubject`] with an
+    /// existing list of listeners.
+    /// [`VecSubject::default`] is probably
+    /// preferable in most circumstances.
     #[must_use]
     pub fn new(listeners: RefCell<Vec<O>>) -> VecSubject<O>
     {

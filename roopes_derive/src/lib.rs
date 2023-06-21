@@ -1,4 +1,5 @@
-//! This crate implements macros supporting some patterns:
+//! This crate implements macros supporting some
+//! patterns:
 //! - [`Builder`]
 //! - [`Visitor`]
 
@@ -11,9 +12,10 @@ use proc_macro::TokenStream;
 mod builder;
 mod visitor;
 
-/// Creates a new type on the specified `struct`, which allows fields to be set
-/// one at a time.  The new builder type's name is the specified type, appended
-/// with "Builder".
+/// Creates a new type on the specified `struct`,
+/// which allows fields to be set one at a time.
+/// The new builder type's name is the specified
+/// type, appended with "Builder".
 ///
 /// # Examples
 /// ``` rust
@@ -39,9 +41,10 @@ pub fn derive_builder(input: TokenStream) -> TokenStream
 {
     builder::derive(input)
 }
-/// Creates a new trait for user code to implement on the specified `enum`.
-/// This trait requires implementors to implement handlers for all the specified
-/// variants in the given enum.
+/// Creates a new trait for user code to implement
+/// on the specified `enum`. This trait requires
+/// implementors to implement handlers for all the
+/// specified variants in the given enum.
 ///
 /// # Examples
 /// ``` rust

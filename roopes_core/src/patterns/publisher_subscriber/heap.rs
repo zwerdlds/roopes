@@ -1,6 +1,7 @@
-//! Provides a heap-based [`Subscriber`] which redirects
-//! [`publisher_subscriber::Subscriber::receive`] calls to a delegate
-//! [`Subscriber`].
+//! Provides a heap-based [`Subscriber`] which
+//! redirects
+//! [`publisher_subscriber::Subscriber::receive`]
+//! calls to a delegate [`Subscriber`].
 
 use crate::{
     patterns::publisher_subscriber,
@@ -8,8 +9,9 @@ use crate::{
 };
 use delegate::delegate;
 
-/// Holds a reference to a delegate [`Subscriber`] in a [`Box`]ed delegate for
-/// later calls to [`publisher_subscriber::Subscriber::receive`].
+/// Holds a reference to a delegate [`Subscriber`]
+/// in a [`Box`]ed delegate for later calls to
+/// [`publisher_subscriber::Subscriber::receive`].
 pub struct Subscriber<M>
 {
     delegate: Box<dyn publisher_subscriber::Subscriber<M>>,

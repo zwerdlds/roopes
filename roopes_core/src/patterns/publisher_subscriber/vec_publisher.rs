@@ -1,5 +1,5 @@
-//! Contains an implementation of [`Publisher`] which stores its [`Subscriber`]s
-//! in a [`Vec`].
+//! Contains an implementation of [`Publisher`]
+//! which stores its [`Subscriber`]s in a [`Vec`].
 
 use super::{
     AttachablePublisher,
@@ -9,8 +9,8 @@ use crate::prelude::*;
 use core::marker::PhantomData;
 use std::cell::RefCell;
 
-/// Implements a [`Publisher`] based on a [`Vec`] of [`Subscriber`]s.
-/// # Example
+/// Implements a [`Publisher`] based on a [`Vec`]
+/// of [`Subscriber`]s. # Example
 /// ``` rust
 /// use roopes::prelude::*;
 /// use std::{
@@ -68,7 +68,8 @@ impl<M, S> VecPublisher<M, S>
 where
     S: Subscriber<M>,
 {
-    /// Creates a new [`VecPublisher`] with the given [`Vec`] of starting
+    /// Creates a new [`VecPublisher`] with the
+    /// given [`Vec`] of starting
     /// [`Subscriber`]s.
     #[must_use]
     pub fn new(listeners: Vec<S>) -> VecPublisher<M, S>

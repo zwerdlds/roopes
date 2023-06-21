@@ -101,8 +101,10 @@ impl TokenStreamBuilderFactory
 
         // eprintln!("Results:");
         // let contents =
-        //     syn::parse_file(&result.to_string()).expect("Syn parsing
-        // failed."); let formatted = prettyplease::unparse(&contents);
+        //     syn::parse_file(&result.
+        // to_string()).expect("Syn parsing
+        // failed."); let formatted =
+        // prettyplease::unparse(&contents);
         // eprintln!("{formatted}");
 
         output.into()

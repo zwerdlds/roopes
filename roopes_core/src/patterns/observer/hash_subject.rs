@@ -1,5 +1,6 @@
-//! Contains types which allow [`Observer`]s (which implement the appropriate
-//! [`Hash`] and [`Eq`] traits) to be removed dynamically.
+//! Contains types which allow [`Observer`]s
+//! (which implement the appropriate [`Hash`] and
+//! [`Eq`] traits) to be removed dynamically.
 
 use super::{
     Observer,
@@ -13,11 +14,13 @@ use std::{
     hash::Hash,
 };
 
-/// Convenience type representing types which can be added and removed from the
+/// Convenience type representing types which can
+/// be added and removed from the
 /// [`HashSetObserver`].
 pub trait HashSetObserver = Observer + Eq + Hash;
 
-/// Implements [`Subject`] backed by a [`HashSet<T>`]. `T` must implement
+/// Implements [`Subject`] backed by a
+/// [`HashSet<T>`]. `T` must implement
 /// [`PartialEq`] and  [`Hash`].
 ///
 /// # Examples
@@ -65,8 +68,10 @@ impl<O> HashSubject<O>
 where
     O: HashSetObserver,
 {
-    /// Creates a new [`HashSubject`] with an interior-mutable listener set.
-    /// [`HashSubject::default`] is probably preferable in most situations.
+    /// Creates a new [`HashSubject`] with an
+    /// interior-mutable listener set.
+    /// [`HashSubject::default`] is probably
+    /// preferable in most situations.
     #[must_use]
     pub fn new(listeners: HashSet<O>) -> HashSubject<O>
     {

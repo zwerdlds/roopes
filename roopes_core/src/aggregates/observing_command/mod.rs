@@ -1,5 +1,5 @@
-//! The [`observing_command`] module creates [`Observer`]s from
-//! arbitrary [`Command`]s.
+//! The [`observing_command`] module creates
+//! [`Observer`]s from arbitrary [`Command`]s.
 
 use crate::prelude::*;
 use std::hash::Hash;
@@ -7,13 +7,15 @@ use std::hash::Hash;
 #[cfg(test)]
 mod tests;
 
-/// Exposes the [`ObservingCommand`] type at the library level.
+/// Exposes the [`ObservingCommand`] type at the
+/// library level.
 pub mod prelude
 {
     pub use super::ObservingCommand;
 }
 
-/// Provides the [`Observer`] and [`Command`] traits for a given command.
+/// Provides the [`Observer`] and [`Command`]
+/// traits for a given command.
 pub struct ObservingCommand<C>
 where
     C: Command,
@@ -25,7 +27,8 @@ impl<C> ObservingCommand<C>
 where
     C: Command,
 {
-    /// Creates an [`ObservingCommand`] for a [`Command`].
+    /// Creates an [`ObservingCommand`] for a
+    /// [`Command`].
     pub fn new(command: C) -> ObservingCommand<C>
     {
         ObservingCommand { command }

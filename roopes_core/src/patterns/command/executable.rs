@@ -1,10 +1,11 @@
-//! Contains a wrapper struct to indirect calls to [`executable::Executable`]
-//! via a [`Command`]
+//! Contains a wrapper struct to indirect calls to
+//! [`executable::Executable`] via a [`Command`]
 
 use crate::prelude::*;
 use delegate::delegate;
 
-/// Delegates execution to a specified [`executable::Executable`] object.
+/// Delegates execution to a specified
+/// [`executable::Executable`] object.
 pub struct Executable<C>
 where
     C: executable::Executable,
@@ -16,8 +17,8 @@ impl<C> Executable<C>
 where
     C: executable::Executable,
 {
-    /// Creates a new [`Executable`] object from a given
-    /// [`executable::Executable`].
+    /// Creates a new [`Executable`] object from a
+    /// given [`executable::Executable`].
     pub fn new(delegate: C) -> Executable<C>
     {
         Executable { delegate }
@@ -28,7 +29,8 @@ impl<C> Executable<executable::Lambda<C>>
 where
     C: executable::lambda::Delegate,
 {
-    /// Creates a new [`Executable`] from a [`executable::lambda::Delegate`].
+    /// Creates a new [`Executable`] from a
+    /// [`executable::lambda::Delegate`].
     pub fn new_lambda(delegate: C) -> Executable<executable::Lambda<C>>
     {
         let delegate = executable::Lambda::new(delegate);

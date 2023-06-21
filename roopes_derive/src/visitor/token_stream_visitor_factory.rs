@@ -47,11 +47,13 @@ impl TokenStreamVisitorFactory
         .transform(&ast);
 
         // eprintln!("Results:");
-        // let contents = syn::parse_file(&result.to_string()).expect(
-        //     "Syn parsing
+        // let contents =
+        // syn::parse_file(&result.to_string()).
+        // expect(     "Syn parsing
         // failed.",
         // );
-        // let formatted = prettyplease::unparse(&contents);
+        // let formatted =
+        // prettyplease::unparse(&contents);
         // eprintln!("{formatted}");
 
         result.into()

@@ -1,5 +1,5 @@
-//! This module contains types which build on [`crate::patterns`] and
-//! [`crate::primitives`].
+//! This module contains types which build on
+//! [`crate::patterns`] and [`crate::primitives`].
 
 pub mod executable_command;
 pub mod observing_command;
@@ -9,7 +9,8 @@ pub use executable_command::ExecutableCommand;
 pub use observing_command::ObservingCommand;
 pub use subscribing_handler::SubscribingHandler;
 
-/// Provides types which are exposed at the library level.
+/// Provides types which are exposed at the
+/// library level.
 pub mod prelude
 {
     pub use super::{

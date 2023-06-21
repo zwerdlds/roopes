@@ -1,5 +1,6 @@
-//! Exposes types which conform most directly to the "Gang of Four" and other
-//! commonly accepted OOP-style patterns.
+//! Exposes types which conform most directly to
+//! the "Gang of Four" and other commonly accepted
+//! OOP-style patterns.
 
 pub mod abstract_factory;
 pub mod command;
@@ -9,7 +10,8 @@ pub mod publisher_subscriber;
 pub mod state;
 pub mod transformer_chain;
 
-/// Exposes submodules and their preludes at the library level.
+/// Exposes submodules and their preludes at the
+/// library level.
 pub mod prelude
 {
     pub use super::{

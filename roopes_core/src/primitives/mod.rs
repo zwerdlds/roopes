@@ -1,12 +1,14 @@
-//! This module supplies essential types used elsewhere in the library.
+//! This module supplies essential types used
+//! elsewhere in the library.
 
 pub mod emitter;
 pub mod executable;
 pub mod handler;
 pub mod transformer;
 
-/// Exposes [`emitter`], [`executable`], [`handler`], and [`transformer`]
-/// submodules and their preludes at the library level.
+/// Exposes [`emitter`], [`executable`],
+/// [`handler`], and [`transformer`] submodules
+/// and their preludes at the library level.
 pub mod prelude
 {
     pub use super::{

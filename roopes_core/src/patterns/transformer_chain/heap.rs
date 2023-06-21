@@ -1,6 +1,7 @@
-//! Provides a heap-based [`Head`] which redirects [`Transformer::transform`]
-//! calls to a delegate [`Transformer`], then enables additional stages to be
-//! added arbitrarily.
+//! Provides a heap-based [`Head`] which redirects
+//! [`Transformer::transform`] calls to a delegate
+//! [`Transformer`], then enables additional
+//! stages to be added arbitrarily.
 
 use crate::primitives::transformer::{
     self,
@@ -8,8 +9,10 @@ use crate::primitives::transformer::{
 };
 use delegate::delegate;
 
-/// The first stage in the [`Transformer`] Chain.  Unique because it does not an
-/// the prior [`Transformer`], but is instead given input from the client.
+/// The first stage in the [`Transformer`] Chain.
+/// Unique because it does not an
+/// the prior [`Transformer`], but is instead
+/// given input from the client.
 pub struct Head<I, O>
 {
     transformer: Box<dyn Transformer<I, O>>,
@@ -17,14 +20,16 @@ pub struct Head<I, O>
 
 impl<I, O> Head<I, O>
 {
-    /// Creates a new [`Head`] with a given [`Box`]ed [`Transformer`].
+    /// Creates a new [`Head`] with a given
+    /// [`Box`]ed [`Transformer`].
     #[must_use]
     pub fn new(transformer: Box<dyn Transformer<I, O>>) -> Head<I, O>
     {
         Head { transformer }
     }
 
-    /// Adds a stage of execution, giving a new [`Heap`] back.
+    /// Adds a stage of execution, giving a new
+    /// [`Heap`] back.
     pub fn push<N, T>(
         self,
         transformer: T,
@@ -55,8 +60,8 @@ impl<I, O> Transformer<I, O> for Head<I, O>
     }
 }
 
-/// Stores previous transformations, and the ability to produce new
-/// transformations.
+/// Stores previous transformations, and the
+/// ability to produce new transformations.
 pub struct Heap<I, O, P>
 {
     prev: Box<dyn Transformer<I, P>>,
@@ -65,7 +70,8 @@ pub struct Heap<I, O, P>
 
 impl<I, O, P> Heap<I, O, P>
 {
-    /// Adds a stage of execution, giving a new [`Heap`] back.
+    /// Adds a stage of execution, giving a new
+    /// [`Heap`] back.
     #[must_use]
     pub fn push<N, E>(
         self,

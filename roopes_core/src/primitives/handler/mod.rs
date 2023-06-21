@@ -11,7 +11,8 @@ pub use lambda::Lambda;
 #[cfg(test)]
 mod tests;
 
-/// Defines a primitive interface which handles messages via borrowing.
+/// Defines a primitive interface which handles
+/// messages via borrowing.
 pub trait Handler<M>
 {
     /// Receives a borrowed value.
@@ -32,7 +33,8 @@ pub trait Handler<M>
 //     }
 // }
 
-/// Exposes the [`Handler`] type at the library level.
+/// Exposes the [`Handler`] type at the library
+/// level.
 pub mod prelude
 {
     pub use super::Handler;

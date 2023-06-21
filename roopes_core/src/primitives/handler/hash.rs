@@ -1,6 +1,8 @@
-//! Provides a [`Hash`] and [`Eq`]-implementing [`Handler`] which redirects
-//! [`Handler::handle`] calls to a delegate [`Handler`].  Useful to allow for
-//! handlers to be compared.
+//! Provides a [`Hash`] and [`Eq`]-implementing
+//! [`Handler`] which redirects
+//! [`Handler::handle`] calls to a delegate
+//! [`Handler`].  Useful to allow for handlers to
+//! be compared.
 
 use super::Handler;
 use std::{
@@ -8,8 +10,9 @@ use std::{
     marker::PhantomData,
 };
 
-/// Stores an indirected [`Handler`] in a [`Box`] for later delegation, along
-/// with an `id` for delegation with [`Eq`] and [`Hash`].
+/// Stores an indirected [`Handler`] in a [`Box`]
+/// for later delegation, along with an `id` for
+/// delegation with [`Eq`] and [`Hash`].
 #[derive(Clone)]
 pub struct Hashable<D, M, H>
 where
@@ -26,8 +29,10 @@ where
     D: Handler<M>,
     H: Hash + Eq,
 {
-    /// Creates a new [`Hashable`] from a given delegate [`Handler`] and an `id`
-    /// to enable the new [`Hashable`] to delegate [`Hash`] and [`Eq`].
+    /// Creates a new [`Hashable`] from a given
+    /// delegate [`Handler`] and an `id`
+    /// to enable the new [`Hashable`] to delegate
+    /// [`Hash`] and [`Eq`].
     pub fn new(
         delegate: D,
         id: H,
