@@ -1,30 +1,33 @@
+default: watch
+
 defaultwatch:= "dev-loop-iter"
 
 watch watchtarget=defaultwatch:
     cargo watch \
-        --quiet \
-        --clear \
         --why \
+        --clear \
         --shell 'just {{watchtarget}}' \
-        --ignore './**/*.svg' \
-        --ignore './lcov.info' \
-        --ignore './mutants.out*/**'
+        --ignore '**/*.svg' \
+        --ignore 'lcov.info' \
+        --ignore 'README.md' \
+        --ignore 'mutants.out*/**'
 
 reinit-workspace:
     cargo install cargo-watch --force
     cargo install cargo-tarpaulin --force
     cargo install cargo-doc --force
     cargo install cargo-mutants --force
-
+    cargo install cargo-readme --force
+    
 dev-loop-iter:
     parallel --tty just quietly ::: \
+        format \
         test \
         test-examples \
-        format \
         build-diagrams \
         verify \
         update-coverage \
-        doc
+        docs
 
 dev-loop-iter-mutants:
     just dev-loop-iter
@@ -91,8 +94,10 @@ mutants:
     cargo mutants \
         --no-times
 
-doc:
+docs:
     CARGO_TERM_COLOR="always" \
     RUSTFLAGS="-Dmissing_docs" \
-    cargo doc \
-        --target-dir target/just-doc \
+    cargo +nightly doc \
+        --features doc-images \
+        --target-dir target/just-doc
+    
