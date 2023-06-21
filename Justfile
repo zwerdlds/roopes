@@ -4,7 +4,6 @@ defaultwatch:= "dev-loop-iter"
 
 watch watchtarget=defaultwatch:
     cargo watch \
-        --why \
         --clear \
         --shell 'just {{watchtarget}}' \
         --ignore '**/*.svg' \

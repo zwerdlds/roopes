@@ -1,17 +1,15 @@
 # Issues
+## Current
+- Add UMLs to docs.
+
 ## Top
 - Maximize test coverage
-- Preview docs
-- Unify docs
-  - ensure svgs are referenced properly
-  - branding reference works in rustdocs
+- Update UMLs
 
 ## Medium
 - Sort through backlog
 
 ## Backlog
-
-## Incoming
 - Implement patterns
   - Prototype
   - Singleton
@@ -27,6 +25,8 @@
   - Momento
   - Strategy
   - Template Method
+
+## Incoming
 - UML for primitives
   - attachable
   - emitter
@@ -38,26 +38,11 @@
   - observing command
   - publisher subscriber
   - subscribing handler
-- Docs for primitives
-  - attachable
-  - emitter
-  - detachable
-  - executable
-  - transformer
-- UML for aggregates
-  - executable command
-  - observing command
-  - publisher subscriber
-  - subscribing handler
-- Move docs into .rs files
-- Visitor from proc macro
-- Documentation on builder
-- Condense dependencies to workspace where possible
 - Unify generics ordering (IOT vs TIO)
 - Generics naming conventions
 - Investigate using GATs
 - builder <-> emitter
-- parameterized docs
+- parameterized docs in proc_macros
 - refactor builder
   - impl builder<i,o> on proc_macro version
   - investigate if builder should be emitter
@@ -67,7 +52,6 @@
     - I think a const enum with generics in the other slots could be an implementation option here.
   - Outputted type must impl `Builder`
   - Tests
-- Implement this list in kibana
 - refactor visitor
   - Investigate the use of typestate/const enum/? in Builder pattern.
   - Visitor implements handler
@@ -78,5 +62,23 @@
 - top level traits could be better as structs (simplifies boxing) - need investigation on this vs type aliasing, and manual boxing
 - improve use of `delegate`.
 - Visitor macro breakup megamethod creating params
-- justfile dev loop parallelization cleanup
 - visitor add tuple (and one-ple) support
+
+
+
+
+## Complete
+- Move docs into .rs files
+- Preview docs
+- Unify docs
+  - ensure svgs are referenced properly
+  - branding reference works in rustdocs
+- Visitor from proc macro
+- Docs for primitives
+  - attachable
+  - emitter
+  - detachable
+  - executable
+  - transformer
+- Documentation on builder
+- justfile dev loop parallelization cleanup

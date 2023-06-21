@@ -1,4 +1,4 @@
-![roopes logo](roopes_lib/promo/Logo.svg)
+![roopes logo](promo/Logo.svg)
 
 Roopes is a Rust Object Oriented Programming Element System.
 This crate provides generic traits and implementations for typical

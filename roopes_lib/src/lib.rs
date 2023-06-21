@@ -1,7 +1,8 @@
 //!
 #![cfg_attr(feature = "doc-images",
   cfg_attr(all(),
-    doc = ::embed_doc_image::embed_image!("roopes-logo", "assets/logo.svg")))]
+    doc = ::embed_doc_image::embed_image!("roopes-logo", "../promo/logo.svg")
+  ))]
 #![cfg_attr(
     not(feature = "doc-images"),
     doc = "**Doc images not enabled**. Compile with feature `doc-images` and \
@@ -30,6 +31,7 @@
 //! zero-cost-abstractions while possible. However, working with v-tables has an
 //! inherent (though small) cost, so when it comes to the provided
 //! implementations, no guarantees about speed are provided.
+//!
 //! It has also been observed that the use of `dyn` is inherently less efficient
 //! in Rust due to the inability for the compiler to see the indirected code in
 //! the client code, eliminating a good number of optimizations the compiler
@@ -117,14 +119,17 @@
 //! ## lambda-logger
 //! Demonstrates a stateful, functional-style logger system of a contrived
 //! logging system.
+//!
 //! ## structuted-logger
 //! Demonstrates a decoupled logging system.
+//!
 //! ## collision-simulator
 //! Demonstrates a visitor-based system.
+//!
 //! # A Note on Issues
 //! Issues in this project are
 //! tracked with the system itself, not via an integrated tool, such as GitHub.
-//! This enables issues to be tied to the repo, instead.
+//! This enables issues to be tied to the state of the repo.
 //! It may be beneficial to factor out issues into a separate repository for
 //! some independence, but necessitating a particular tool is unhealthy for the
 //! portability of this project.
@@ -139,6 +144,7 @@
 //! - `enclose` This package is
 //! used to simplify the process of copying reference-counted objects to and
 //! from lambdas.
+//!
 //! # Addenda
 //! ## OOP in Rust?  Are you crazy!?
 //! Nope!
@@ -150,6 +156,7 @@
 //! sort of system-level coherence. In essence: if code is large enough to
 //! require OOP, it's probably at a point in its lifecycle where development
 //! time is incurring more cost than runtime.
+//!
 //! ## Why tho?
 //! Rust's type system is a good compromise between safety and usability.
 //! Architecting large systems without patterns can lead to
