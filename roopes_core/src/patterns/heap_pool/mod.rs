@@ -1,6 +1,17 @@
+//!
+#![cfg_attr(feature = "doc-images",
+  cfg_attr(
+    all(),
+    doc = ::embed_doc_image::embed_image!(
+        "heap-pool-diagram",
+        "src/patterns/heap_pool/heap_pool.svg"
+)))]
 //! Contains types which allow client code to
 //! generate, use, and re-use heap-allocated
 //! objects efficiently.
+//!
+//! ![heap pool diagram][heap-pool-diagram]
+
 pub mod refcell_box;
 
 #[cfg(test)]

@@ -1,0 +1,12 @@
+@startuml "transformer_chain"
+interface "Transformer" as trans<I, O> {
+}
+
+interface "Heap" as heap<I, O> {
+    {method} + transform(I): O
+    {method} + push(Transformer<O, N>): Heap<I, N>
+}
+
+heap .u.|> trans
+
+@enduml

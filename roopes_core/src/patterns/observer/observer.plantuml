@@ -3,11 +3,11 @@ interface "Observer" as obs {
     {method} + notify()
 }
 
-interface "Attachable" as attach {
+interface "AttachableSubject" as attach {
     {method} + attach(listener: Observer)
 }
 
-interface "Detachable" as detach {
+interface "DetachableSubject" as detach {
     {method} + detach(listener: Observer)
 }
 
@@ -15,7 +15,7 @@ interface "Subject" as sub {
     {method} + notify()
 }
 
-interface "MutableSub" as mutsub {
+interface "MutableSubject" as mutsub {
 }
 mutsub --|> attach
 mutsub --|> detach

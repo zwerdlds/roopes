@@ -1,0 +1,15 @@
+@startuml "transformer"
+interface "Transformer" as trans<I, O> {
+    {method} + transform(I): O
+}
+
+struct "Heap" as heap<I, O> {
+}
+
+struct "Lambda" as lambda<I, O> {
+}
+
+heap .u.|> trans
+lambda .u.|> trans
+
+@enduml

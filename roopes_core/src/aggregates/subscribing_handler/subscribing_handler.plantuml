@@ -1,0 +1,12 @@
+@startuml "subscribing_handler"
+
+interface "Subscriber" as sub
+struct "SubscribingHandler" as subHandler{
+    {field} delegate: Command
+}
+interface "Handler" as hndl
+
+subHandler .u.|> sub
+subHandler .u.|> hndl
+
+@enduml

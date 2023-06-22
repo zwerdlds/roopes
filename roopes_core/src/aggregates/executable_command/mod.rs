@@ -1,5 +1,19 @@
-//! The [`executable_command`] module creates
+//!
+#![cfg_attr(feature = "doc-images",
+  cfg_attr(
+    all(),
+    doc = ::embed_doc_image::embed_image!(
+        "executable-command-diagram",
+        "src/aggregates/executable_command/executable_command.svg"
+)))]
+#![cfg_attr(
+    not(feature = "doc-images"),
+    doc = "**Doc images not enabled**. Compile with feature `doc-images` and \
+           Rust version >= 1.54 to enable."
+)]
+//!  The [`executable_command`] module creates
 //! [`Executable`]s from arbitrary [`Command`]s.
+//! ![executable command diagram][executable-command-diagram]
 
 use crate::prelude::*;
 use delegate::delegate;

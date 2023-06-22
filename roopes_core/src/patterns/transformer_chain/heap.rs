@@ -1,7 +1,17 @@
+//!
+#![cfg_attr(feature = "doc-images",
+  cfg_attr(
+    all(),
+    doc = ::embed_doc_image::embed_image!(
+        "transformer-chain-diagram",
+        "src/patterns/transformer_chain/transformer_chain.svg"
+)))]
 //! Provides a heap-based [`Head`] which redirects
 //! [`Transformer::transform`] calls to a delegate
 //! [`Transformer`], then enables additional
 //! stages to be added arbitrarily.
+//!
+//! ![transformer chain diagram][transformer-chain-diagram]
 
 use crate::primitives::transformer::{
     self,

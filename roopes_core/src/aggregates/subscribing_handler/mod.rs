@@ -1,5 +1,20 @@
+//!
+#![cfg_attr(feature = "doc-images",
+  cfg_attr(
+    all(),
+    doc = ::embed_doc_image::embed_image!(
+        "subscribing-handler-diagram",
+        "src/aggregates/subscribing_handler/subscribing_handler.svg"
+)))]
+#![cfg_attr(
+    not(feature = "doc-images"),
+    doc = "**Doc images not enabled**. Compile with feature `doc-images` and \
+           Rust version >= 1.54 to enable."
+)]
 //! The [`subscribing_handler`] module creates
 //! [`Subscriber`]s from arbitrary [`Handler`]s.
+//!
+//! ![subscribing handler diagram][subscribing-handler-diagram]
 
 use crate::prelude::*;
 use std::{

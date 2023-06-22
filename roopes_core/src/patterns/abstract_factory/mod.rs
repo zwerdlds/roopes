@@ -1,6 +1,7 @@
 //!
 #![cfg_attr(feature = "doc-images",
-  cfg_attr(all(),
+  cfg_attr(
+    all(),
     doc = ::embed_doc_image::embed_image!(
         "abstract-factory-diagram",
         "src/patterns/abstract_factory/abstract_factory.svg"
@@ -11,6 +12,7 @@
            Rust version >= 1.54 to enable."
 )]
 //! Provides an abstraction for object creation.
+//!
 //! ![abstract factory diagram][abstract-factory-diagram]
 
 pub mod lambda;
@@ -26,8 +28,7 @@ pub trait AbstractFactory<T>
     fn create(&self) -> T;
 }
 
-/// Exposes the [`AbstractFactory`] types at the
-/// library level.
+/// Exposes [`AbstractFactory`] at the library level.
 pub mod prelude
 {
     pub use super::AbstractFactory;

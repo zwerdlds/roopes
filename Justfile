@@ -22,17 +22,15 @@ dev-loop-iter:
     parallel --tty just quietly ::: \
         format \
         test \
-        test-examples \
-        build-diagrams \
         verify \
         update-coverage \
         docs
-
+    
 dev-loop-iter-mutants:
     just dev-loop-iter
     just mutants
 
-dev-doc:
+dev-loop-doc:
     just dev-loop-iter-fast
     just doc
 
@@ -41,18 +39,12 @@ test:
     cargo test \
         --target-dir target/just-test \
         --workspace \
-        -q
+        --quiet \
+        --all-targets
 
 quietly recipe:
     @chronic unbuffer just {{recipe}}
     @echo -e "\033[0;32m{{recipe}} exited without error.\033[0m"
-
-test-examples:
-    CARGO_TERM_COLOR="always" \
-    cargo test \
-        --target-dir target/just-test-examples \
-        --examples \
-        -q
 
 verify: verify-check verify-clippy
 
@@ -94,6 +86,7 @@ mutants:
         --no-times
 
 docs:
+    just build-diagrams
     CARGO_TERM_COLOR="always" \
     RUSTFLAGS="-Dmissing_docs" \
     cargo +nightly doc \

@@ -1,4 +1,14 @@
+//!
+#![cfg_attr(feature = "doc-images",
+  cfg_attr(
+    all(),
+    doc = ::embed_doc_image::embed_image!(
+        "state-diagram",
+        "src/patterns/state/state.svg"
+)))]
 //! This module implements the State pattern.
+//!
+//! ![state diagram][state-diagram]
 
 pub mod simple;
 

@@ -1,0 +1,26 @@
+@startuml "handler"
+
+interface "Hash" as hashtrait
+
+interface "Eq" as eqtrait
+
+interface "Handler" as trans<I> {
+    {method} +handle(&I)
+}
+
+struct "Heap" as heap<I> {
+}
+
+struct "Lambda" as lambda<I> {
+}
+
+struct "Hash" as hash<I> {
+}
+
+heap .u.|> trans
+lambda .u.|> trans
+hash .u.|> trans
+hash .u.|> eqtrait
+hash .u.|> hashtrait
+
+@enduml

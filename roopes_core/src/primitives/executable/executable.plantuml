@@ -1,0 +1,15 @@
+@startuml "executable"
+interface "Executable" as trans<I, O> {
+    {method} + execute();
+}
+
+struct "Heap" as heap {
+}
+
+struct "Lambda" as lambda {
+}
+
+heap .u.|> trans
+lambda .u.|> trans
+
+@enduml

@@ -1,0 +1,12 @@
+@startuml "executable_command"
+
+interface "Executable" as exec
+struct "ExecutableCommand" as execCmd{
+    {field} delegate: Command
+}
+interface "Command" as cmd
+
+execCmd .u.|> exec
+execCmd .u.|> cmd
+
+@enduml

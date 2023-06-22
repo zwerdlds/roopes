@@ -1,0 +1,16 @@
+@startuml "emitter"
+
+interface "Emitter" as emit<O> {
+    {method} + emit(): O
+}
+
+struct "Heap" as heap {
+}
+
+struct "Lambda" as lambda {
+}
+
+heap .u.|> emit
+lambda .u.|> emit
+
+@enduml

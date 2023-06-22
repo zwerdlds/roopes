@@ -1,4 +1,14 @@
+//!
+#![cfg_attr(feature = "doc-images",
+  cfg_attr(
+    all(),
+    doc = ::embed_doc_image::embed_image!(
+        "emitter-diagram",
+        "src/primitives/emitter/emitter.svg"
+)))]
 //! Provides an encapsulated unit of production.
+//!
+//! ![emitter diagram][emitter-diagram]
 
 pub mod iterator;
 pub mod lambda;

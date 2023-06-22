@@ -1,5 +1,15 @@
+//!
+#![cfg_attr(feature = "doc-images",
+  cfg_attr(
+    all(),
+    doc = ::embed_doc_image::embed_image!(
+        "transformer-diagram",
+        "src/primitives/transformer/transformer.svg"
+)))]
 //! Provides types which receive a borrowed value,
 //! and return a new, owned value.
+//!
+//! ![transformer diagram][transformer-diagram]
 
 pub mod heap;
 pub mod lambda;

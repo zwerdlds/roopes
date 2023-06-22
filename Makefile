@@ -1,4 +1,6 @@
-DIAGRAMS_SRC := $(wildcard **/*.plantuml)
+.PHONY: svg clean
+
+DIAGRAMS_SRC := $(shell find -name '*.plantuml')
 DIAGRAMS_SVG := $(addsuffix .svg, $(basename $(DIAGRAMS_SRC)))
 
 svg: $(DIAGRAMS_SVG)
@@ -8,5 +10,3 @@ clean:
 
 %.svg: %.plantuml
 	plantuml -tsvg $^
-
-.PHONY: svg clean

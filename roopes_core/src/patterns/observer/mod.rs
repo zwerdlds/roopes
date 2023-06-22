@@ -1,7 +1,17 @@
+//!
+#![cfg_attr(feature = "doc-images",
+  cfg_attr(
+    all(),
+    doc = ::embed_doc_image::embed_image!(
+        "observer-diagram",
+        "src/patterns/observer/observer.svg"
+)))]
 //! Contains types which implement the "Observer"
 //! pattern, in which a single object is used to
 //! delegate notifications to a group of dynamic
 //! listening object.
+//!
+//! ![observer diagram][observer-diagram]
 
 pub mod hash_subject;
 pub mod vec_subject;

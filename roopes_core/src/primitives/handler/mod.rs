@@ -1,4 +1,14 @@
+//!
+#![cfg_attr(feature = "doc-images",
+  cfg_attr(
+    all(),
+    doc = ::embed_doc_image::embed_image!(
+        "handler-diagram",
+        "src/primitives/handler/handler.svg"
+)))]
 //! Provides types which receive a borrowed value.
+//!
+//! ![handler diagram][handler-diagram]
 
 pub mod hash;
 pub mod heap;

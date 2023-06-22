@@ -1,0 +1,39 @@
+@startuml "publisher_subscriber"
+interface "Subscriber" as sub<M> {
+    {method} + receive(M)
+}
+
+interface "AttachablePublisher" as attach {
+    {method} + attach(listener: Subscriber)
+}
+attach -u-> sub
+
+interface "DetachablePublisher" as detach {
+    {method} + detach(listener: Subscriber)
+}
+detach -u-> sub
+
+
+interface "Publisher" as pub<M> {
+    {method} + publish(M)
+}
+
+interface "MutablePublisher" as mutpub {
+}
+mutpub -u-|> attach
+mutpub -u-|> detach
+mutpub -u-|> pub
+
+struct "Vector" as vecpub {
+    {field} - listeners: Vec<Subscriber>
+}
+vecpub .u.|> mutpub
+vecpub -u-> sub
+
+struct "Hash" as hshpub {
+    {field} - listeners: HashSet<Subscriber + Hash>
+}
+hshpub .u.|> mutpub
+hshpub -u-> sub
+
+@enduml

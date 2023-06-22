@@ -1,3 +1,11 @@
+//!
+#![cfg_attr(feature = "doc-images",
+  cfg_attr(
+    all(),
+    doc = ::embed_doc_image::embed_image!(
+        "publisher-subscriber-diagram",
+        "src/patterns/publisher_subscriber/publisher_subscriber.svg"
+)))]
 //! This module implements the
 //! Publisher-Subscriber pattern.  In this model,
 //! a [`Publisher`] contains a list of
@@ -7,11 +15,13 @@
 //! one at a time.  Typically, implementations are
 //! dynamic, in that [`Subscriber`]s are able to
 //! be dded or removed at will by the client
-//! code - these features are delinieated
+//! code - these features are delineated
 //! separately in the [`DetachablePublisher`] and
 //! [`AttachablePublisher`] traits, but can be
 //! implemented by any [`Publisher`], and together
 //! as a [`MutablePublisher`].
+//!
+//! ![publisher subscriber diagram][publisher-subscriber-diagram]
 
 pub mod heap;
 pub mod vec_publisher;

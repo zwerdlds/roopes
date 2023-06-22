@@ -79,7 +79,7 @@
 //! Receives value values.
 //! - [`roopes_core::primitives::transformer::Transformer`]
 //! Consumes and returns values.
-
+//!
 //! ## Patterns
 //! The generally accepted, GoF-style patterns, most commonly used by
 //! developers.

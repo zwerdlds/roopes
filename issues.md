@@ -1,13 +1,18 @@
 # Issues
 ## Current
-- Add UMLs to docs.
+- Fix references in docs to point to modules instead of directly to types.
 
 ## Top
 - Maximize test coverage
-- Update UMLs
+- Clean up UML traits
+- Indicate UML borrows
+- Indicate UML generics
+- Indicate methods and static fn's
 
 ## Medium
 - Sort through backlog
+- make UML naming uniform
+- unite UML charts into one massive chart
 
 ## Backlog
 - Implement patterns
@@ -27,17 +32,6 @@
   - Template Method
 
 ## Incoming
-- UML for primitives
-  - attachable
-  - emitter
-  - detachable
-  - executable
-  - transformer
-- UML for aggregates
-  - executable command
-  - observing command
-  - publisher subscriber
-  - subscribing handler
 - Unify generics ordering (IOT vs TIO)
 - Generics naming conventions
 - Investigate using GATs
@@ -82,3 +76,15 @@
   - transformer
 - Documentation on builder
 - justfile dev loop parallelization cleanup
+- Add UMLs to docs.
+- UML for primitives
+  - attachable
+  - emitter
+  - detachable
+  - executable
+  - transformer
+- UML for aggregates
+  - executable command
+  - observing command
+  - publisher subscriber
+  - subscribing handler

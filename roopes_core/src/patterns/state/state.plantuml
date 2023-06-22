@@ -1,0 +1,17 @@
+@startuml "state"
+interface "State" as state {
+    {method} + execute()
+}
+
+interface "Context" as ctx {
+    {method} + handle()
+}
+
+interface "SimpleContext" as simplectx {
+    {method} + detach()
+}
+
+simplectx .u.|> ctx
+simplectx -u-> state
+
+@enduml

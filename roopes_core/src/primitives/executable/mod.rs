@@ -1,4 +1,14 @@
+//!
+#![cfg_attr(feature = "doc-images",
+  cfg_attr(
+    all(),
+    doc = ::embed_doc_image::embed_image!(
+        "executable-diagram",
+        "src/primitives/executable/executable.svg"
+)))]
 //! Provides an encapsulated unit of execution.
+//!
+//! ![executable diagram][executable-diagram]
 
 pub mod heap;
 pub mod lambda;
