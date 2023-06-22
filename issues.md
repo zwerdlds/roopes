@@ -38,7 +38,7 @@
 - builder <-> emitter
 - parameterized docs in proc_macros
 - refactor builder
-  - impl builder<i,o> on proc_macro version
+  - impl builder<i,o> & put on on proc_macro version
   - investigate if builder should be emitter
   - params struct in BuilderTokenStreamBuilder
   - split up BuilderTokenStreamBuilder::build
@@ -47,6 +47,7 @@
   - Outputted type must impl `Builder`
   - Tests
 - refactor visitor
+  - impl visitor<i,o> & put on on proc_macro version
   - Investigate the use of typestate/const enum/? in Builder pattern.
   - Visitor implements handler
   - add support for other types of enum structs
