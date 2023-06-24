@@ -60,8 +60,6 @@
 - visitor add tuple (and one-ple) support
 
 
-
-
 ## Complete
 - Move docs into .rs files
 - Preview docs

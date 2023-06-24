@@ -7,7 +7,7 @@ mod test;
 struct Boxes(usize);
 
 #[derive(Visitor, Clone, Copy)]
-enum CollideElement
+enum Vehicle
 {
     Truck
     {
@@ -19,10 +19,10 @@ enum CollideElement
 
 struct CollideElementCollider
 {
-    subject: CollideElement,
+    subject: Vehicle,
 }
 
-impl CollideElementVisitor for CollideElementCollider
+impl VehicleVisitor for CollideElementCollider
 {
     fn visit_truck(
         &self,
@@ -85,12 +85,12 @@ fn main()
 {
     println!("Collision Sim");
 
-    let truck = CollideElement::Truck { boxes: Boxes(2) };
-    let bicycle = CollideElement::Bicycle;
-    let car = CollideElement::Car;
+    let truck = Vehicle::Truck { boxes: Boxes(2) };
+    let bicycle = Vehicle::Bicycle;
+    let car = Vehicle::Car;
 
     let mut collider =
-        CollideElementAcceptor::new(CollideElementCollider { subject: truck });
+        VehicleAcceptor::new(CollideElementCollider { subject: truck });
 
     collider.accept(&bicycle);
     collider.accept(&truck);
