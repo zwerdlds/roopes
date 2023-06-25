@@ -10,7 +10,7 @@
 )]
 //! ![roopes logo][roopes-logo]
 //!
-//! Roopes is a Rust Object Oriented Programming Element System.
+//! Roopes is a Rust Object Oriented Pattern Element System.
 //! This crate provides generic traits and implementations for typical
 //! object-oriented patterns in Rust. It is intended to be used as a cluster of
 //! utility classes for implementing OOP-architected executables -- *in
@@ -65,10 +65,23 @@
 //! # Provided Patterns
 //! Traits describing patterns are placed in one of three categories:
 //! ## Primitives
-//! These form the basis of re-used abstractions used by patterns.
+//! These modules form the basis of re-used abstractions used by patterns.
+//! These types exist to unify the syntax of the system: as a general rule, each
+//! pattern contains a central group of traits made generic on some
+//! user-specified type. e.g.: A builder is generic on the type on which
+//! `build()` produces.
+//!
+//! These types supply each of the following scenarios:
+//!
+//! | *Type* | *Receives Value* | *Produces Value* |
+//! | `Executable` | No | No |
+//! | `Emitter` | No | Yes |
+//! | `Handler` | Yes | No |
+//! | `Transformer` | Yes | Yes |
+//!
 //! They can be used independently, but don't necessarily conform to a more
-//! widely-accepted pattern, so that may lead to undesirable qualities in your
-//! project if used directly.
+//! widely-accepted pattern other than various forms of `dyn Fn`, so that may
+//! lead to undesirable qualities in your project if used directly.
 //! [Please don't @ me.](https://en.wikipedia.org/wiki/Greenspun%27s_tenth_rule)
 //!
 //! - [`roopes_core::primitives::emitter::Emitter`]
@@ -81,10 +94,9 @@
 //! Consumes and returns values.
 //!
 //! ## Patterns
-//! The generally accepted, GoF-style patterns, most commonly used by
-//! developers.
+//! The more generally accepted patterns.
 //!
-//! - [`roopes_core::patterns::abstract_factory::AbstractFactory`]
+//! - [`roopes_core::patterns::abstract_factory`]
 //! Abstracts creating objects.
 //! - [`roopes_derive::Builder`]
 //! Aids in the construction of similar objects.
@@ -108,11 +120,11 @@
 //! implements `Executable` for `Command`. These are provided to make the case
 //! of moving between the given traits simpler, most often by calling `.into`.
 //!
-//! - [`roopes_core::aggregates::executable_command::ExecutableCommand`]
+//! - [`roopes_core::aggregates::executable_command`]
 //! Adapts `Executable` from `Command`.
-//! - [`roopes_core::aggregates::observing_command::ObservingCommand`]
+//! - [`roopes_core::aggregates::observing_command`]
 //! Adapts `Observer` from `Command`.
-//! - [`roopes_core::aggregates::subscribing_handler::SubscribingHandler`]
+//! - [`roopes_core::aggregates::subscribing_handler`]
 //! Adapts `Subscriber` from `Handler`.
 //!
 //! # Examples
@@ -124,7 +136,7 @@
 //! Demonstrates a decoupled logging system.
 //!
 //! ## collision-simulator
-//! Demonstrates a visitor-based system.
+//! Demonstrates an enum-based visitor-based system.
 //!
 //! # A Note on Issues
 //! Issues in this project are
@@ -148,8 +160,8 @@
 //! # Addenda
 //! ## OOP in Rust?  Are you crazy!?
 //! Nope!
-//! Okay, maybe a little.
-//! But, once you accept that `Rc<...>` doesn't incur *that* much overhead,
+//! Maybe a little, but...
+//! Once you accept the speed impact `Rc<...>` incurs,
 //! especially if the client algorithms are organized for memory locality, it's
 //! really not that bad. Client code should also try to organize by sub-system -
 //! if the borrow checker is involved, it's a good idea to try and observer a
