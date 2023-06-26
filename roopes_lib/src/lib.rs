@@ -70,48 +70,42 @@
 //! pattern contains a central group of traits made generic on some
 //! user-specified type. e.g.: A builder is generic on the type on which
 //! `build()` produces.
+//! [Please don't @ me.](https://en.wikipedia.org/wiki/Greenspun%27s_tenth_rule)
 //!
 //! These types supply each of the following scenarios:
 //!
-//! | *Type* | *Receives Value* | *Produces Value* |
-//! | `Executable` | No | No |
-//! | `Emitter` | No | Yes |
-//! | `Handler` | Yes | No |
-//! | `Transformer` | Yes | Yes |
+//! | Type | Receives Value | Produces Value |
+//! |--------|------------------|------------------|
+//! | [`roopes_core::primitives::executable::Executable`] | No | No |
+//! | [`roopes_core::primitives::emitter::Emitter`] | No | Yes |
+//! | [`roopes_core::primitives::handler::Handler`] | Yes | No |
+//! | [`roopes_core::primitives::transformer::Transformer`] | Yes | Yes |
 //!
 //! They can be used independently, but don't necessarily conform to a more
 //! widely-accepted pattern other than various forms of `dyn Fn`, so that may
 //! lead to undesirable qualities in your project if used directly.
-//! [Please don't @ me.](https://en.wikipedia.org/wiki/Greenspun%27s_tenth_rule)
-//!
-//! - [`roopes_core::primitives::emitter::Emitter`]
-//! Creates values.
-//! - [`roopes_core::primitives::executable::Executable`]
-//! Encapsulates the execution some block of code.
-//! - [`roopes_core::primitives::handler::Handler`]
-//! Receives value values.
-//! - [`roopes_core::primitives::transformer::Transformer`]
-//! Consumes and returns values.
 //!
 //! ## Patterns
 //! The more generally accepted patterns.
 //!
 //! - [`roopes_core::patterns::abstract_factory`]
-//! Abstracts creating objects.
+//! Defines a method of creating typed objects.
 //! - [`roopes_derive::Builder`]
-//! Aids in the construction of similar objects.
+//! Aids in the configuration and construction of similar objects.
 //! - [`roopes_core::patterns::command::Command`]
 //! Encapsulates a block of executable code.
 //! - [`roopes_core::patterns::heap_pool::HeapPool`]
 //! Reduces heap thrashing.
 //! - [`roopes_core::patterns::observer`]
-//! Executes blocks of code dynamically.
+//! Manages the distribution of notifications.
 //! - [`roopes_core::patterns::publisher_subscriber`]
 //! Dynamically receive messages.
 //! - [`roopes_core::patterns::state`]
-//! Manages a multi-stage algorithm.
+//! Manages a discreet-state algorithm.
+//! - [`roopes_core::patterns::transformer_chain`]
+//! Aids in creating multi-stage, type-safe, data transformations.
 //! - [`roopes_derive::Visitor`]
-//! Enum variant-based interactions.
+//! Ensures a type can consume a particular message type.
 //!
 //! ## Aggregates
 //! These patterns build on the common and primitive
