@@ -23,16 +23,19 @@ dev-loop-iter:
         format \
         test \
         verify \
-        update-coverage \
-        docs
+        update-coverage
     
 dev-loop-iter-mutants:
     just dev-loop-iter
     just mutants
 
 dev-loop-doc:
-    just dev-loop-iter-fast
-    just doc
+    parallel --tty just quietly ::: \
+        format \
+        test \
+        verify \
+        update-coverage \
+        doc
 
 test:
     CARGO_TERM_COLOR="always" \
@@ -49,6 +52,7 @@ quietly recipe:
 verify: verify-check verify-clippy
 
 verify-check:
+    RUSTFLAGS="-D warnings" \
     CARGO_TERM_COLOR="always" \
     cargo check \
         --target-dir target/just-check \
@@ -56,6 +60,7 @@ verify-check:
         --all-features
 
 verify-clippy: 
+    RUSTFLAGS="-D warnings" \
     CARGO_TERM_COLOR="always" \
     cargo clippy \
         --workspace \
