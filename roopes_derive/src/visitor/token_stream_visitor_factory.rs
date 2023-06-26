@@ -18,6 +18,7 @@ use syn::{
     token::Comma,
     DataEnum,
     DeriveInput,
+    Fields,
     Type,
     Variant,
     Visibility,
@@ -70,6 +71,63 @@ struct VisitorTransformerParams
     variants: Punctuated<Variant, Comma>,
 }
 
+impl VisitorTransformerParams
+{
+    fn variant_ids(&self) -> Vec<Ident>
+    {
+        self.variants
+            .iter()
+            .map(|variant| variant.clone().ident)
+            .collect()
+    }
+
+    fn visitor_fn_names(&self) -> Vec<Ident>
+    {
+        self.variant_ids()
+            .into_iter()
+            .map(|id| id.to_string().to_snek_case())
+            .map(|id| format_ident!("visit_{id}"))
+            .collect()
+    }
+
+    fn variants_fields(&self) -> Vec<Fields>
+    {
+        self.variants
+            .clone()
+            .into_iter()
+            .map(|variant| variant.fields)
+            .collect()
+    }
+
+    fn variants_field_params(&self) -> Vec<Vec<(Type, Ident)>>
+    {
+        self.variants_fields()
+            .into_iter()
+            .map(|fields| {
+                fields
+                    .into_iter()
+                    .map(|field| {
+                        (
+                            field.ty.clone(),
+                            field.ident.expect(
+                                "All derive(Visitor) enum fields must be named",
+                            ),
+                        )
+                    })
+                    .collect()
+            })
+            .collect()
+    }
+
+    fn variants_field_names(&self) -> Vec<Vec<Ident>>
+    {
+        self.variants_field_params()
+            .into_iter()
+            .map(|fields| fields.into_iter().map(|(_, name)| name).collect())
+            .collect()
+    }
+}
+
 struct VisitorTransformer;
 impl VisitorTransformer
 {
@@ -81,72 +139,25 @@ impl VisitorTransformer
         AcceptorTransformerParams,
     )
     {
-        let variant_ids =
-            shared.variants.iter().map(|variant| variant.clone().ident);
-
-        let visitor_fn_names = variant_ids
-            .clone()
-            .map(|id| id.to_string().to_snek_case())
-            .map(|id| format_ident!("visit_{id}"));
-
-        let variants_fields = shared
-            .variants
-            .clone()
-            .into_iter()
-            .map(|variant| variant.fields.into_iter());
-
-        let variants_field_params = variants_fields.map(|fields| {
-            fields.map(|field| {
-                (
-                    field.ty.clone(),
-                    field.ident.expect(
-                        "All derive(Visitor) enum fields must be named",
-                    ),
-                )
-            })
-        });
-
-        let variants_field_names = variants_field_params
-            .clone()
-            .map(|fields| fields.map(|(_, name)| name));
-
-        let visibility = shared.visibility.clone();
-        let visit_target = shared.visit_target.clone();
-        let visitor = shared.visitor.clone();
-        let acceptor = shared.acceptor.clone();
-
-        let variant_ids: Vec<_> = variant_ids.collect();
-        let visitor_fn_names: Vec<_> = visitor_fn_names.collect();
-        let variants_field_params: Vec<Vec<_>> =
-            variants_field_params.map(Iterator::collect).collect();
-        let variants_field_names: Vec<Vec<_>> =
-            variants_field_names.map(Iterator::collect).collect();
-
-        let preamble_params = PreambleTransformerParams {
-            visit_target: visit_target.clone(),
-        };
-
-        let visitor_trait_transformer_params = VisitorTraitTransformerParams {
-            visibility: visibility.clone(),
-            visitor: visitor.clone(),
-            visitor_fn_names: visitor_fn_names.clone(),
-            variants_field_params,
-        };
-
-        let acceptor_transformer_params = AcceptorTransformerParams {
-            visibility,
-            visit_target,
-            visitor,
-            acceptor,
-            variant_ids,
-            visitor_fn_names,
-            variants_field_names,
-        };
-
         (
-            preamble_params,
-            visitor_trait_transformer_params,
-            acceptor_transformer_params,
+            PreambleTransformerParams {
+                visit_target: shared.visit_target.clone(),
+            },
+            VisitorTraitTransformerParams {
+                visibility: shared.visibility.clone(),
+                visitor: shared.visitor.clone(),
+                variants_field_params: shared.variants_field_params(),
+                visitor_fn_names: shared.visitor_fn_names(),
+            },
+            AcceptorTransformerParams {
+                visibility: shared.visibility.clone(),
+                visit_target: shared.visit_target.clone(),
+                visitor: shared.visitor.clone(),
+                acceptor: shared.acceptor.clone(),
+                variant_ids: shared.variant_ids(),
+                visitor_fn_names: shared.visitor_fn_names(),
+                variants_field_names: shared.variants_field_names(),
+            },
         )
     }
 }
