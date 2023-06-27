@@ -1,4 +1,6 @@
+pub mod blocks;
 pub mod token_stream_visitor_factory;
+pub mod visitor_transformer_params;
 
 use proc_macro::TokenStream;
 use token_stream_visitor_factory::TokenStreamVisitorFactory;

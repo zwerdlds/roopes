@@ -10,6 +10,7 @@
 use proc_macro::TokenStream;
 
 mod builder;
+mod common;
 mod visitor;
 
 /// Creates a new type on the specified `struct`,
