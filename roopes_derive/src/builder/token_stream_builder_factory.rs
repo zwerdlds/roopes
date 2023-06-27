@@ -8,7 +8,6 @@ use quote::{
     format_ident,
     quote,
 };
-use std::borrow::Borrow;
 use syn::parse_macro_input;
 
 pub(super) struct TokenStreamBuilderFactory
@@ -26,7 +25,12 @@ impl TokenStreamBuilderFactory
     fn field_generic_name(field_name: &Ident) -> Ident
     {
         let name = field_name.to_string().to_shouty_snake_case();
-        format_ident!("IS_{name}_SET")
+        format_ident!("IS_FIELD_{name}_SET")
+    }
+
+    fn phantom_field_name(field_name: &Ident) -> Ident
+    {
+        format_ident!("{field_name}_set")
     }
 
     fn field_struct_base_name(field_name: &Ident) -> Ident
@@ -38,15 +42,16 @@ impl TokenStreamBuilderFactory
     fn field_populated_struct_name(field_name: &Ident) -> Ident
     {
         let gn = Self::field_struct_base_name(field_name);
-        format_ident!("{gn}Set")
+        format_ident!("Field{gn}Set")
     }
 
     fn field_unpopulated_struct_name(field_name: &Ident) -> Ident
     {
         let gn = Self::field_struct_base_name(field_name);
-        format_ident!("{gn}Unset")
+        format_ident!("Field{gn}Unset")
     }
 
+    #[allow(clippy::too_many_lines)]
     pub fn build(&self) -> TokenStream
     {
         let tokens = self.token_stream.clone();
@@ -72,7 +77,7 @@ impl TokenStreamBuilderFactory
             )
         };
 
-        let fields_declare = fields.iter().map(|field| {
+        let build_fields_declare = fields.iter().map(|field| {
             let field = field.clone();
             let id = field.ident.unwrap();
             let ty = field.ty;
@@ -82,34 +87,48 @@ impl TokenStreamBuilderFactory
             }
         });
 
-        let fields_init = fields.iter().map(|field| {
-            let id = field.clone().ident.unwrap();
+        let field_idents: Vec<_> = fields
+            .clone()
+            .into_iter()
+            .map(|f| f.ident)
+            .map(Option::unwrap)
+            .collect();
+
+        let phantom_fields: Vec<_> =
+            field_idents.iter().map(Self::phantom_field_name).collect();
+
+        let phantom_fields_declare = field_idents.iter().map(|id| {
+            let fgn = Self::field_generic_name(id);
+            let phantom_field = Self::phantom_field_name(id);
+
+            quote! {
+                #phantom_field: std::marker::PhantomData<#fgn>
+            }
+        });
+
+        let build_fields_init = field_idents.iter().map(|id| {
             quote! { #id: std::option::Option::None }
         });
 
-        let build_set_fields = fields.iter().map(|field| {
-            let id = field.clone().ident.unwrap();
-
-            quote! { #id: self.#id.as_ref().unwrap().clone() }
+        let phantom_fields_init = phantom_fields.iter().map(|id| {
+            quote! { #id: std::marker::PhantomData {} }
         });
 
-        let field_idents = fields.iter().map(|f| f.ident).map(Option::unwrap);
+        let build_set_fields = field_idents.iter().map(|id| {
+            quote! { #id: self.#id.unwrap() }
+        });
 
-        let populated_indicator_generics =
-            field_idents.clone().map(|f| Self::field_generic_name(&f));
+        let poppable_indicator_generics =
+            field_idents.iter().map(Self::field_generic_name);
 
-        let field_populated_struct_names = populated_indicator_generics
-            .clone()
-            .map(|f| Self::field_populated_struct_name(&f));
-
-        let builder_poppable = format_ident!("{builder}Settable");
-        let builder_unpopped = format_ident!("{builder}Unset");
-        let builder_popped = format_ident!("{builder}Set");
+        let builder_poppable = format_ident!("{builder}SettableField");
+        let builder_unpopped = format_ident!("{builder}FieldUnset");
+        let builder_popped = format_ident!("{builder}FieldSet");
 
         let field_indicator_structs = {
-            let field_structs = field_idents.map(|f| {
-                let unpop = Self::field_unpopulated_struct_name(&f);
-                let popped = Self::field_populated_struct_name(&f);
+            let field_structs = field_idents.iter().map(|f| {
+                let unpop = Self::field_unpopulated_struct_name(f);
+                let popped = Self::field_populated_struct_name(f);
 
                 quote! {
                     #vis struct #unpop {}
@@ -127,87 +146,138 @@ impl TokenStreamBuilderFactory
             }
         };
 
-        let all_unpopulated = fields
+        let all_unpopulated: Vec<_> = field_idents
             .iter()
-            .map(|f| Self::field_unpopulated_struct_name(f));
+            .map(Self::field_unpopulated_struct_name)
+            .collect();
 
         let all_populated =
-            fields.iter().map(|f| Self::field_populated_struct_name(&f));
+            field_idents.iter().map(Self::field_populated_struct_name);
 
-        let where_block = {
-            let where_clauses = field_indicator_generics
-                .clone()
-                .map(|(pop_generic, fpe_name)| quote!(#pop_generic : #builder_poppable));
+        let field_generic_names: Vec<_> =
+            field_idents.iter().map(Self::field_generic_name).collect();
+
+        let poppable_where_block = {
+            let where_clauses = field_generic_names
+                .iter()
+                .map(|pop_generic| quote!(#pop_generic : #builder_poppable));
 
             quote!(where #(#where_clauses),*)
         };
 
-        let setter_impls = fields.clone().into_iter()
-            .map(|field| {
-                let field = field.clone();
-                let id = field.ident.unwrap();
-                let ty = field.ty;
-                let setter_id = format_ident!("set_{id}");
-                let impl_setter_return_generics = fields.clone()
-                    .into_iter()
-                    .map(|f| f.ident)
-                    .map(Option::unwrap)
-                    .map(|gen_fld|{
-                        if gen_fld.eq(field) {
-                            quote!{
+        let setter_fns = fields.clone().into_iter().map(|field| {
+            let id = field.ident.unwrap();
+            let ty = field.ty;
+            let fn_id = format_ident!("set_{id}");
+            let return_generics = field_idents
+                .iter()
+                .map(|gen_fld| {
+                    if gen_fld.eq(&id) {
+                        Self::field_populated_struct_name(&id)
+                    } else {
+                        Self::field_generic_name(gen_fld)
+                    }
+                })
+                .map(|f| quote! {#f});
 
-                            }
+            let remainder_ids = field_idents
+                .iter()
+                .filter(|fid| fid.ne(&&id))
+                .cloned()
+                .map(|fid| {
+                    quote! {
+                        #fid: self.#fid
+                    }
+                })
+                .chain(phantom_fields.iter().cloned().map(
+                    |phantom_fid: Ident| {
+                        quote! {
+                            #phantom_fid: std::marker::PhantomData {}
                         }
-                        else {
-                            Self::field_generic_name(fld) 
-                        }
-                    });
+                    },
+                ));
 
-                quote! {
-                    pub fn #setter_id(self, #id: #ty) -> Self<#(#impl_setter_return_generics),*>
-                    {
-                        self.#id = Some(#id);
-                        self
+            quote! {
+                #vis fn
+                    #fn_id(self, #id: #ty)
+                    -> #builder<#(#return_generics),*>
+                {
+                    #builder {
+                        #id: Some(#id),
+                        #(#remainder_ids),*
                     }
                 }
-            });
+            }
+        });
+
+        let fields_init = build_fields_init.chain(phantom_fields_init);
+        let fields_declare = build_fields_declare.chain(phantom_fields_declare);
+
+        let builder_generic_ty = quote! {
+            #builder<#(#poppable_indicator_generics),*>
+        };
+
+        let new_impl_type = {
+            quote! {
+            #builder<#(#all_unpopulated),*>}
+        };
+
+        let new_fn = {
+            quote! {
+                #vis fn new()
+                        -> #builder<#(#all_unpopulated),*>
+                    {
+                        #builder {
+                            #(#fields_init),*
+                        }
+                    }
+            }
+        };
 
         let output = quote! {
-            #vis trait #builder_settable {}
-            #vis trait #builder_unset {}
-            #vis trait #builder_set {}
+            #vis trait #builder_poppable {}
+            #vis trait #builder_unpopped {}
+            #vis trait #builder_popped {}
 
             #field_indicator_structs
 
-            #vis struct #builder<#(#populated_indicator_generics),*> #where_block  {
+            #vis struct
+                #builder_generic_ty
+                #poppable_where_block
+            {
                 #(#fields_declare),*
             }
 
-            impl<#(#field_populated_enum_names),*> #builder<#(#populated_indicator_generics),*>  {
-                pub fn new() -> #builder<#(#all_unpopulated),*> {
-                    #builder {
-                        #(#fields_init),*
-                    }
-                }
+            impl #new_impl_type
+            {
+                #new_fn
+            }
 
-                #setters_impl
+            impl<#(#field_generic_names),*>
+                #builder_generic_ty
+                #poppable_where_block
+            {
+                #(#setter_fns)*
             }
 
 
             impl #builder<#(#all_populated),*> {
-                pub fn build(&self) -> #build_target {
+                #vis fn build(self) -> #build_target {
                     #build_target {
-                        #(#build_build),*
+                        #(#build_set_fields),*
                     }
                 }
             }
         };
 
-        eprintln!("Results:");
-        let contents =
-            syn::parse_file(&output.to_string()).expect("Syn parsing failed.");
-        let formatted = prettyplease::unparse(&contents);
-        eprintln!("{formatted}");
+        // eprintln!("{}", output.to_string());
+        // eprintln!("Formatted Results:");
+        // let contents = syn::parse_file(&output.to_string()).expect(
+        //     "Syn parsing
+        // failed",
+        // );
+        // let formatted = prettyplease::unparse(&contents);
+        // eprintln!("{formatted}");
 
         output.into()
     }

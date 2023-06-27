@@ -42,6 +42,7 @@ pub fn derive_builder(input: TokenStream) -> TokenStream
 {
     builder::derive(input)
 }
+
 /// Creates a new trait for user code to implement
 /// on the specified `enum`. This trait requires
 /// implementors to implement handlers for all the

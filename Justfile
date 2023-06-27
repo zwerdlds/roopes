@@ -8,6 +8,7 @@ watch watchtarget=defaultwatch:
         --shell 'just {{watchtarget}}' \
         --ignore '**/*.svg' \
         --ignore 'lcov.info' \
+        --ignore 'wip/*' \
         --ignore 'README.md' \
         --ignore 'mutants.out*/**'
 
@@ -17,14 +18,14 @@ reinit-workspace:
     cargo install cargo-doc --force
     cargo install cargo-mutants --force
     cargo install cargo-readme --force
-    
+
 dev-loop-iter:
     parallel --tty just quietly ::: \
         format \
         test \
         verify \
         update-coverage
-    
+
 dev-loop-iter-mutants:
     just dev-loop-iter
     just mutants

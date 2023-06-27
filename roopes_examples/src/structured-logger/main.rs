@@ -26,9 +26,7 @@ fn main()
     let println_printer = Rc::new(PrintlnPrinter::new());
     let prefix_formatter = Rc::new(PrefixFormatter::new("Prefix Demo".into()));
 
-    let mut logger_builder = LoggerBuilder::new();
-
-    logger_builder
+    let logger_builder = LoggerBuilder::new()
         .set_printer(println_printer)
         .set_formatter(prefix_formatter);
 

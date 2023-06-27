@@ -1,15 +1,15 @@
-use super::visitor_transformer_params::VisitorTransformerParams;
+use super::transformer_params::TransformerParams;
 use crate::common::VecTokenStringTransformer;
 use proc_macro2::TokenStream as TokenStream2;
 use quote::quote;
 use roopes_core::prelude::*;
 
 pub(super) struct PreambleTransformer;
-impl Transformer<VisitorTransformerParams, TokenStream2> for PreambleTransformer
+impl Transformer<TransformerParams, TokenStream2> for PreambleTransformer
 {
     fn transform(
         &self,
-        input: &VisitorTransformerParams,
+        input: &TransformerParams,
     ) -> TokenStream2
     {
         let visit_target = input.visit_target.clone();
@@ -21,12 +21,11 @@ impl Transformer<VisitorTransformerParams, TokenStream2> for PreambleTransformer
 }
 
 pub(super) struct VisitorTraitTransformer;
-impl Transformer<VisitorTransformerParams, TokenStream2>
-    for VisitorTraitTransformer
+impl Transformer<TransformerParams, TokenStream2> for VisitorTraitTransformer
 {
     fn transform(
         &self,
-        input: &VisitorTransformerParams,
+        input: &TransformerParams,
     ) -> TokenStream2
     {
         let visibility = input.visibility.clone();
@@ -58,16 +57,16 @@ impl Transformer<VisitorTransformerParams, TokenStream2>
 }
 
 pub(super) struct AcceptorTransformer;
-impl Transformer<VisitorTransformerParams, TokenStream2> for AcceptorTransformer
+impl Transformer<TransformerParams, TokenStream2> for AcceptorTransformer
 {
     fn transform(
         &self,
-        input: &VisitorTransformerParams,
+        input: &TransformerParams,
     ) -> TokenStream2
     {
         let elements = vec![
-            AcceptorStructTransformer.transform(&input),
-            AcceptorImplTransformer.transform(&input),
+            AcceptorStructTransformer.transform(input),
+            AcceptorImplTransformer.transform(input),
         ];
 
         VecTokenStringTransformer.transform(&elements)
@@ -75,12 +74,11 @@ impl Transformer<VisitorTransformerParams, TokenStream2> for AcceptorTransformer
 }
 
 pub(super) struct AcceptorStructTransformer;
-impl Transformer<VisitorTransformerParams, TokenStream2>
-    for AcceptorStructTransformer
+impl Transformer<TransformerParams, TokenStream2> for AcceptorStructTransformer
 {
     fn transform(
         &self,
-        input: &VisitorTransformerParams,
+        input: &TransformerParams,
     ) -> TokenStream2
     {
         let visibility = input.visibility.clone();
@@ -98,20 +96,19 @@ impl Transformer<VisitorTransformerParams, TokenStream2>
 }
 
 pub(super) struct AcceptorImplTransformer;
-impl Transformer<VisitorTransformerParams, TokenStream2>
-    for AcceptorImplTransformer
+impl Transformer<TransformerParams, TokenStream2> for AcceptorImplTransformer
 {
     fn transform(
         &self,
-        input: &VisitorTransformerParams,
+        input: &TransformerParams,
     ) -> TokenStream2
     {
         let visitor = input.visitor.clone();
         let acceptor = input.acceptor.clone();
 
         let elements = VecTokenStringTransformer.transform(&vec![
-            AcceptorImplNewFnTransformer.transform(&input),
-            AcceptorImplAcceptFnTransformer.transform(&input),
+            AcceptorImplNewFnTransformer.transform(input),
+            AcceptorImplAcceptFnTransformer.transform(input),
         ]);
 
         quote! {
@@ -123,12 +120,12 @@ impl Transformer<VisitorTransformerParams, TokenStream2>
 }
 
 pub(super) struct AcceptorImplNewFnTransformer;
-impl Transformer<VisitorTransformerParams, TokenStream2>
+impl Transformer<TransformerParams, TokenStream2>
     for AcceptorImplNewFnTransformer
 {
     fn transform(
         &self,
-        input: &VisitorTransformerParams,
+        input: &TransformerParams,
     ) -> TokenStream2
     {
         let acceptor = input.acceptor.clone();
@@ -145,19 +142,19 @@ impl Transformer<VisitorTransformerParams, TokenStream2>
 }
 
 pub(super) struct AcceptorImplAcceptFnTransformer;
-impl Transformer<VisitorTransformerParams, TokenStream2>
+impl Transformer<TransformerParams, TokenStream2>
     for AcceptorImplAcceptFnTransformer
 {
     fn transform(
         &self,
-        input: &VisitorTransformerParams,
+        input: &TransformerParams,
     ) -> TokenStream2
     {
         let visibility = input.visibility.clone();
         let visit_target = input.visit_target.clone();
-        let variant_ids = input.variant_ids().clone().into_iter();
-        let visitor_fn_names = input.visitor_fn_names().clone();
-        let variants_field_names = input.variants_field_names().clone();
+        let variant_ids = input.variant_ids().into_iter();
+        let visitor_fn_names = input.visitor_fn_names();
+        let variants_field_names = input.variants_field_names();
 
         let visitor_fn_calls = visitor_fn_names
             .into_iter()

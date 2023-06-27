@@ -1,0 +1,11 @@
+error[E0599]: no method named `build` found for struct `TestStructBuilder<FieldValueOneUnset>` in the current scope
+  --> src/builder/test/invalid_unpopulated_fail.rs:11:31
+   |
+3  | #[derive(Builder)]
+   |          ------- method `build` not found for this struct
+...
+11 |     let test_struct = builder.build();
+   |                               ^^^^^ method not found in `TestStructBuilder<FieldValueOneUnset>`
+   |
+   = note: the method was found for
+           - `TestStructBuilder<FieldValueOneSet>`

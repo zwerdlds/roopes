@@ -11,7 +11,7 @@ use syn::{
 };
 
 #[derive(Clone)]
-pub(super) struct VisitorTransformerParams
+pub(super) struct TransformerParams
 {
     pub(super) visibility: Visibility,
     pub(super) visit_target: Ident,
@@ -20,7 +20,7 @@ pub(super) struct VisitorTransformerParams
     pub(super) variants: Punctuated<Variant, Comma>,
 }
 
-impl VisitorTransformerParams
+impl TransformerParams
 {
     pub(super) fn variant_ids(&self) -> Vec<Ident>
     {

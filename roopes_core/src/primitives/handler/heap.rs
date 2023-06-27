@@ -20,11 +20,10 @@ impl<M> Heap<M>
     /// [`Box`]ed [`Handler`]. # Examples
     /// ``` rust
     /// use roopes::prelude::*;
-    /// let my_handler = handler::Heap::new(Box::new(
-    ///     handler::Lambda::new(|message| {
+    /// let my_handler =
+    ///     handler::Heap::new(Box::new(handler::Lambda::new(|message| {
     ///         println!("{message}");
-    ///     }),
-    /// ));
+    ///     })));
     /// my_handler.handle(&"Hello World.".to_string());
     /// ```
     #[must_use]

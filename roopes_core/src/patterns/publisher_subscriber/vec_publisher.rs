@@ -19,20 +19,15 @@ use std::cell::RefCell;
 /// };
 ///
 /// let has_run = Rc::new(RefCell::new(false));
-/// let mut publisher =
-///     publisher_subscriber::VecPublisher::default();
+/// let mut publisher = publisher_subscriber::VecPublisher::default();
 /// let has_run_ext = has_run.clone();
-/// let heap_handler = handler::Heap::new(Box::new(
-///     handler::Lambda::new(move |v| {
+/// let heap_handler =
+///     handler::Heap::new(Box::new(handler::Lambda::new(move |v| {
 ///         (*has_run_ext.borrow_mut()) = *v;
-///     }),
-/// ));
-/// let sub_handler: SubscribingHandler<_, _> =
-///     heap_handler.into();
+///     })));
+/// let sub_handler: SubscribingHandler<_, _> = heap_handler.into();
 /// let subscriber =
-///     publisher_subscriber::heap::Subscriber::new(
-///         Box::new(sub_handler),
-///     );
+///     publisher_subscriber::heap::Subscriber::new(Box::new(sub_handler));
 /// publisher.attach(subscriber);
 /// assert!(!(*has_run.borrow()));
 /// publisher.publish(&true);

@@ -19,11 +19,10 @@ impl Heap
     /// [`Box`]ed [`Executable`]. # Examples
     /// ``` rust
     /// use roopes::prelude::*;
-    /// let my_executable = executable::Heap::new(Box::new(
-    ///     executable::Lambda::new(|| {
+    /// let my_executable =
+    ///     executable::Heap::new(Box::new(executable::Lambda::new(|| {
     ///         println!("Hello World.");
-    ///     }),
-    /// ));
+    ///     })));
     /// my_executable.execute();
     /// ```
     #[must_use]

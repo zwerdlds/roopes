@@ -4,7 +4,7 @@ use super::{
         PreambleTransformer,
         VisitorTraitTransformer,
     },
-    visitor_transformer_params::VisitorTransformerParams,
+    transformer_params::TransformerParams,
 };
 use crate::common::VecTokenStringTransformer;
 use proc_macro::TokenStream as TokenStream1;
@@ -38,7 +38,7 @@ impl TokenStreamVisitorFactory
         let ast = parse_macro_input!(tokens as syn::DeriveInput);
 
         let result: TokenStream2 = transformer_chain::heap::Head::new(
-            Box::new(TokenStreamToVisitorTransformerParamsTransformer),
+            Box::new(TokenStreamToTransformerParamsTransformer),
         )
         .push(VisitorTransformer)
         .transform(&ast);
@@ -58,31 +58,31 @@ impl TokenStreamVisitorFactory
 }
 
 struct VisitorTransformer;
-impl Transformer<VisitorTransformerParams, TokenStream2> for VisitorTransformer
+impl Transformer<TransformerParams, TokenStream2> for VisitorTransformer
 {
     fn transform(
         &self,
-        shared: &VisitorTransformerParams,
+        shared: &TransformerParams,
     ) -> TokenStream2
     {
         let elements = vec![
-            PreambleTransformer.transform(&shared),
-            VisitorTraitTransformer.transform(&shared),
-            AcceptorTransformer.transform(&shared),
+            PreambleTransformer.transform(shared),
+            VisitorTraitTransformer.transform(shared),
+            AcceptorTransformer.transform(shared),
         ];
 
         VecTokenStringTransformer.transform(&elements)
     }
 }
 
-pub(super) struct TokenStreamToVisitorTransformerParamsTransformer;
-impl Transformer<DeriveInput, VisitorTransformerParams>
-    for TokenStreamToVisitorTransformerParamsTransformer
+pub(super) struct TokenStreamToTransformerParamsTransformer;
+impl Transformer<DeriveInput, TransformerParams>
+    for TokenStreamToTransformerParamsTransformer
 {
     fn transform(
         &self,
         input: &DeriveInput,
-    ) -> VisitorTransformerParams
+    ) -> TransformerParams
     {
         let ast = input.clone();
         let visibility = ast.vis.clone();
@@ -103,7 +103,7 @@ impl Transformer<DeriveInput, VisitorTransformerParams>
             )
         };
 
-        VisitorTransformerParams {
+        TransformerParams {
             visibility,
             visit_target,
             visitor,
