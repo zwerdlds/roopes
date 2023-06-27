@@ -19,3 +19,4 @@ roopes_core = { path = "../roopes_core" }
 
 [dev-dependencies]
 roopes = { path = "../roopes_lib" }
+trybuild = "1.0"

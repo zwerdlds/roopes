@@ -13,16 +13,23 @@
     "cSpell.words": [
       "Hashable",
       "hashset",
+      "idents",
+      "impls",
       "indirected",
+      "poppable",
       "prettyplease",
       "println",
       "roopes",
+      "shouty",
       "snek",
       "struct",
       "structs",
       "structuted",
+      "trybuild",
       "typestate",
-      "unparse"
+      "unparse",
+      "unpop",
+      "unpopped"
     ],
     "rust-analyzer.showUnlinkedFileNotification": false
   },

@@ -87,3 +87,11 @@ pub fn derive_visitor(input: TokenStream) -> TokenStream
 {
     visitor::derive(input)
 }
+
+#[test]
+fn macro_tests()
+{
+    let t = trybuild::TestCases::new();
+    t.compile_fail("src/*/test/*_fail.rs");
+    t.pass("src/*/test/*_pass.rs");
+}
