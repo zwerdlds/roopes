@@ -129,38 +129,6 @@ impl VisitorTransformerParams
 }
 
 struct VisitorTransformer;
-impl VisitorTransformer
-{
-    fn build_parameters(
-        shared: &VisitorTransformerParams
-    ) -> (
-        PreambleTransformerParams,
-        VisitorTraitTransformerParams,
-        AcceptorTransformerParams,
-    )
-    {
-        (
-            PreambleTransformerParams {
-                visit_target: shared.visit_target.clone(),
-            },
-            VisitorTraitTransformerParams {
-                visibility: shared.visibility.clone(),
-                visitor: shared.visitor.clone(),
-                variants_field_params: shared.variants_field_params(),
-                visitor_fn_names: shared.visitor_fn_names(),
-            },
-            AcceptorTransformerParams {
-                visibility: shared.visibility.clone(),
-                visit_target: shared.visit_target.clone(),
-                visitor: shared.visitor.clone(),
-                acceptor: shared.acceptor.clone(),
-                variant_ids: shared.variant_ids(),
-                visitor_fn_names: shared.visitor_fn_names(),
-                variants_field_names: shared.variants_field_names(),
-            },
-        )
-    }
-}
 impl Transformer<VisitorTransformerParams, TokenStream2> for VisitorTransformer
 {
     fn transform(
@@ -168,17 +136,10 @@ impl Transformer<VisitorTransformerParams, TokenStream2> for VisitorTransformer
         shared: &VisitorTransformerParams,
     ) -> TokenStream2
     {
-        let (
-            preamble_params,
-            visitor_trait_transformer_params,
-            acceptor_transformer_params,
-        ) = Self::build_parameters(shared);
-
         let elements = vec![
-            PreambleTransformer.transform(&preamble_params),
-            VisitorTraitTransformer
-                .transform(&visitor_trait_transformer_params),
-            AcceptorTransformer.transform(&acceptor_transformer_params),
+            PreambleTransformer.transform(&shared),
+            VisitorTraitTransformer.transform(&shared),
+            AcceptorTransformer.transform(&shared),
         ];
 
         VecTokenStringTransformer.transform(&elements)
@@ -223,17 +184,12 @@ impl Transformer<DeriveInput, VisitorTransformerParams>
     }
 }
 
-struct PreambleTransformerParams
-{
-    visit_target: Ident,
-}
 struct PreambleTransformer;
-impl Transformer<PreambleTransformerParams, TokenStream2>
-    for PreambleTransformer
+impl Transformer<VisitorTransformerParams, TokenStream2> for PreambleTransformer
 {
     fn transform(
         &self,
-        input: &PreambleTransformerParams,
+        input: &VisitorTransformerParams,
     ) -> TokenStream2
     {
         let visit_target = input.visit_target.clone();
@@ -244,26 +200,19 @@ impl Transformer<PreambleTransformerParams, TokenStream2>
     }
 }
 
-struct VisitorTraitTransformerParams
-{
-    visibility: Visibility,
-    visitor: Ident,
-    variants_field_params: Vec<Vec<(Type, Ident)>>,
-    visitor_fn_names: Vec<Ident>,
-}
 struct VisitorTraitTransformer;
-impl Transformer<VisitorTraitTransformerParams, TokenStream2>
+impl Transformer<VisitorTransformerParams, TokenStream2>
     for VisitorTraitTransformer
 {
     fn transform(
         &self,
-        input: &VisitorTraitTransformerParams,
+        input: &VisitorTransformerParams,
     ) -> TokenStream2
     {
         let visibility = input.visibility.clone();
         let visitor = input.visitor.clone();
-        let visitor_fn_names = input.visitor_fn_names.clone();
-        let variants_field_params = input.variants_field_params.clone();
+        let visitor_fn_names = input.visitor_fn_names();
+        let variants_field_params = input.variants_field_params();
 
         let visitor_fn_sig_params =
             variants_field_params.into_iter().map(|params| {
@@ -288,23 +237,12 @@ impl Transformer<VisitorTraitTransformerParams, TokenStream2>
     }
 }
 
-struct AcceptorTransformerParams
-{
-    visibility: Visibility,
-    visit_target: Ident,
-    visitor: Ident,
-    acceptor: Ident,
-    variant_ids: Vec<Ident>,
-    visitor_fn_names: Vec<Ident>,
-    variants_field_names: Vec<Vec<Ident>>,
-}
 struct AcceptorTransformer;
-impl Transformer<AcceptorTransformerParams, TokenStream2>
-    for AcceptorTransformer
+impl Transformer<VisitorTransformerParams, TokenStream2> for AcceptorTransformer
 {
     fn transform(
         &self,
-        input: &AcceptorTransformerParams,
+        input: &VisitorTransformerParams,
     ) -> TokenStream2
     {
         let struct_input = AcceptorStructTransformerParams {
@@ -318,9 +256,9 @@ impl Transformer<AcceptorTransformerParams, TokenStream2>
             visit_target: input.visit_target.clone(),
             visitor: input.visitor.clone(),
             acceptor: input.acceptor.clone(),
-            variant_ids: input.variant_ids.clone(),
-            visitor_fn_names: input.visitor_fn_names.clone(),
-            variants_field_names: input.variants_field_names.clone(),
+            variant_ids: input.variant_ids(),
+            visitor_fn_names: input.visitor_fn_names(),
+            variants_field_names: input.variants_field_names(),
         };
 
         let elements = vec![
