@@ -245,44 +245,22 @@ impl Transformer<VisitorTransformerParams, TokenStream2> for AcceptorTransformer
         input: &VisitorTransformerParams,
     ) -> TokenStream2
     {
-        let struct_input = AcceptorStructTransformerParams {
-            visibility: input.visibility.clone(),
-            visitor: input.visitor.clone(),
-            acceptor: input.acceptor.clone(),
-        };
-
-        let impl_input = AcceptorImplTransformerParams {
-            visibility: input.visibility.clone(),
-            visit_target: input.visit_target.clone(),
-            visitor: input.visitor.clone(),
-            acceptor: input.acceptor.clone(),
-            variant_ids: input.variant_ids(),
-            visitor_fn_names: input.visitor_fn_names(),
-            variants_field_names: input.variants_field_names(),
-        };
-
         let elements = vec![
-            AcceptorStructTransformer.transform(&struct_input),
-            AcceptorImplTransformer.transform(&impl_input),
+            AcceptorStructTransformer.transform(&input),
+            AcceptorImplTransformer.transform(&input),
         ];
 
         VecTokenStringTransformer.transform(&elements)
     }
 }
 
-struct AcceptorStructTransformerParams
-{
-    visibility: Visibility,
-    visitor: Ident,
-    acceptor: Ident,
-}
 struct AcceptorStructTransformer;
-impl Transformer<AcceptorStructTransformerParams, TokenStream2>
+impl Transformer<VisitorTransformerParams, TokenStream2>
     for AcceptorStructTransformer
 {
     fn transform(
         &self,
-        input: &AcceptorStructTransformerParams,
+        input: &VisitorTransformerParams,
     ) -> TokenStream2
     {
         let visibility = input.visibility.clone();
@@ -299,23 +277,13 @@ impl Transformer<AcceptorStructTransformerParams, TokenStream2>
     }
 }
 
-struct AcceptorImplTransformerParams
-{
-    visibility: Visibility,
-    visit_target: Ident,
-    visitor: Ident,
-    acceptor: Ident,
-    variant_ids: Vec<Ident>,
-    visitor_fn_names: Vec<Ident>,
-    variants_field_names: Vec<Vec<Ident>>,
-}
 struct AcceptorImplTransformer;
-impl Transformer<AcceptorImplTransformerParams, TokenStream2>
+impl Transformer<VisitorTransformerParams, TokenStream2>
     for AcceptorImplTransformer
 {
     fn transform(
         &self,
-        input: &AcceptorImplTransformerParams,
+        input: &VisitorTransformerParams,
     ) -> TokenStream2
     {
         let visitor = input.visitor.clone();
@@ -331,9 +299,9 @@ impl Transformer<AcceptorImplTransformerParams, TokenStream2>
                 &AcceptorImplAcceptFnTransformerParams {
                     visibility: input.visibility.clone(),
                     visit_target: input.visit_target.clone(),
-                    variant_ids: input.variant_ids.clone(),
-                    visitor_fn_names: input.visitor_fn_names.clone(),
-                    variants_field_names: input.variants_field_names.clone(),
+                    variant_ids: input.variant_ids(),
+                    visitor_fn_names: input.visitor_fn_names(),
+                    variants_field_names: input.variants_field_names(),
                 },
             ),
         ]);
