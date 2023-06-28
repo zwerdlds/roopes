@@ -7,7 +7,7 @@
 - Clean up UML traits
 - Indicate UML borrows
 - Indicate UML generics
-- Indicate methods and static fn's
+- Indicate methods and static fn
 
 ## Medium
 - Sort through backlog
@@ -89,3 +89,4 @@
 - visitor add tuple (and one-ple) support
 - builder allow option types to be unset
 - builder create test to ensure build fails as expected (on expect for popped values)
+- builder patternize

@@ -32,8 +32,8 @@ fn main()
             let ct = RefCell::new(0);
 
             // Build the lambda.
-            observing_command::ObservingCommand::new(command::Executable::new(
-                executable::Lambda::new(move || {
+            observing_command::ObservingCommand::new(command::Heap::from(
+                move || {
                     // Increment the local count.
                     (*ct.borrow_mut()) += 1;
 
@@ -42,7 +42,7 @@ fn main()
 
                     // Print the message.
                     println!("{prefix}: called {count} time(s)");
-                }),
+                },
             ))
         }));
 

@@ -76,7 +76,7 @@ where
     }
 }
 
-impl<M, S> Publisher<M, S> for VecPublisher<M, S>
+impl<M, S> Publisher<M> for VecPublisher<M, S>
 where
     S: Subscriber<M>,
 {

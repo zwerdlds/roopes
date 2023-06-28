@@ -16,11 +16,9 @@
 //!
 //! ![command diagram][command-diagram]
 
-pub mod executable;
 pub mod hashable;
 pub mod heap;
 
-pub use executable::Executable;
 pub use hashable::Hashable;
 pub use heap::Heap;
 

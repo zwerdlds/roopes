@@ -14,10 +14,9 @@ fn simple_observable_command_notify()
     let has_run = Rc::new(RefCell::new(false));
     let has_run_ext = has_run.clone();
 
-    let command =
-        command::Executable::new(executable::Lambda::new(move || {
-            (*has_run_ext.borrow_mut()) = true;
-        }));
+    let command = CommandExecutable::new(executable::Lambda::new(move || {
+        (*has_run_ext.borrow_mut()) = true;
+    }));
 
     let observing_command: ObservingCommand<_> = command.into();
 
@@ -34,10 +33,9 @@ fn simple_observable_command_execute()
     let has_run = Rc::new(RefCell::new(false));
     let has_run_ext = has_run.clone();
 
-    let command =
-        command::Executable::new(executable::Lambda::new(move || {
-            (*has_run_ext.borrow_mut()) = true;
-        }));
+    let command = CommandExecutable::new(executable::Lambda::new(move || {
+        (*has_run_ext.borrow_mut()) = true;
+    }));
 
     let observing_command: ObservingCommand<_> = command.into();
 
@@ -54,10 +52,9 @@ fn notify_observable_command()
     let has_run = Rc::new(RefCell::new(false));
     let has_run_ext = has_run.clone();
 
-    let command =
-        command::Executable::new(executable::Lambda::new(move || {
-            (*has_run_ext.borrow_mut()) = true;
-        }));
+    let command = CommandExecutable::new(executable::Lambda::new(move || {
+        (*has_run_ext.borrow_mut()) = true;
+    }));
 
     let observing_command: ObservingCommand<_> = command.into();
     let mut vs = observer::VecSubject::default();
@@ -79,11 +76,9 @@ fn observable_detach_hash_command()
     let has_run_a_ext = has_run_a.clone();
 
     let command_a = command::Hashable::new(
-        command::Heap::new(Box::new(command::Executable::new_lambda(
-            move || {
-                (*has_run_a_ext.borrow_mut()) = true;
-            },
-        ))),
+        command::Heap::from(move || {
+            (*has_run_a_ext.borrow_mut()) = true;
+        }),
         "A",
     );
 
@@ -91,11 +86,9 @@ fn observable_detach_hash_command()
         let has_run_b_ext = has_run_b.clone();
 
         command::Hashable::new(
-            command::Heap::new(Box::new(command::Executable::new_lambda(
-                move || {
-                    (*has_run_b_ext.borrow_mut()) = true;
-                },
-            ))),
+            command::Heap::from(move || {
+                (*has_run_b_ext.borrow_mut()) = true;
+            }),
             "B",
         )
     };
@@ -127,11 +120,9 @@ fn observable_detach_vec_command()
     let run_ct_a_ext = run_ct_a.clone();
 
     let command_a = command::Hashable::new(
-        command::Heap::new(Box::new(command::Executable::new_lambda(
-            move || {
-                (*run_ct_a_ext.borrow_mut()) += 1;
-            },
-        ))),
+        command::Heap::from(move || {
+            (*run_ct_a_ext.borrow_mut()) += 1;
+        }),
         "A",
     );
 
@@ -139,11 +130,9 @@ fn observable_detach_vec_command()
         let run_ct_b_ext = run_ct_b.clone();
 
         command::Hashable::new(
-            command::Heap::new(Box::new(command::Executable::new_lambda(
-                move || {
-                    (*run_ct_b_ext.borrow_mut()) += 1;
-                },
-            ))),
+            command::Heap::from(move || {
+                (*run_ct_b_ext.borrow_mut()) += 1;
+            }),
             "B",
         )
     };
@@ -170,21 +159,11 @@ fn observable_detach_vec_command()
 #[test]
 fn double_observable_hash_command()
 {
-    let command_a = command::Hashable::new(
-        command::Heap::new(Box::new(command::Executable::new_lambda(
-            move || {},
-        ))),
-        "A",
-    );
+    let command_a =
+        command::Hashable::new(command::Heap::from(move || {}), "A");
 
-    let command_b = || {
-        command::Hashable::new(
-            command::Heap::new(Box::new(command::Executable::new_lambda(
-                move || {},
-            ))),
-            "B",
-        )
-    };
+    let command_b =
+        || command::Hashable::new(command::Heap::from(move || {}), "B");
 
     let hash = |oc: ObservingCommand<_>| {
         let mut hasher = DefaultHasher::new();

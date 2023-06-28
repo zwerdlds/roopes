@@ -31,9 +31,7 @@ pub use vec_publisher::VecPublisher;
 /// A [`Publisher`] distributes messages it
 /// receives to the [`Subscriber`]s
 /// which it currently holds.
-pub trait Publisher<M, S>
-where
-    S: Subscriber<M>,
+pub trait Publisher<M>
 {
     /// Broadcasts a message to the current
     /// [`Subscriber`]s of this [`Publisher`].
@@ -84,7 +82,7 @@ pub trait MutablePublisher<M, S, E>:
     DetachablePublisher<M, S, E> + AttachablePublisher<M, S>
 where
     S: Subscriber<M>,
-    Self: Publisher<M, S>,
+    Self: Publisher<M>,
 {
 }
 
