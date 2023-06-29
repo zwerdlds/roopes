@@ -33,6 +33,17 @@ impl LogPublisher
     }
 }
 
+#[allow(clippy::inline_always)]
+impl Publisher<LogMessage> for LogPublisher
+{
+    delegate! {
+        to self.publisher{
+            fn publish(&self, message: &LogMessage);
+        }
+    }
+}
+
+#[allow(clippy::inline_always)]
 impl AttachablePublisher<LogMessage, LogMessageSubscriber> for LogPublisher
 {
     delegate! {

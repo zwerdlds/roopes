@@ -5,7 +5,10 @@
 
 use crate::{
     patterns::publisher_subscriber,
-    prelude::*,
+    prelude::{
+        handler::lambda::Delegate,
+        *,
+    },
 };
 use delegate::delegate;
 

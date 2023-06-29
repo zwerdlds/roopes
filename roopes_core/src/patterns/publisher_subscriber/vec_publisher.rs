@@ -123,3 +123,16 @@ where
         self.listeners.push(attach_subscriber);
     }
 }
+
+impl<M, S> PartialEq for VecPublisher<M, S>
+where
+    S: Subscriber<M> + Eq,
+{
+    fn eq(
+        &self,
+        other: &Self,
+    ) -> bool
+    {
+        self.listeners == other.listeners
+    }
+}

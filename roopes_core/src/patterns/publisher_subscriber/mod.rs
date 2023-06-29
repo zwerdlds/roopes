@@ -43,7 +43,7 @@ pub trait Publisher<M>
 
 /// Allows [`Subscriber`]s to be added to the
 /// implementing [`Publisher`].
-pub trait AttachablePublisher<M, S>
+pub trait AttachablePublisher<M, S>: Publisher<M>
 where
     S: Subscriber<M>,
 {

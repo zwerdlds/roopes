@@ -16,7 +16,10 @@
 //!
 //! ![subscribing handler diagram][subscribing-handler-diagram]
 
-use crate::prelude::*;
+use crate::prelude::{
+    handler::lambda::Delegate,
+    *,
+};
 use std::{
     hash::Hash,
     marker::PhantomData,

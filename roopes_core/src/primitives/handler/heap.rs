@@ -4,6 +4,7 @@
 //! redirecting calls to unknown or mixed lists of
 //! [`Handler`]s.
 
+use super::Lambda;
 use crate::prelude::*;
 use delegate::delegate;
 

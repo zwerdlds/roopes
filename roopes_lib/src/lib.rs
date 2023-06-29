@@ -181,8 +181,5 @@ extern crate roopes_core;
 pub mod prelude
 {
     pub use roopes_core::prelude::*;
-    pub use roopes_derive::{
-        Builder,
-        Visitor,
-    };
+    pub use roopes_derive::*;
 }
