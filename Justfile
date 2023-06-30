@@ -39,6 +39,7 @@ dev-loop-doc:
         doc
 
 test:
+    RUST_BACKTRACE=1 \
     CARGO_TERM_COLOR="always" \
     cargo test \
         --target-dir target/just-test \

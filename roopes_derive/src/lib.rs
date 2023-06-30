@@ -11,6 +11,7 @@ use proc_macro::TokenStream;
 
 mod builder;
 mod common;
+mod publisher_subscriber;
 mod visitor;
 
 /// Creates a new type on the specified `struct`,
@@ -88,6 +89,12 @@ pub fn derive_builder(input: TokenStream) -> TokenStream
 pub fn derive_visitor(input: TokenStream) -> TokenStream
 {
     visitor::derive(input)
+}
+
+#[proc_macro_derive(PubSub)]
+pub fn derive_pubsub(input: TokenStream) -> TokenStream
+{
+    publisher_subscriber::derive(input)
 }
 
 #[test]

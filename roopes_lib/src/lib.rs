@@ -177,6 +177,23 @@
 #[macro_use]
 extern crate roopes_derive;
 extern crate roopes_core;
+
+pub mod primitives
+{
+    pub use roopes_core::primitives::*;
+}
+
+pub mod patterns
+{
+    pub use roopes_core::patterns::*;
+    pub use roopes_derive::*;
+}
+
+pub mod aggregates
+{
+    pub use roopes_core::aggregates::*;
+}
+
 /// Exposes the most used types from the library.
 pub mod prelude
 {
