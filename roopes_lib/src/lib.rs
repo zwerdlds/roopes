@@ -49,11 +49,11 @@
 //! `roopes::patterns::builder::Lambda`. To mitigate manually importing a large
 //! number of implementations, roopes re-exports submodules which should make
 //! the direct referencing of these types easier and more hygienic. In this
-//! example, [`roopes_core::patterns::command::Executable`] is re-used directly
+//! example, [`roopes_core::patterns::command::heap::Heap`] is re-used directly
 //! from the [`prelude`] import.  E.g.:
 //! ``` rust
 //! use roopes::prelude::*;
-//! let command = command::Executable::new_lambda(|| {
+//! let command = command::Heap::from(|| {
 //!     {
 //!         println!("Hello world!");
 //!     }
@@ -106,6 +106,8 @@
 //! Aids in creating multi-stage, type-safe, data transformations.
 //! - [`roopes_derive::Visitor`]
 //! Ensures a type can consume a particular message type.
+//! - [`roopes_derive::PubSub`]
+//! Simplified subscriber dispatch type generation on a type.
 //!
 //! ## Aggregates
 //! These patterns build on the common and primitive
@@ -153,7 +155,6 @@
 //!
 //! # Addenda
 //! ## OOP in Rust?  Are you crazy!?
-//! Nope!
 //! Maybe a little, but...
 //! Once you accept the speed impact `Rc<...>` incurs,
 //! especially if the client algorithms are organized for memory locality, it's
@@ -178,17 +179,20 @@
 extern crate roopes_derive;
 extern crate roopes_core;
 
+/// The building blocks for patterns and aggregates.
 pub mod primitives
 {
     pub use roopes_core::primitives::*;
 }
 
+/// Object oriented patterns.
 pub mod patterns
 {
     pub use roopes_core::patterns::*;
     pub use roopes_derive::*;
 }
 
+/// Methods of transmuting between patterns.
 pub mod aggregates
 {
     pub use roopes_core::aggregates::*;

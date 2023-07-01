@@ -1,0 +1,12 @@
+@startuml "publishing_handler"
+
+interface "Publisher" as pub
+struct "PublisherHandler" as pubHandler{
+    {field} delegate: Handler
+}
+interface "Handler" as hndl
+
+pubHandler .u.|> pub
+pubHandler .u.|> hndl
+
+@enduml

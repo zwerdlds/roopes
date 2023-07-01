@@ -1,6 +1,7 @@
+/* cSpell:disable */
 # Issues
 ## Current
-- Fix references in docs to point to modules instead of directly to types.
+- minesweeperpp demo
 
 ## Top
 - Maximize test coverage
@@ -90,3 +91,10 @@
 - builder allow option types to be unset
 - builder create test to ensure build fails as expected (on expect for popped values)
 - builder patternize
+- move generics to GATs
+- investigate supporting easier transform/handler combinations.
+  - eg: handler.with_transform(transformer).handle(transformer_input)
+- Improve docs for transformer handler
+- Improve docs for derive pubsub
+- Add builder borrow create to allow non-destructive build
+- Introduce into_* fn's to easily translate between types

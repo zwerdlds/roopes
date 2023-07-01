@@ -96,6 +96,17 @@ where
     }
 }
 
+// impl<H, M, I> From<I> for SubscribingHandler<H, M>
+// where
+//     H: Handler<M>,
+//     I: Into<H>,
+// {
+//     fn from(handler: I) -> Self
+//     {
+//         SubscribingHandler::new(handler.into())
+//     }
+// }
+
 impl<H, M> PartialEq for SubscribingHandler<H, M>
 where
     H: PartialEq + Handler<M>,

@@ -36,7 +36,7 @@ pub trait HashSetObserver = Observer + Eq + Hash;
 ///
 /// let has_run = Rc::new(RefCell::new(false));
 /// let lc: ObservingCommand<_> = command::Hashable::new(
-///     command::Executable::new_lambda(enclose!((has_run) move || {
+///     command::Heap::from(enclose!((has_run) move || {
 ///         (*has_run.borrow_mut()) = true;
 ///     })),
 ///     "Has Run").into();

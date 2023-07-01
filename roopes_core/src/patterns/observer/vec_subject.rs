@@ -32,7 +32,7 @@ use std::{
 ///     let has_run = has_run.clone();
 ///
 ///     let lc: ObservingCommand<_> =
-///         command::Executable::new_lambda(move
+///         command::Heap::from(move
 /// || {             (*has_run.borrow_mut()) =
 /// true;         })
 ///         .into();

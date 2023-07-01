@@ -2,7 +2,7 @@
 
 interface "Subscriber" as sub
 struct "SubscribingHandler" as subHandler{
-    {field} delegate: Command
+    {field} delegate: Handler
 }
 interface "Handler" as hndl
 

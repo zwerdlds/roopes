@@ -30,9 +30,7 @@ mod visitor;
 ///     field: i32,
 /// }
 ///
-/// let mut builder = TestObjBuilder::new();
-///
-/// builder.set_field(10);
+/// let builder = TestObjBuilder::new().set_field(10);
 ///
 /// let test_obj = builder.build();
 ///
@@ -91,6 +89,7 @@ pub fn derive_visitor(input: TokenStream) -> TokenStream
     visitor::derive(input)
 }
 
+/// Creates a Publisher and Subscriber for the given message type.
 #[proc_macro_derive(PubSub)]
 pub fn derive_pubsub(input: TokenStream) -> TokenStream
 {

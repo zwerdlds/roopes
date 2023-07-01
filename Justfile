@@ -1,8 +1,4 @@
-default: watch
-
-defaultwatch:= "dev-loop-iter"
-
-watch watchtarget=defaultwatch:
+watch watchtarget="dev-loop-iter":
     cargo watch \
         --clear \
         --shell 'just {{watchtarget}}' \
@@ -24,19 +20,9 @@ dev-loop-iter:
         format \
         test \
         verify \
-        update-coverage
-
-dev-loop-iter-mutants:
-    just dev-loop-iter
-    just mutants
-
-dev-loop-doc:
-    parallel --tty just quietly ::: \
-        format \
-        test \
-        verify \
         update-coverage \
-        doc
+        docs \
+        mutants
 
 test:
     RUST_BACKTRACE=1 \
@@ -45,7 +31,12 @@ test:
         --target-dir target/just-test \
         --workspace \
         --quiet \
-        --all-targets
+        --all-targets && \
+    cargo test \
+        --target-dir target/just-test-docs \
+        --workspace \
+        --quiet \
+        --doc
 
 quietly recipe:
     @chronic unbuffer just {{recipe}}
@@ -99,4 +90,4 @@ docs:
     cargo +nightly doc \
         --features doc-images \
         --target-dir target/just-doc
-    
+
