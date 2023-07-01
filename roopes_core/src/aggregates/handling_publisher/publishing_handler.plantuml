@@ -1,8 +1,8 @@
-@startuml "publishing_handler"
+@startuml "handling_publisher"
 
 interface "Publisher" as pub
-struct "PublisherHandler" as pubHandler{
-    {field} delegate: Handler
+struct "HandlingPublisher" as pubHandler{
+    {field} delegate: Publisher
 }
 interface "Handler" as hndl
 

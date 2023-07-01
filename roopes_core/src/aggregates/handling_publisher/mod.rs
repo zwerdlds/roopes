@@ -3,15 +3,15 @@
   cfg_attr(
     all(),
     doc = ::embed_doc_image::embed_image!(
-        "subscribing-handler-diagram",
-        "src/aggregates/subscribing_handler/subscribing_handler.svg"
+        "handling-publisher-diagram",
+        "src/aggregates/handling_publisher/handling_publisher.svg"
 )))]
 #![cfg_attr(
     not(feature = "doc-images"),
     doc = "**Doc images not enabled**. Compile with feature `doc-images` and \
            Rust version >= 1.54 to enable."
 )]
-//! The [`publishing_handler`] module creates
+//! The [`handling_publisher`] module creates
 //! [`Handler`]s from arbitrary [`Publisher`]s.
 //!
 //! ![publishing handler diagram][publishing-handler-diagram]
