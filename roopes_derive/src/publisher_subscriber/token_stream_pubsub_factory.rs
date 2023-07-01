@@ -97,14 +97,14 @@ impl TokenStreamPubSubFactory
             }
         };
 
-        eprintln!("{}", output.to_string());
-        eprintln!("Formatted Results:");
-        let contents = syn::parse_file(&output.to_string()).expect(
-            "Syn parsing
-        failed",
-        );
-        let formatted = prettyplease::unparse(&contents);
-        eprintln!("{formatted}");
+        // eprintln!("{}", output.to_string());
+        // eprintln!("Formatted Results:");
+        // let contents = syn::parse_file(&output.to_string()).expect(
+        //     "Syn parsing
+        // failed",
+        // );
+        // let formatted = prettyplease::unparse(&contents);
+        // eprintln!("{formatted}");
 
         output.into()
     }
