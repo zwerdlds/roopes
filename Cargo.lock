@@ -116,6 +116,7 @@ dependencies = [
  "delegate",
  "embed-doc-image",
  "enclose",
+ "roopes",
 ]
 
 [[package]]

@@ -98,3 +98,4 @@
 - Improve docs for derive pubsub
 - Add builder borrow create to allow non-destructive build
 - Introduce into_* fn's to easily translate between types
+- embed-doc-image to dev-dependencies?
