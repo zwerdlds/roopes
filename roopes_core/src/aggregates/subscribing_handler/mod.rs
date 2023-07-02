@@ -20,6 +20,7 @@ use crate::prelude::{
     handler::lambda::Delegate,
     *,
 };
+use delegate::delegate;
 use std::{
     hash::Hash,
     marker::PhantomData,
@@ -73,16 +74,18 @@ where
     }
 }
 
+#[allow(clippy::inline_always)]
 impl<H, M> Handler<M> for SubscribingHandler<H, M>
 where
     H: Handler<M>,
 {
-    fn handle(
-        &self,
-        message: &M,
-    )
-    {
-        self.handler.handle(message);
+    delegate! {
+        to self.handler{
+            fn handle(
+                &self,
+                message: &M,
+            );
+        }
     }
 }
 
@@ -95,17 +98,6 @@ where
         SubscribingHandler::new(handler)
     }
 }
-
-// impl<H, M, I> From<I> for SubscribingHandler<H, M>
-// where
-//     H: Handler<M>,
-//     I: Into<H>,
-// {
-//     fn from(handler: I) -> Self
-//     {
-//         SubscribingHandler::new(handler.into())
-//     }
-// }
 
 impl<H, M> PartialEq for SubscribingHandler<H, M>
 where
@@ -132,5 +124,21 @@ where
     )
     {
         self.handler.hash(state);
+    }
+}
+
+trait IntoSubscriber<H, M>
+where
+    H: Handler<M>,
+{
+    fn into_subscriber(self) -> SubscribingHandler<H, M>;
+}
+impl<H, M> IntoSubscriber<H, M> for H
+where
+    H: Handler<M>,
+{
+    fn into_subscriber(self) -> SubscribingHandler<H, M>
+    {
+        SubscribingHandler::new(self)
     }
 }
