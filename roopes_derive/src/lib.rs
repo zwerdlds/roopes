@@ -6,6 +6,12 @@
 #![feature(proc_macro_internals)]
 #![feature(trait_alias)]
 #![feature(associated_type_bounds)]
+#![deny(
+    clippy::pedantic,
+    clippy::style,
+    clippy::correctness,
+    clippy::complexity
+)]
 
 use proc_macro::TokenStream;
 

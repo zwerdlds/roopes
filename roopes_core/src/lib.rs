@@ -6,6 +6,12 @@
 #![feature(trait_alias)]
 #![feature(associated_type_bounds)]
 #![allow(unused_imports)]
+#![deny(
+    clippy::pedantic,
+    clippy::style,
+    clippy::correctness,
+    clippy::complexity
+)]
 
 pub mod aggregates;
 pub mod patterns;

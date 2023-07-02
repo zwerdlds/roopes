@@ -8,6 +8,12 @@
     doc = "**Doc images not enabled**. Compile with feature `doc-images` and \
            Rust version >= 1.54 to enable."
 )]
+#![deny(
+    clippy::pedantic,
+    clippy::style,
+    clippy::correctness,
+    clippy::complexity
+)]
 //! ![roopes logo][roopes-logo]
 //!
 //! Roopes is a Rust Object Oriented Pattern Element System.

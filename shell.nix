@@ -22,6 +22,7 @@ stable.mkShell rec {
       rustfmt
       moreutils
       expect
+      tmux
     ]);
 
   RUST_SRC_PATH = "${stable.rust.packages.stable.rustPlatform.rustLibSrc}";

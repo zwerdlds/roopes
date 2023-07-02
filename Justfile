@@ -1,4 +1,14 @@
-watch watchtarget="dev-loop-iter":
+split-watch:
+    tmux \
+        new-session 'just watch "quietly format"' \; \
+        split-window 'just watch "quietly test"' \; \
+        split-window 'just watch "quietly verify"' \; \
+        split-window 'just watch "quietly update-coverage"' \; \
+        split-window 'just watch "quietly docs"' \; \
+        split-window 'just watch "quietly mutants"' \; \
+        select-layout even-vertical
+
+watch watchtarget:
     cargo watch \
         --clear \
         --shell 'just {{watchtarget}}' \
@@ -14,15 +24,6 @@ reinit-workspace:
     cargo install cargo-doc --force
     cargo install cargo-mutants --force
     cargo install cargo-readme --force
-
-dev-loop-iter:
-    parallel --tty just quietly ::: \
-        format \
-        test \
-        verify \
-        update-coverage \
-        docs \
-        mutants
 
 test:
     RUST_BACKTRACE=1 \
@@ -57,12 +58,7 @@ verify-clippy:
     CARGO_TERM_COLOR="always" \
     cargo clippy \
         --workspace \
-        --target-dir target/just-clippy \
-        -- \
-            --deny clippy::pedantic \
-            --deny clippy::correctness \
-            --deny clippy::style \
-            --deny clippy::complexity
+        --target-dir target/just-clippy
 
 format:
     CARGO_TERM_COLOR="always" \
@@ -90,4 +86,3 @@ docs:
     cargo +nightly doc \
         --features doc-images \
         --target-dir target/just-doc
-
