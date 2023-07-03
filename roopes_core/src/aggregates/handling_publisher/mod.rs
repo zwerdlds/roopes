@@ -123,3 +123,19 @@ where
         self.delegate.hash(state);
     }
 }
+
+pub trait IntoHandler<P, M>
+where
+    P: Publisher<M>,
+{
+    fn into_handler(self) -> HandlingPublisher<P, M>;
+}
+impl<P, M> IntoHandler<P, M> for P
+where
+    P: Publisher<M>,
+{
+    fn into_handler(self) -> HandlingPublisher<P, M>
+    {
+        HandlingPublisher::new(self)
+    }
+}
