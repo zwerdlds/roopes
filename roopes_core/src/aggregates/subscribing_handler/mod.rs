@@ -127,12 +127,13 @@ where
     }
 }
 
-trait IntoSubscriber<H, M>
+pub trait IntoSubscriber<H, M>
 where
     H: Handler<M>,
 {
     fn into_subscriber(self) -> SubscribingHandler<H, M>;
 }
+
 impl<H, M> IntoSubscriber<H, M> for H
 where
     H: Handler<M>,
