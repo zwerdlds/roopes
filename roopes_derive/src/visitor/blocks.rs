@@ -128,7 +128,6 @@ impl Transformer<TransformerParams, TokenStream> for AcceptorHandlerTransformer
         input: &TransformerParams,
     ) -> TokenStream
     {
-        let visibility = input.visibility.clone();
         let visitor = input.visitor.clone();
         let visit_target = input.visit_target.clone();
         let acceptor = input.acceptor.clone();
@@ -138,7 +137,7 @@ impl Transformer<TransformerParams, TokenStream> for AcceptorHandlerTransformer
 
         quote! {
             impl<V> #handler for #acceptor<V> where V: #visitor {
-                #visibility fn handle(&self, e: &#visit_target) {
+                fn handle(&self, e: &#visit_target) {
                     self.accept(e);
                 }
             }
@@ -155,10 +154,11 @@ impl Transformer<TransformerParams, TokenStream>
         input: &TransformerParams,
     ) -> TokenStream
     {
+        let visibility = input.visibility.clone();
         let acceptor = input.acceptor.clone();
 
         quote! {
-            fn new(delegate: V) -> #acceptor<V>
+            #visibility fn new(delegate: V) -> #acceptor<V>
             {
                 #acceptor {
                     delegate
