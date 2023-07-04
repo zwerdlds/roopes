@@ -124,10 +124,14 @@ where
     }
 }
 
+/// Provides the ability to to convert a [`Publisher`] into a
+/// [`HandlingPublisher`], for use as a [`Handler`].
 pub trait IntoHandler<P, M>
 where
     P: Publisher<M>,
 {
+    /// Wraps  a [`Publisher`] into a [`HandlingPublisher`], for use as a
+    /// [`Handler`].
     fn into_handler(self) -> HandlingPublisher<P, M>;
 }
 impl<P, M> IntoHandler<P, M> for P

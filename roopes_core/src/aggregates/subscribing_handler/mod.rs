@@ -127,10 +127,14 @@ where
     }
 }
 
+/// Provides the ability to convert a [`Handler`] into a
+/// [`SubscribingHandler`], for use as a [`Subscriber`].
 pub trait IntoSubscriber<H, M>
 where
     H: Handler<M>,
 {
+    /// Wraps the [`Handler`] in a [`SubscribingHandler`], for use as a
+    /// [`Subscriber`].
     fn into_subscriber(self) -> SubscribingHandler<H, M>;
 }
 
