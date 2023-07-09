@@ -1,12 +1,10 @@
-split-watch:
-    tmux \
-        new-session 'just watch "quietly format"' \; \
-        split-window 'just watch "quietly test"' \; \
-        split-window 'just watch "quietly verify"' \; \
-        split-window 'just watch "quietly update-coverage"' \; \
-        split-window 'just watch "quietly docs"' \; \
-        split-window 'just watch "quietly mutants"' \; \
-        select-layout even-vertical
+parallel-iter:
+    parallel just quietly -- \
+        format \
+        test \
+        verify \
+        update-coverage \
+        docs
 
 watch watchtarget:
     cargo watch \
