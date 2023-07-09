@@ -34,6 +34,14 @@ impl<M> Heap<M>
     }
 }
 
+impl<M> From<Box<dyn Handler<M>>> for Heap<M>
+{
+    fn from(value: Box<dyn Handler<M>>) -> Self
+    {
+        Heap::new(value)
+    }
+}
+
 #[allow(clippy::inline_always)]
 impl<M> Handler<M> for Heap<M>
 {

@@ -104,13 +104,13 @@ impl Transformer<TransformerParams, TokenStream> for AcceptorImplTransformer
         input: &TransformerParams,
     ) -> TokenStream
     {
-        let visitor = input.visitor.clone();
-        let acceptor = input.acceptor.clone();
-
         let elements = VecTokenStringTransformer.transform(&vec![
             AcceptorImplNewFnTransformer.transform(input),
             AcceptorImplAcceptFnTransformer.transform(input),
         ]);
+
+        let visitor = input.visitor.clone();
+        let acceptor = input.acceptor.clone();
 
         quote! {
             impl<V> #acceptor<V> where V: #visitor {
