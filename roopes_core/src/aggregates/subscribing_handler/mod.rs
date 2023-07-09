@@ -62,6 +62,18 @@ where
     }
 }
 
+impl<H, M> SubscribingHandler<H, M>
+where
+    H: Handler<M> + 'static,
+    M: 'static,
+{
+    /// Wraps the [`SubscribingHandler`] in a [`Box`] and [`heap::Subscriber`].
+    pub fn into_heap(self) -> heap::Subscriber<M>
+    {
+        heap::Subscriber::new(Box::new(self))
+    }
+}
+
 impl<H, M> Subscriber<M> for SubscribingHandler<H, M>
 where
     H: Handler<M>,
