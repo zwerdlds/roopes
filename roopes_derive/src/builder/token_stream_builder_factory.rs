@@ -222,16 +222,22 @@ impl TokenStreamBuilderFactory
             #builder<#(#all_unpopulated),*>}
         };
 
-        let new_fn = {
-            quote! {
-                #vis fn new()
-                        -> #builder<#(#all_unpopulated),*>
-                    {
-                        #builder {
-                            #(#fields_init),*
-                        }
+        let new_fn = quote! {
+            #vis fn new()
+                    -> #builder<#(#all_unpopulated),*>
+                {
+                    #builder {
+                        #(#fields_init),*
                     }
-            }
+                }
+        };
+
+        let target_new_bulider_fn = quote! {
+            #vis fn builder()
+                    -> #builder<#(#all_unpopulated),*>
+                {
+                    #builder::new()
+                }
         };
 
         let output = quote! {
@@ -251,6 +257,11 @@ impl TokenStreamBuilderFactory
             impl #new_impl_type
             {
                 #new_fn
+            }
+
+            impl #build_target
+            {
+                #target_new_bulider_fn
             }
 
             impl<#(#field_generic_names),*>
