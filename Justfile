@@ -1,13 +1,5 @@
 watchtarget := "parallel-iter"
 
-parallel-iter:
-    @parallel just quietly -- \
-        format \
-        test \
-        verify \
-        update-coverage \
-        docs
-
 watch watchtarget=watchtarget:
     cargo watch \
         --clear \
@@ -18,7 +10,16 @@ watch watchtarget=watchtarget:
         --ignore 'README.md' \
         --ignore 'mutants.out*/**'
 
-reinit-workspace:
+parallel-iter:
+    @parallel just quietly -- \
+        format \
+        test \
+        verify \
+        update-coverage \
+        docs \
+        mutants
+
+setup-cargo-plugins:
     cargo install cargo-watch --force
     cargo install cargo-tarpaulin --force
     cargo install cargo-doc --force
