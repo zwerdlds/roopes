@@ -1,12 +1,14 @@
+watchtarget := "parallel-iter"
+
 parallel-iter:
-    parallel just quietly -- \
+    @parallel just quietly -- \
         format \
         test \
         verify \
         update-coverage \
         docs
 
-watch watchtarget:
+watch watchtarget=watchtarget:
     cargo watch \
         --clear \
         --shell 'just {{watchtarget}}' \

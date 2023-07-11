@@ -1,4 +1,3 @@
-use derive_getters::Getters;
 use heck::ToSnekCase;
 use proc_macro2::Ident;
 use quote::format_ident;

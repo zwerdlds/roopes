@@ -16,6 +16,7 @@ heck = "0.4.1"
 prettyplease = "0.2.6"
 syn = { version = "2.0.18", features = ["extra-traits"] }
 roopes_core = { path = "../roopes_core" }
+derive-getters = "0.3.0"
 
 [dev-dependencies]
 roopes = { path = "../roopes_lib" }

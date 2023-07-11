@@ -12,7 +12,7 @@ impl Transformer<TransformerParams, TokenStream> for PreambleTransformer
         input: &TransformerParams,
     ) -> TokenStream
     {
-        let visit_target = input.visit_target.clone();
+        let visit_target = input.visit_target().clone();
 
         quote! {
             use #visit_target::*;
@@ -28,8 +28,8 @@ impl Transformer<TransformerParams, TokenStream> for VisitorTraitTransformer
         input: &TransformerParams,
     ) -> TokenStream
     {
-        let visibility = input.visibility.clone();
-        let visitor = input.visitor.clone();
+        let visibility = input.visibility().clone();
+        let visitor = input.visitor().clone();
         let visitor_fn_names = input.visitor_fn_names();
         let variants_field_params = input.variants_field_params();
 
@@ -82,9 +82,9 @@ impl Transformer<TransformerParams, TokenStream> for AcceptorStructTransformer
         input: &TransformerParams,
     ) -> TokenStream
     {
-        let visibility = input.visibility.clone();
-        let visitor = input.visitor.clone();
-        let acceptor = input.acceptor.clone();
+        let visibility = input.visibility().clone();
+        let visitor = input.visitor().clone();
+        let acceptor = input.acceptor().clone();
 
         quote! {
             #visibility struct #acceptor<V>
@@ -109,8 +109,8 @@ impl Transformer<TransformerParams, TokenStream> for AcceptorImplTransformer
             AcceptorImplAcceptFnTransformer.transform(input),
         ]);
 
-        let visitor = input.visitor.clone();
-        let acceptor = input.acceptor.clone();
+        let visitor = input.visitor().clone();
+        let acceptor = input.acceptor().clone();
 
         quote! {
             impl<V> #acceptor<V> where V: #visitor {
@@ -128,9 +128,9 @@ impl Transformer<TransformerParams, TokenStream> for AcceptorHandlerTransformer
         input: &TransformerParams,
     ) -> TokenStream
     {
-        let visitor = input.visitor.clone();
-        let visit_target = input.visit_target.clone();
-        let acceptor = input.acceptor.clone();
+        let visitor = input.visitor().clone();
+        let visit_target = input.visit_target().clone();
+        let acceptor = input.acceptor().clone();
         let handler = quote! {
             roopes::primitives::handler::Handler<#visit_target>
         };
@@ -154,8 +154,8 @@ impl Transformer<TransformerParams, TokenStream>
         input: &TransformerParams,
     ) -> TokenStream
     {
-        let visibility = input.visibility.clone();
-        let acceptor = input.acceptor.clone();
+        let visibility = input.visibility().clone();
+        let acceptor = input.acceptor().clone();
 
         quote! {
             #visibility fn new(delegate: V) -> #acceptor<V>
@@ -177,8 +177,8 @@ impl Transformer<TransformerParams, TokenStream>
         input: &TransformerParams,
     ) -> TokenStream
     {
-        let visibility = input.visibility.clone();
-        let visit_target = input.visit_target.clone();
+        let visibility = input.visibility().clone();
+        let visit_target = input.visit_target().clone();
         let variant_ids = input.variant_ids().into_iter();
         let visitor_fn_names = input.visitor_fn_names();
         let variants_field_names = input.variants_field_names();
