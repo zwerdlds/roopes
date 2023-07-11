@@ -4,16 +4,17 @@
 - minesweeperpp demo
 
 ## Top
+### Code
 - Maximize test coverage
+### Docs
 - Clean up UML traits
 - Indicate UML borrows
 - Indicate UML generics
 - Indicate methods and static fn
 
 ## Medium
-- Sort through backlog
 - make UML naming uniform
-- unite UML charts into one massive chart
+- aggregate UML charts into one chart
 
 ## Backlog
 - Implement patterns
@@ -59,43 +60,39 @@
   - observing command
   - publisher subscriber
   - subscribing handler
+- refactor builder
+  - params struct in BuilderTokenStreamBuilder
+  - split up BuilderTokenStreamBuilder::build
+  - typestate in Builder pattern.
+- Visitor macro breakup megamethod creating params
+- embed-doc-image to dev-dependencies?
 
 
 ## Incoming
-- Unify generics ordering (IOT vs TIO)
-- Generics naming conventions
-- Investigate using GATs
+- Move to GATs
 - builder <-> emitter
-- parameterized docs in proc_macros
-- refactor builder
-  - impl builder<i,o> & put on on proc_macro version
-  - investigate if builder should be emitter
-  - params struct in BuilderTokenStreamBuilder
-  - split up BuilderTokenStreamBuilder::build
-  - Investigate the use of typestate/const enum/? in Builder pattern.
-    - I think a const enum with generics in the other slots could be an implementation option here.
-  - Outputted type must impl `Builder`
-  - Tests
-- refactor visitor
-  - impl visitor<i,o> & put on on proc_macro version
-  - Investigate the use of typestate/const enum/? in Builder pattern.
-  - Visitor implements handler
-  - add support for other types of enum structs
-  - investigate adding deref on `#acceptor`
+- parameterized docs in proc_macros using doc=
+- builder Outputted type must impl `Builder`
+- builder impl builder<i,o> & put on on proc_macro version
+- builder investigate if builder should be emitter
+- builder allow option types to be unset
+- builder finish patternize
+- builder Tests
+- builder create test to ensure build fails as expected (on expect for popped values)
+- visitor impl visitor<i,o> & put on on proc_macro version
+- visitor Investigate the use of typestate/const enum/? in Builder pattern.
+- visitor implements handler
+- visitor add support for other types of enum structs
+- visitor investigate adding deref on `#acceptor`
 - submodules block diagram
 - extends macro
 - top level traits could be better as structs (simplifies boxing) - need investigation on this vs type aliasing, and manual boxing
 - improve use of `delegate`.
-- Visitor macro breakup megamethod creating params
 - visitor add tuple (and one-ple) support
-- builder allow option types to be unset
-- builder create test to ensure build fails as expected (on expect for popped values)
-- builder patternize
-- move generics to GATs
 - investigate supporting easier transform/handler combinations.
-  - eg: handler.with_transform(transformer).handle(transformer_input)
+  - eg: handler.push(transformer).handle(transformer_input)
 - Improve docs for transformer handler
 - Improve docs for derive pubsub
 - Add builder borrow create to allow non-destructive build
 - Introduce into_* fn's to easily translate between types
-- embed-doc-image to dev-dependencies?
+- Multi-transformer: Transformer of an array of transformers all taking the same type, then emitting the transformed values.  
