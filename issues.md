@@ -32,6 +32,7 @@
   - Momento
   - Strategy
   - Template Method
+- Migrate plantuml build artifacts into separate folder
 
 ## Complete
 - Move docs into .rs files
