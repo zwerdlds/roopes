@@ -101,7 +101,8 @@ impl Transformer<DeriveInput, TransformerParams>
                     ..
                 }),
             ..
-        } = ast else {
+        } = ast
+        else {
             unimplemented!(
                 "derive(Builder) only supports structs with named fields"
             )

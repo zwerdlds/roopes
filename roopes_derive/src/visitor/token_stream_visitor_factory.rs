@@ -91,16 +91,11 @@ impl Transformer<DeriveInput, TransformerParams>
         let acceptor = format_ident!("{visit_target}Acceptor");
 
         let syn::DeriveInput {
-            data:
-                syn::Data::Enum(DataEnum{
-                    variants,
-                    ..
-                }),
+            data: syn::Data::Enum(DataEnum { variants, .. }),
             ..
-        } = ast else {
-            unimplemented!(
-                "derive(Visitor) only supports enums"
-            )
+        } = ast
+        else {
+            unimplemented!("derive(Visitor) only supports enums")
         };
 
         TransformerParams {
