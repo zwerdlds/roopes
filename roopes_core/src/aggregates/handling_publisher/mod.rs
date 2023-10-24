@@ -111,18 +111,19 @@ where
 
 impl<P, M> Eq for HandlingPublisher<P, M> where P: Publisher<M> + Eq {}
 
-impl<P, M> Hash for HandlingPublisher<P, M>
-where
-    P: Publisher<M> + Hash,
-{
-    fn hash<S: std::hash::Hasher>(
-        &self,
-        state: &mut S,
-    )
-    {
-        self.delegate.hash(state);
-    }
-}
+// TODO: Not entirely sure why this block exists.  Keeping it in case I
+// remember. impl<P, M> Hash for HandlingPublisher<P, M>
+// where
+//     P: Publisher<M> + Hash,
+// {
+//     fn hash<S: std::hash::Hasher>(
+//         &self,
+//         state: &mut S,
+//     )
+//     {
+//         self.delegate.hash(state);
+//     }
+// }
 
 /// Provides the ability to to convert a [`Publisher`] into a
 /// [`HandlingPublisher`], for use as a [`Handler`].
