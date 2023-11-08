@@ -1,4 +1,10 @@
-use crate::prelude::*;
+use crate::prelude::{
+    publisher_subscriber::{
+        heap,
+        VecPublisher,
+    },
+    *,
+};
 use std::{
     cell::RefCell,
     rc::Rc,
@@ -90,4 +96,67 @@ fn vec_publisher_detach()
 
     vs.publish(&1);
     assert_eq!(2, *run_ct_a.borrow());
+}
+
+#[test]
+fn format()
+{
+    #[derive(Debug)]
+    struct DummySub {}
+    impl Subscriber<()> for DummySub
+    {
+        fn receive(
+            &self,
+            message: &(),
+        )
+        {
+            todo!()
+        }
+    }
+
+    let mut vp = VecPublisher::new(vec![DummySub {}]);
+
+    assert_eq!(
+        format!("{:?}", vp),
+        "VecPublisher { listeners: [DummySub] }".to_string()
+    );
+}
+
+#[test]
+fn heap_handle()
+{
+    let has_run = Rc::new(RefCell::new(false));
+    let has_run_ext = has_run.clone();
+
+    let handler =
+        handler::Heap::new(Box::new(handler::Lambda::new(move |message| {
+            (*has_run_ext.borrow_mut()) = *message;
+        })));
+
+    let handler: SubscribingHandler<_, _> = handler.into();
+
+    assert!(!(*has_run.borrow()));
+
+    handler.handle(&true);
+
+    assert!((*has_run.borrow()));
+}
+
+#[test]
+fn heap_subscriber_fmt()
+{
+    struct DummySub {}
+    impl Subscriber<()> for DummySub
+    {
+        fn receive(
+            &self,
+            message: &(),
+        )
+        {
+            todo!()
+        }
+    }
+    let sub = heap::Subscriber::new(Box::new(DummySub {}));
+
+    assert_eq!(format!("{:?}", sub), "Subscriber");
 }

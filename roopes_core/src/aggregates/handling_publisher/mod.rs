@@ -21,12 +21,13 @@ use crate::prelude::{
     *,
 };
 use std::{
+    fmt::Debug,
     hash::Hash,
     marker::PhantomData,
 };
 
 #[cfg(test)]
-mod test;
+mod tests;
 
 /// Exposes the [`HandlingPublisher`] type at the
 /// library level.
@@ -111,19 +112,20 @@ where
 
 impl<P, M> Eq for HandlingPublisher<P, M> where P: Publisher<M> + Eq {}
 
-// TODO: Not entirely sure why this block exists.  Keeping it in case I
-// remember. impl<P, M> Hash for HandlingPublisher<P, M>
-// where
-//     P: Publisher<M> + Hash,
-// {
-//     fn hash<S: std::hash::Hasher>(
-//         &self,
-//         state: &mut S,
-//     )
-//     {
-//         self.delegate.hash(state);
-//     }
-// }
+impl<P, M> Debug for HandlingPublisher<P, M>
+where
+    P: Publisher<M> + Debug,
+{
+    fn fmt(
+        &self,
+        f: &mut std::fmt::Formatter<'_>,
+    ) -> std::fmt::Result
+    {
+        f.debug_struct("HandlingPublisher")
+            .field("delegate", &self.delegate)
+            .finish()
+    }
+}
 
 /// Provides the ability to to convert a [`Publisher`] into a
 /// [`HandlingPublisher`], for use as a [`Handler`].

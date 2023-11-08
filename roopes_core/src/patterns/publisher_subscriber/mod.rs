@@ -26,6 +26,7 @@
 pub mod heap;
 pub mod vec_publisher;
 use crate::prelude::*;
+use std::rc::Rc;
 pub use vec_publisher::VecPublisher;
 
 /// A [`Publisher`] distributes messages it

@@ -1,4 +1,7 @@
 //! This module enables conversion between [`Observer`] and [`Executable`].
+#[cfg(test)]
+mod tests;
+
 use crate::prelude::*;
 
 /// Wraps an [`Observer`] such that calls to [`Executable::execute`] are

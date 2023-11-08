@@ -7,7 +7,10 @@ use super::{
 };
 use crate::prelude::*;
 use core::marker::PhantomData;
-use std::cell::RefCell;
+use std::{
+    cell::RefCell,
+    fmt::Debug,
+};
 
 /// Implements a [`Publisher`] based on a [`Vec`]
 /// of [`Subscriber`]s. # Example
@@ -47,6 +50,21 @@ pub enum DetachError
 {
     /// The specified observer couldn't be found.
     SubscriberNotFound,
+}
+
+impl<M, S> Debug for VecPublisher<M, S>
+where
+    S: Subscriber<M> + Debug,
+{
+    fn fmt(
+        &self,
+        f: &mut std::fmt::Formatter<'_>,
+    ) -> std::fmt::Result
+    {
+        f.debug_struct("VecPublisher")
+            .field("listeners", &self.listeners)
+            .finish()
+    }
 }
 
 impl<M, S> Default for VecPublisher<M, S>
@@ -121,18 +139,5 @@ where
     )
     {
         self.listeners.push(attach_subscriber);
-    }
-}
-
-impl<M, S> PartialEq for VecPublisher<M, S>
-where
-    S: Subscriber<M> + Eq,
-{
-    fn eq(
-        &self,
-        other: &Self,
-    ) -> bool
-    {
-        self.listeners == other.listeners
     }
 }

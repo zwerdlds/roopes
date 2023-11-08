@@ -11,6 +11,10 @@ use crate::{
     },
 };
 use delegate::delegate;
+use std::fmt::{
+    Debug,
+    Write,
+};
 
 /// Holds a reference to a delegate [`Subscriber`]
 /// in a [`Box`]ed delegate for later calls to
@@ -39,5 +43,16 @@ impl<M> publisher_subscriber::Subscriber<M> for Subscriber<M>
         to self.delegate {
            fn receive(&self, message: &M);
         }
+    }
+}
+
+impl<M> Debug for Subscriber<M>
+{
+    fn fmt(
+        &self,
+        f: &mut std::fmt::Formatter<'_>,
+    ) -> std::fmt::Result
+    {
+        f.debug_struct("Subscriber").finish()
     }
 }

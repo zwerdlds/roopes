@@ -1,5 +1,8 @@
 //! Combines a transformer and a handler to create a new handler which conforms
 //! to the transformer's input, but forwards its output to the handler.
+#[cfg(test)]
+mod tests;
+
 use crate::prelude::*;
 use std::marker::PhantomData;
 

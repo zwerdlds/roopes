@@ -28,7 +28,7 @@ use std::{
 };
 
 #[cfg(test)]
-mod test;
+mod tests;
 
 /// Exposes the [`SubscribingHandler`] type at the
 /// library level.
