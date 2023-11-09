@@ -6,4 +6,4 @@ object-oriented patterns in Rust. It is intended to be used as a cluster of
 utility classes for implementing OOP-architected executables -- *in
 Rust!*
 
-Please see the [crate documentation]() for details.
+This crate provides derive-macros supporting use cases that are re-exported by roopes.

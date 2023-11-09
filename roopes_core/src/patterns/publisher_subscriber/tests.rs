@@ -107,14 +107,14 @@ fn format()
     {
         fn receive(
             &self,
-            message: &(),
+            _message: &(),
         )
         {
             todo!()
         }
     }
 
-    let mut vp = VecPublisher::new(vec![DummySub {}]);
+    let vp = VecPublisher::new(vec![DummySub {}]);
 
     assert_eq!(
         format!("{:?}", vp),
@@ -150,7 +150,7 @@ fn heap_subscriber_fmt()
     {
         fn receive(
             &self,
-            message: &(),
+            _message: &(),
         )
         {
             todo!()

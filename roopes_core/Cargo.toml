@@ -1,8 +1,15 @@
 [package]
-name = "roopes_core"
+name = "roopes-core"
 version = "0.1.0"
 edition = "2021"
 resolver = "2"
+license = "MIT"
+description = "Roopes is a Rust Object Oriented Pattern Element System.  This crate provides generic traits and implementations for typical object-oriented patterns in Rust. It is intended to be used as a cluster of utility classes for implementing OOP-architected executables -- in Rust!"
+homepage = "https://github.com/zwerdlds/roopes"
+documentation = "https://docs.rs/roopes"
+readme = "README.md"
+keywords = ["structure", "object oriented", "OOP"]
+categories = ["data-structures"]
 
 [lib]
 doctest = true

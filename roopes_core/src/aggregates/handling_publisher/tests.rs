@@ -82,7 +82,7 @@ fn handling_publisher_eq()
     {
         fn publish(
             &self,
-            message: &(),
+            _message: &(),
         )
         {
             todo!()
@@ -110,7 +110,7 @@ fn format()
     {
         fn publish(
             &self,
-            message: &(),
+            _message: &(),
         )
         {
             todo!()
