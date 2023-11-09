@@ -18,7 +18,7 @@ path = "src/lib.rs"
 enclose = "1.1.8"
 delegate = "0.9.0"
 roopes-derive = { version= "0.1.0", path = "../roopes_derive" }
-roopes-core = { version= "0.1.0", path = "../roopes_core" }
+roopes-core = { version= "0.1.1", path = "../roopes_core" }
 embed-doc-image = "0.1.4"
 
 [features]
