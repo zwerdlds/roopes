@@ -7,7 +7,7 @@ description = "Roopes is a Rust Object Oriented Pattern Element System.  This cr
 homepage = "https://github.com/zwerdlds/roopes"
 documentation = "https://docs.rs/roopes"
 readme = "README.md"
-keywords = ["structure", "object oriented", "OOP"]
+keywords = ["structure", "object_oriented", "OOP"]
 categories = ["data-structures"]
 
 [lib]
