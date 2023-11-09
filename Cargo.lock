@@ -116,12 +116,12 @@ dependencies = [
  "delegate",
  "embed-doc-image",
  "enclose",
- "roopes_core",
- "roopes_derive",
+ "roopes-core",
+ "roopes-derive",
 ]
 
 [[package]]
-name = "roopes_core"
+name = "roopes-core"
 version = "0.1.0"
 dependencies = [
  "delegate",
@@ -131,7 +131,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "roopes_derive"
+name = "roopes-derive"
 version = "0.1.0"
 dependencies = [
  "delegate",
@@ -142,18 +142,18 @@ dependencies = [
  "proc-macro2",
  "quote",
  "roopes",
- "roopes_core",
+ "roopes-core",
  "syn 2.0.38",
  "trybuild",
 ]
 
 [[package]]
-name = "roopes_examples"
+name = "roopes-examples"
 version = "0.1.0"
 dependencies = [
  "delegate",
  "roopes",
- "roopes_derive",
+ "roopes-derive",
 ]
 
 [[package]]
