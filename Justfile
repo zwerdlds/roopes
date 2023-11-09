@@ -87,3 +87,8 @@ docs:
     cargo +nightly doc \
         --features doc-images \
         --target-dir target/just-doc
+
+publish-crates:
+    cargo publish -p "roopes-core"
+    cargo publish -p "roopes-derive"
+    cargo publish -p "roopes"

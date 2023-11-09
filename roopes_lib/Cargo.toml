@@ -1,6 +1,6 @@
 [package]
 name = "roopes"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "MIT"
 description = "Roopes is a Rust Object Oriented Pattern Element System.  This crate provides generic traits and implementations for typical object-oriented patterns in Rust. It is intended to be used as a cluster of utility classes for implementing OOP-architected executables -- in Rust!"

@@ -1,7 +1,7 @@
 //!
 #![cfg_attr(feature = "doc-images",
   cfg_attr(all(),
-    doc = ::embed_doc_image::embed_image!("roopes-logo", "../promo/logo.svg")
+    doc = ::embed_doc_image::embed_image!("roopes-logo", "logo.svg")
   ))]
 #![cfg_attr(
     not(feature = "doc-images"),
