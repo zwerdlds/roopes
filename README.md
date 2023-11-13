@@ -6,4 +6,4 @@ object-oriented patterns in Rust. It is intended to be used as a cluster of
 utility classes for implementing OOP-architected executables -- *in
 Rust!*
 
-Please see the [crate documentation]() for details.
+Please see the [crate documentation](https://docs.rs/roopes/latest/roopes/) for details.
