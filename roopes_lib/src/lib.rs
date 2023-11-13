@@ -96,8 +96,6 @@
 //!
 //! - [`roopes_core::patterns::abstract_factory`]
 //! Defines a method of creating typed objects.
-//! - [`roopes_derive::Builder`]
-//! Aids in the configuration and construction of similar objects.
 //! - [`roopes_core::patterns::command::Command`]
 //! Encapsulates a block of executable code.
 //! - [`roopes_core::patterns::heap_pool::HeapPool`]
@@ -110,10 +108,12 @@
 //! Manages a discreet-state algorithm.
 //! - [`roopes_core::patterns::transformer_chain`]
 //! Aids in creating multi-stage, type-safe, data transformations.
-//! - [`roopes_derive::Visitor`]
-//! Ensures a type can consume a particular message type.
+//! - [`roopes_derive::Builder`]
+//! Aids in the configuration and construction of similar objects.
 //! - [`roopes_derive::PubSub`]
 //! Simplified subscriber dispatch type generation on a type.
+//! - [`roopes_derive::Visitor`]
+//! Ensures a type can consume a message type.
 //!
 //! ## Aggregates
 //! These patterns build on the common and primitive
@@ -122,12 +122,20 @@
 //! implements `Executable` for `Command`. These are provided to make the case
 //! of moving between the given traits simpler, most often by calling `.into`.
 //!
+//! - [`roopes_core::aggregates::command_executable`]
+//! Adapts `Command` from `Executable`.
 //! - [`roopes_core::aggregates::executable_command`]
 //! Adapts `Executable` from `Command`.
+//! - [`roopes_core::aggregates::executable_observer`]
+//! Adapts `Executable` from `Observer`.
+//! - [`roopes_core::aggregates::handling_publisher`]
+//! Adapts `Handler` from `Publisher`.
 //! - [`roopes_core::aggregates::observing_command`]
 //! Adapts `Observer` from `Command`.
 //! - [`roopes_core::aggregates::subscribing_handler`]
 //! Adapts `Subscriber` from `Handler`.
+//! - [`roopes_core::aggregates::transforming_handler`]
+//! Adapts `Transformer` from `Handler`.
 //!
 //! # Examples
 //! ## lambda-logger
