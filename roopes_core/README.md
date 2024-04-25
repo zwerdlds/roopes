@@ -1,7 +1,3 @@
 Roopes is a Rust Object Oriented Pattern Element System.
-This crate provides generic traits and implementations for typical
-object-oriented patterns in Rust. It is intended to be used as a cluster of
-utility classes for implementing OOP-architected executables -- *in
-Rust!*
-
-This crate provides fundamental structs and interfaces supporting uses in roopes-derive and cases that are re-exported by roopes.
+This crate provides many of the actual types that are exported by the main crate.
+It also supports the [`roopes_derive`](../roopes_derive/) crate.
