@@ -99,3 +99,5 @@ publish-crates:
     cargo publish -p "roopes-derive"
     cargo publish -p "roopes"
 
+version-check:
+    cargo semver-checks

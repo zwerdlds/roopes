@@ -16,6 +16,7 @@ stable.mkShell rec {
       rust-analyzer
       cargo-watch
       cargo-llvm-cov
+      cargo-semver-checks
       llvmPackages_16.bintools-unwrapped
       just
       rustfmt
