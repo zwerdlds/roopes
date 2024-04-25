@@ -1,5 +1,11 @@
 watchtarget := "parallel-iter"
 
+
+default:
+    @echo "No default command configured."
+    @just --list
+
+
 watch watchtarget=watchtarget:
     cargo watch \
         --clear \
@@ -92,3 +98,4 @@ publish-crates:
     cargo publish -p "roopes-core"
     cargo publish -p "roopes-derive"
     cargo publish -p "roopes"
+
