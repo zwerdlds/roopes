@@ -100,4 +100,5 @@ publish-crates:
     cargo publish -p "roopes"
 
 version-check:
-    cargo semver-checks
+    cargo semver-checks \
+        --ignore roopes-examples
